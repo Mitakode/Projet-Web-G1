@@ -1,5 +1,5 @@
 .main-container {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr 2fr;
     gap: 30px;
     padding: 40px;
@@ -23,6 +23,7 @@
     border-radius: 20px;
     height: fit-content;
     font: 16px "Segoe UI", sans-serif;
+    position: sticky;
 }
 
 .btn-candidate {
