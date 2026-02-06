@@ -1,0 +1,36 @@
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.list-offer {
+    background-color: #17496E ;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-family: "Segoe UI", sans-serif;
+
+}
+
+.detail-offer {
+    background-color: #e0e0e0;
+    padding: 40px;
+    border-radius: 20px;
+    height: fit-content;
+    font: 16px "Segoe UI", sans-serif;
+}
+
+.btn-candidate {
+    background-color: #17496E ;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
