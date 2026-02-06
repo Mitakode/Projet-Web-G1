@@ -12,7 +12,6 @@
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 25px;
-
     color: #333;
 }
 
@@ -20,6 +19,7 @@
     display: flex;
     margin-bottom: 15px;
     align-items: flex-start;
+    font: 16px "Segoe UI";
 }
 
 .info-group label {
@@ -66,4 +66,5 @@
 .entite1-card p, .entite2-card p {
     margin: 8px 0;
     color: #333;
+    font: 16px "Segoe UI";
 }
