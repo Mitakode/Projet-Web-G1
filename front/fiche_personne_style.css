@@ -9,7 +9,7 @@
 }
 
 .mes-informations h2 {
-    font-size: 28px;
+    font: 28px "Segoe UI";
     font-weight: 600;
     margin-bottom: 25px;
     color: #333;
@@ -44,7 +44,7 @@
 }
 
 .stages-eleves h2 {
-    font-size: 28px;
+    font: 28px "Segoe UI";
     font-weight: 600;
     margin-bottom: 5px;
     color: #333;
@@ -57,7 +57,7 @@
 }
 
 .entite1-card h3, .entite2-card h3 {
-    font-size: 20px;
+    font: 20px "Segoe UI";
     font-weight: 600;
     margin-bottom: 15px;
     color: #333;
