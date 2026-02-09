@@ -95,19 +95,31 @@ label {
   text-align: left;
   font-family: 'Segoe UI';
   font-size: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-list {
   background-color: #ffffff;
   border: 2px solid #d1d1d1;
   border-radius: 12px;
-  padding: 10px;
+  padding: 5px;
   color: #000;
   cursor: pointer;
-  width: 100%;
-  max-width: 500px;
-  font-family :'Segoe UI';
-  font-size: 20px;
+  width: auto;
+  min-width: 40px;
+  display: inline-flex;
+  float: right;
+  margin-top: auto;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.btn-list img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 .list-item h3 {
   margin: 0 0 5px 0;
