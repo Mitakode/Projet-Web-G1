@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Career Quest | Creer un utilisateur</title>
-    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <title>Career Quest | Modifier un utilisateur</title>
+    <meta name="description" content="Modifier un utilisateur existant.">
     <link href="main-stylesheet.css" rel="stylesheet"/>
     <link href="user_form_style.css" rel="stylesheet"/>
 </head>
@@ -27,38 +27,34 @@
 </header>
 
 <main>
-    <h1 class="create-user-title">Creer un utilisateur</h1>
+    <h1 class="create-user-title">Modifier un utilisateur</h1>
     <form action="" method="POST" class="create-user-form">
         <div>
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" required/>
+            <input type="text" id="nom" name="nom" value="Dupont" required/>
         </div>
         <div>
             <label for="prenom">Prenom</label>
-            <input type="text" id="prenom" name="prenom" required/>
+            <input type="text" id="prenom" name="prenom" value="Marie" required/>
         </div>
         <div>
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" required/>
+            <input type="date" id="date" name="date" value="2001-04-18" required/>
         </div>
         <div>
             <label for="formation">Formation</label>
-            <input type="text" id="formation" name="formation" required/>
+            <input type="text" id="formation" name="formation" value="Developpement Web" required/>
         </div>
         <div>
             <label for="mail">Mail</label>
-            <input type="email" id="mail" name="mail" required/>
-        </div>
-        <div>
-            <label for="mot-de-passe">Mot de passe</label>
-            <input type="password" id="mot-de-passe" name="mot_de_passe" required/>
+            <input type="email" id="mail" name="mail" value="marie.dupont@example.com" required/>
         </div>
         <div>
             <label for="role">Role</label>
             <select id="role" name="role" required>
-                <option value="" disabled selected>Choisir un role</option>
+                <option value="" disabled>Choisir un role</option>
                 <option value="eleve">Eleve</option>
-                <option value="pilote">Pilote</option>
+                <option value="pilote" selected>Pilote</option>
                 <option value="administrateur">Administrateur</option>
             </select>
         </div>
@@ -68,10 +64,10 @@
         </div>
         <div>
             <label for="description">Description</label>
-            <textarea id="description" name="description" rows="4" required></textarea>
+            <textarea id="description" name="description" rows="4" required>Encadre les eleves et suit leurs progressions.</textarea>
         </div>
         <div>
-            <button type="submit">Envoyer</button>
+            <button type="submit">Enregistrer</button>
         </div>
     </form>
 </main>
