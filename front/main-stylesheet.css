@@ -4,6 +4,16 @@
     padding: 0;
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main,
+body > section {
+    flex: 1;
+}
 
 .navbar{
     display: flex;
@@ -71,11 +81,8 @@
 }
 
 .site-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    z-index: 1000;
+    margin-top: 16px;
 }
 
 .site-footer p {
