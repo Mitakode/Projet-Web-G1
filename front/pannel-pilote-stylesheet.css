@@ -4,6 +4,8 @@ input[type="recherche"]{
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 37px;
+  margin-bottom: 30px;
   font: 20px "Segoe UI";
   text-align: center;
   background-color: #d9d9d9;
@@ -28,12 +30,13 @@ input[type="recherche"]{
 .auth-containers {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items:flex-start;
     flex-direction: row;
     text-align: left;
     row-gap: 10px;
     gap: 20px;
     padding : 10px;
+    margin-bottom: 25px;
 }
 
 
@@ -94,6 +97,18 @@ label {
   font-size: 20px;
 }
 
+.btn-list {
+  background-color: #ffffff;
+  border: 2px solid #d1d1d1;
+  border-radius: 12px;
+  padding: 10px;
+  color: #000;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  font-family :'Segoe UI';
+  font-size: 20px;
+}
 .list-item h3 {
   margin: 0 0 5px 0;
   font-size: 18px;
