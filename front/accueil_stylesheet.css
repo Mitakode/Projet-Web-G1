@@ -23,7 +23,13 @@
     border-radius: 20px;
     height: fit-content;
     font: 16px "Segoe UI", sans-serif;
+}
+
+.details {
     position: sticky;
+    top: 20px;
+    align-self: start;
+    height: fit-content;
 }
 
 .btn-candidate {
