@@ -28,48 +28,55 @@
 
 <main>
     <h1 class="create-user-title">Modifier un utilisateur</h1>
-    <form action="" method="POST" class="create-user-form">
-        <div>
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" value="Dupont" required/>
-        </div>
-        <div>
-            <label for="prenom">Prenom</label>
-            <input type="text" id="prenom" name="prenom" value="Marie" required/>
-        </div>
-        <div>
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date" value="2001-04-18" required/>
-        </div>
-        <div>
-            <label for="formation">Formation</label>
-            <input type="text" id="formation" name="formation" value="Developpement Web" required/>
-        </div>
-        <div>
-            <label for="mail">Mail</label>
-            <input type="email" id="mail" name="mail" value="marie.dupont@example.com" required/>
-        </div>
-        <div>
-            <label for="role">Role</label>
-            <select id="role" name="role" required>
-                <option value="" disabled>Choisir un role</option>
-                <option value="eleve">Eleve</option>
-                <option value="pilote" selected>Pilote</option>
-                <option value="administrateur">Administrateur</option>
-            </select>
-        </div>
-        <div>
-            <label for="photo-profil">Photo de profil</label>
-            <input type="file" id="photo-profil" name="photo_profil" accept="image/*"/>
-        </div>
-        <div>
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="4" required>Encadre les eleves et suit leurs progressions.</textarea>
-        </div>
-        <div>
-            <button type="submit">Enregistrer</button>
-        </div>
-    </form>
+    <div class="user-form-layout">
+        <form action="" method="POST" class="create-user-form edit-user-form">
+            <div>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" value="Dupont" required/>
+            </div>
+            <div>
+                <label for="prenom">Prenom</label>
+                <input type="text" id="prenom" name="prenom" value="Marie" required/>
+            </div>
+            <div class="profile-card">
+                <div class="profile-photo">
+                    <img src="images/user_icon.svg" alt="Photo de profil"/>
+                    <label class="profile-edit" for="photo-profil">
+                        <img src="images/editer.png" alt="Modifier"/>
+                    </label>
+                </div>
+                <input type="file" id="photo-profil" name="photo_profil" accept="image/*" class="profile-file-input"/>
+            </div>
+            <div>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" value="2001-04-18" required/>
+            </div>
+            <div>
+                <label for="formation">Formation</label>
+                <input type="text" id="formation" name="formation" value="Developpement Web" required/>
+            </div>
+            <div>
+                <label for="mail">Mail</label>
+                <input type="email" id="mail" name="mail" value="marie.dupont@example.com" required/>
+            </div>
+            <div>
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled>Choisir un role</option>
+                    <option value="eleve">Eleve</option>
+                    <option value="pilote" selected>Pilote</option>
+                    <option value="administrateur">Administrateur</option>
+                </select>
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required>Encadre les eleves et suit leurs progressions.</textarea>
+            </div>
+            <div>
+                <button type="submit">Enregistrer</button>
+            </div>
+        </form>
+    </div>
 </main>
 
 <footer class="site-footer">
