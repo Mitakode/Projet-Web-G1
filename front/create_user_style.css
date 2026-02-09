@@ -8,7 +8,15 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 16px;
     padding: 24px;
+}
+
+.create-user-title {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 24px;
+    margin: 0;
 }
 
 .create-user-form {
