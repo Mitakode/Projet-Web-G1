@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+}
+
+main {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+}
+
+.create-user-title {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 24px;
+    margin: 0;
+}
+
+.create-user-form {
+    width: min(520px, 92vw);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.create-user-form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.create-user-form label {
+    align-self: flex-start;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.create-user-form input,
+.create-user-form textarea,
+.create-user-form select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #555;
+    border-radius: 20px;
+    font-size: 16px;
+    background-color: #d9d9d9;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.create-user-form input[type="file"] {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+.create-user-form input[type="file"]::file-selector-button {
+    padding: 10px 16px;
+    border: 2px solid #444;
+    border-radius: 20px;
+    background: #17496E;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Segoe UI", sans-serif;
+    margin-right: 12px;
+}
+
+.create-user-form input[type="file"]::file-selector-button:hover {
+    background: #123b58;
+}
+
+.create-user-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.create-user-form button {
+    padding: 10px 18px;
+    border: 2px solid #444;
+    border-radius: 20px;
+    background: #17496E;
+    color: #ffffff;
+    cursor: pointer;
+    width: 180px;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0 auto;
+}
+
+.create-user-form button:hover {
+    background: #123b58;
+}
