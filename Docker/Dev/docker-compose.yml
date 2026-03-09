@@ -6,6 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./config/www:/var/www/html
+      - ./config/mon-site.conf:/etc/apache2/sites-enabled/careerquest.conf
     depends_on:
       db:
         condition: service_healthy
@@ -19,7 +20,7 @@ services:
       MYSQL_PASSWORD: projet_pass
       MYSQL_ROOT_PASSWORD: root_pass
     volumes:
-      - db_data:/var/lib/mysql
+      - ./config/db_data:/var/lib/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot_pass || exit 1"]
       interval: 5s
@@ -38,6 +39,3 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
-volumes:
-  db_data:
