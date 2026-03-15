@@ -41,3 +41,46 @@
     cursor: pointer;
     font-size: 16px;
 }
+
+.pagination-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.pagination { 
+    display: flex; 
+    justify-content: center; 
+    list-style: none; 
+    padding: 0; 
+    gap: 10px; 
+}
+
+.pagination a, .pagination span { 
+    padding: 8px 15px; 
+    border: 1px solid #17496E; 
+    background-color: white; 
+    color: #17496E; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    font-family: "Segoe UI", sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover { 
+    background-color: #17496E; 
+    color: white; 
+}
+
+.pagination .active { 
+    background-color: #17496E; 
+    color: white; 
+    cursor: default;
+}
+
+.pagination .disabled {
+    border-color: #ccc;
+    color: #999;
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
