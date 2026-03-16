@@ -19,6 +19,8 @@ function get_env($key, $default = null) { //Charge les variables d'environnement
 
         return $value;
     }
+
+    return $default;
 }
 
 

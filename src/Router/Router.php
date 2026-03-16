@@ -2,7 +2,7 @@
 
 return [
 
-    '/' => 'HomeController@index',
+    '/' => '/templates/HomeController@index',
 
     'GET /connexion' => 'AuthController@loginForm',
 
@@ -27,4 +27,4 @@ return [
     'GET /mentions-legales' => 'LegalController@index',
 
 
-    ]
+    ];
