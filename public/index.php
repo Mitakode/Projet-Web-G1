@@ -1,44 +1,12 @@
 <?php
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
 session_start();
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . "/../src/Router/Router.php";
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-$method = $_SERVER['REQUEST_METHOD'];
-
-$routes = require_once __DIR__ . '/../Router/Router.php';
-
-$route_found = false;
-
-foreach ($routes as $pattern => $handler) {
-
-    if ($uri === $pattern) {
-
-    list($controller, $action) = explode('@', $handler);
-
-    $controller_class = 'controllers\\' . $controller;
-
-    $ctrl = new $controller_class();
-
-    $ctrl->$action();
-
-    $route_found = true;
-
-    break;
-
-    }
-
-}
-
-    if (!$route_found){
-
-    http_response_code(404);
-
-    echo "Page non trouvée";
-
-    }
-
-
-?>

@@ -1,0 +1,105 @@
+.container {
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+    margin: 0 40px 30px 40px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.mes-informations {
+    flex: 2;
+    background-color: #d9d9d9;
+    padding: 30px;
+    border-radius: 40px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.mes-informations h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.info-item {
+    margin-bottom: 15px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.info-item label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.info-item p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+.favoris-candidatures-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 0 40px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.menus {
+    background-color: #d9d9d9;
+    padding: 30px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    max-height: 750px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.menus h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+.menus .list-scroll-container {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 5px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.annonce-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.annonce-card:last-child {
+    margin-bottom: 0;
+}
+
+.annonce-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.annonce-card p {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    font-family: "Segoe UI", sans-serif;
+}   

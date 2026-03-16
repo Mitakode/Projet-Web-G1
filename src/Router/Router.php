@@ -1,30 +1,31 @@
 <?php
 
-return [
+use App\Controller\AuthController;
+use App\Controller\HomeController;
 
-    '/' => 'HomeController@index',
+$uri = $_GET['uri'] ?? '/';
+$method = $_SERVER['REQUEST_METHOD'];
 
-    'GET /connexion' => 'AuthController@loginForm',
+$authController = new AuthController();
+$homeController = new HomeController();
 
-    'POST /connexion' => 'AuthController@loginAction',
+switch ($uri) {
+    case '/':
+        $homeController->index();
+        break;
 
-    'GET /inscription' => 'AuthController@registerForm',
+    case '/login':
+        if ($method == 'GET') {
+            $authController->showLogin();
+        } else {
+            $authController->login();
+        }
+        break;
+    case '/logout':
+        $authController->logout();
+        break;
 
-    'POST /inscription' => 'AuthController@registerAction',
-
-    'GET /mon-compte/{id}' => 'AccountController@accountForm',
-
-    'GET /edit-compte/{id}' => 'AccountController@editAccountForm',
-
-    'POST /edit-compte/{id}' => 'AccountController@editAccountAction',
-
-    'GET /fiche-profil/{id}' => 'ProfileController@profileForm',
-
-    'GET /mon-pannel/{role}' => 'DashboardController@pannelForm',
-
-    'POST /mon-pannel/{role}' => 'DashboardController@pannelAction',
-    
-    'GET /mentions-legales' => 'LegalController@index',
-
-
-    ]
+    default:
+        http_response_code(404);
+        echo $uri;
+}
