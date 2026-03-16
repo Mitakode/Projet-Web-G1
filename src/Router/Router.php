@@ -2,7 +2,7 @@
 
 return [
 
-    '/' => '/templates/HomeController@index',
+    '/' => 'HomeController@index',
 
     'GET /connexion' => 'AuthController@loginForm',
 
