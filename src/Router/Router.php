@@ -25,6 +25,10 @@ switch ($uri) {
         $authController->logout();
         break;
 
+    case '/mentions-legales':
+        View::render('mentions_legales.html.twig');
+        break;
+
     default:
         http_response_code(404);
         echo $uri;
