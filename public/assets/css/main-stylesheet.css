@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    display: flex;
+    align-items: center; /* Aligne verticalement au centre */
+    justify-content: space-between; /* Espace les 3 blocs */
+    padding: 10px 40px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    font-family: sans-serif;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 160px;
+    height: auto;
+}
+
+.search-container {
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 60px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 12px 20px;
+    border: 3px solid #555;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    outline: none;
+    font: 16px "Segoe UI";
+}
+
+.account-container {
+    text-align: center;
+    cursor: pointer;
+}
+
+.account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.account a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.account a:hover,
+.account a:focus,
+.account a:active,
+.account a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-icon {
+    width: 70px;
+    height: auto;
+}
+
+.user-icon img {
+    width: 100%;
+    height: auto;
+}
+
+.account-text {
+    font-family: "Segoe UI";
+    font-weight: bold;
+}
+
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.site-footer p {
+    font-family: "Segoe UI";
+    font-size: 14px;
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0;
+    margin-top: auto;
+    text-align: center;
+    padding: 12px 16px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}

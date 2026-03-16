@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Career Quest</title>
+    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <link href="assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="assets/css/accueil_stylesheet.css" rel="stylesheet"/>
+</head>
+
+
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<main class="main-container">
+    <aside class="sidebar">
+
+        {# AFFICHAGE DES OFFRES #}
+        {% if offres is not empty %}
+            {% for offre in offres %}
+                <div class="list-offer">
+                    <h3>{{ offre.Titre|default('Titre non défini')|e }}</h3>
+                    <p>{{ 'Lieu à définir' }}</p>
+                    <small>{{ offre.Description|default('Pas de description')|e }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="list-offer">
+                <h3>Aucune offre trouvée</h3>
+            </div>
+        {% endif %}
+
+        {# PAGINATION #}
+        {% if totalPages is defined and totalPages > 1 %}
+            <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+
+                {# Bouton Précédent #}
+                {% if pageActuelle > 1 %}
+                    <a href="/?page={{ pageActuelle - 1 }}"
+                       style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                        Précédent
+                    </a>
+                {% endif %}
+
+                {# Numéros #}
+                {% for i in 1..totalPages %}
+                    <a href="/?page={{ i }}"
+                       style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                        {{ i }}
+                    </a>
+                {% endfor %}
+
+                {# Bouton Suivant #}
+                {% if pageActuelle < totalPages %}
+                    <a href="/?page={{ pageActuelle + 1 }}"
+                       style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                        Suivant
+                    </a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </aside>
+</main>
+
+{% include 'partials/_footer.html.twig' %}
+
+</body>
+
+</html>
