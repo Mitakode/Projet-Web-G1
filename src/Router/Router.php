@@ -2,6 +2,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Core\View;
 
 $uri = $_GET['uri'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
@@ -23,6 +24,10 @@ switch ($uri) {
         break;
     case '/logout':
         $authController->logout();
+        break;
+
+    case '/mentions-legales':
+        View::render('mentions_legales.html.twig');
         break;
 
     default:
