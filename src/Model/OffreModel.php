@@ -10,15 +10,8 @@ class OffreModel
 
     public function __construct()
     {
-        // On se connecte à la BDD une seule fois quand on appelle le modèle
-        $host = 'db';
-        $port = 3306;
-        $dbname = 'projet_db'; // Nom de ta BDD
-        $user = 'projet_user';
-        $pass = 'projet_pass';
-        
-        $this->pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",DB_USER,DB_PASS);
+    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**

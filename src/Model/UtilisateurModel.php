@@ -10,13 +10,8 @@ class UtilisateurModel
 
     public function __construct()
     {
-        $host   = 'db';
-        $dbname = 'projet_db';
-        $user   = 'projet_user';
-        $pass   = 'projet_pass';
-
-        $this->pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",DB_USER,DB_PASS);
+    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function getByRole(int $role): array
