@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Model\PannelModel;
+use App\Model\OffreModel;
 
-class HomeController
+class AccountController
 {
     public function index()
     {
-        $PannelModel = new PannelModel(); // On initialise le modèle
 
-        $Role = $PannelModel->getTypeUser($id); // A implémenter avec le numéro user
+        $offreModel = new OffreModel(); // On initialise le modèle
+        $role = getTypeUser($id)
+    {
 
 
         $elementsParPage = 10;
