@@ -2,6 +2,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Controller\AdminController;  
 use App\Core\View;
 
 $uri = $_GET['uri'] ?? '/';
@@ -9,6 +10,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 $authController = new AuthController();
 $homeController = new HomeController();
+$adminController = new AdminController();  
 
 switch ($uri) {
     case '/':
@@ -22,12 +24,17 @@ switch ($uri) {
             $authController->login();
         }
         break;
+
     case '/logout':
         $authController->logout();
         break;
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
+        break;
+
+    case '/admin':                  
+        $adminController->index();
         break;
 
     default:

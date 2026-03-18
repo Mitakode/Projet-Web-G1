@@ -43,4 +43,9 @@ class OffreModel
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAll(): array
+    {
+    $query = $this->pdo->query("SELECT * FROM Offre");
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
