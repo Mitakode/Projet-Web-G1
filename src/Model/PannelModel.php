@@ -4,13 +4,13 @@ namespace App\Model;
 
 use PDO;
 
-class Pannel_eleve
+class PannelModel
 {
     private $pdo;
 
-    public function __construct()
+    public function __construct() // à corriger pour la connexion à la base de données
     {
-        
+
         $host = 'db';
         $port = 3306;
         $dbname = 'projet_db';
@@ -22,9 +22,17 @@ class Pannel_eleve
     }
 
 
-    public function getTypeUser()
+    public function getTypeUser($id)
     {
-        $query = $this->pdo->query("SELECT COUNT(*) as total FROM Offre");
+        $query = $this->pdo->prepare("SELECT Rôle FROM `Utilisateur` WHERE Id_user = ?");
+        $query->execute([$id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
-        return (int) $result['total'];
+        return (int) $result['Rôle'];
     }
+
+    public function getUserInfos
+
+
+
+
+}

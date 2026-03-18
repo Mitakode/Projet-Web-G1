@@ -11,6 +11,8 @@ class AccountController
     {
 
         $offreModel = new OffreModel(); // On initialise le modèle
+        $role = getTypeUser($id)
+    {
 
 
         $elementsParPage = 10;

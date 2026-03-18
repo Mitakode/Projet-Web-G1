@@ -3,14 +3,15 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Model\OffreModel;
+use App\Model\PannelModel;
 
 class HomeController
 {
     public function index()
     {
+        $PannelModel = new PannelModel(); // On initialise le modèle
 
-        $offreModel = new OffreModel(); // On initialise le modèle
+        $Role = $PannelModel->getTypeUser($id); // A implémenter avec le numéro user
 
 
         $elementsParPage = 10;
