@@ -2,6 +2,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Controller\AccountController;
 use App\Core\View;
 
 $uri = $_GET['uri'] ?? '/';
@@ -9,6 +10,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 $authController = new AuthController();
 $homeController = new HomeController();
+$accountController = new AccountController();
 
 switch ($uri) {
     case '/':
@@ -28,6 +30,10 @@ switch ($uri) {
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
+        break;
+
+    case '/account':
+        $accountController->index();
         break;
 
     default:
