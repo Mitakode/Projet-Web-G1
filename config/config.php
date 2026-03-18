@@ -1,24 +1,16 @@
 <?php
 
-
-function get_env($key, $default = null) { //Charge les variables d'environnement mises dans le docker compose
-
+function get_env($key, $default = null) {
     if (isset($_ENV[$key])) {
         $value = $_ENV[$key];
 
-        if ($value === 'true') {
-            return true;
-        }
-        if ($value === 'false') {
-            return false;
-        }
-
-        if (is_numeric($value)) {
-            return (int)$value;
-        }
+        if ($value === 'true') return true;
+        if ($value === 'false') return false;
+        if (is_numeric($value)) return (int)$value;
 
         return $value;
     }
+    return $default;
 }
 
 
@@ -28,9 +20,9 @@ define('APP_URL', get_env('APP_URL', 'http://localhost:8000'));
 
 // Base de données
 define('DB_HOST', get_env('DB_HOST', 'db'));
-define('DB_NAME', get_env('DB_NAME', 'ma_base_de_donnees'));
-define('DB_USER', get_env('DB_USER', 'root'));
-define('DB_PASS', get_env('DB_PASS', ''));
+define('DB_NAME', get_env('DB_NAME', 'projet_db'));      
+define('DB_USER', get_env('DB_USER', 'projet_user'));   
+define('DB_PASS', get_env('DB_PASS', 'projet_pass'));   
 
 // Chemins
 define('BASE_PATH', dirname(__DIR__));
