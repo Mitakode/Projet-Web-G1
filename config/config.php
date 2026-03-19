@@ -28,9 +28,9 @@ define('APP_URL', get_env('APP_URL', 'http://localhost:8000'));
 
 // Base de données
 define('DB_HOST', get_env('DB_HOST', 'db'));
-define('DB_NAME', get_env('DB_NAME', 'ma_base_de_donnees'));
-define('DB_USER', get_env('DB_USER', 'root'));
-define('DB_PASS', get_env('DB_PASS', ''));
+define('DB_NAME', get_env('DB_NAME', 'projet_db'));
+define('DB_USER', get_env('DB_USER', 'projet_user'));
+define('DB_PASS', get_env('DB_PASS', 'projet_pass'));
 
 // Chemins
 define('BASE_PATH', dirname(__DIR__));
@@ -43,6 +43,6 @@ define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);  // 5 MB
 
 // Timezone
 define('TIMEZONE', get_env('TIMEZONE','Europe/Paris'));
-date_default_timezone_set(TIMEZONE);
+date_default_timezone_set('Europe/Paris');;
 
 ?>

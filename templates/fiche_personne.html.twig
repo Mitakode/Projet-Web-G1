@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="utf-8">
+    <title>Career Quest</title>
+	<meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+	<link href="assets/css/main-stylesheet.css" rel="stylesheet" />
+    <link href="assets/css/fiche_personne_style.css" rel="stylesheet"/>
+    
+    </head>
+
+    <body>
+        
+        {% include 'partials/_header.html.twig' %}
+
+
+        <section class="mes-informations">
+         <h2>Mes Informations</h2>
+    
+        <div class="info-group">
+        <label>Nom Prénom :</label>
+        <p class="info-value">
+        {{utilisateur.Nom|upper}} {{utilisateur.Prenom}} </p>
+        </div>
+    
+        <div class="info-group">
+        <label>Date de naissance :</label>
+        <p class="info-value">
+        {{utilisateur.DateNaissance|date('d/m/Y')}} </p>
+        </div>
+    
+        <div class="info-group">
+        <label>Email :</label>
+        <p class="info-value">
+        {{utilisateur.Email}}</p>
+        </div>
+
+        </section>
+   
+        <section class="stages-eleves">
+        <h2>Stages / Candidatures</h2>
+    
+        {% for candidature in candidatures %}
+
+        <div class="entite-card">
+        <h3>{{candidature.nom_entreprise}}</h3>
+        <p>{{candidature.titre_offre}}</p>
+        <p>{{candidature.description}}</p>
+        </div>
+
+        {% else %}
+
+        <p>Aucune candidature trouvée.</p>
+
+        {% endfor %}
+    
+        </section>
+
+    {% include 'partials/_footer.html.twig' %}
+    
+    </body>
+
+</html>
