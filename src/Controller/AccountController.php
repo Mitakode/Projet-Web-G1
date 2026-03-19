@@ -4,39 +4,37 @@ namespace App\Controller;
 
 use App\Core\View;
 use App\Model\OffreModel;
+use App\Model\PannelModel;
 
 class AccountController
 {
     public function index()
     {
 
-        $offreModel = new OffreModel(); // On initialise le modèle
-        $role = getTypeUser($id)
-    {
+        $pannelModel = new PannelModel(); // On initialise le modèle
+        $role = $pannelModel->getTypeUser($id); // On récupère le rôle de l'utilisateur connecté
+    
 
 
-        $elementsParPage = 10;
+        switch ($role) {
+            case 1: // Eleve normal
+                $infos = $pannelModel->getUserInfos($id);
+                View::render('pannel_eleve.html.twig', [
+                    'infos' => $infos,
+                ]);
+                return;
 
-        // Lecture de l'url pour la page
-        $pageActuelle = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        if ($pageActuelle < 1) {
-            $pageActuelle = 1;
+            case 2:
+                    //Pilote
+                break;
+
+            case 3:
+                    //Admin
+                break;
+
         }
 
-        // Calcul du nombre de page
-        $totalElements = $offreModel->getTotalOffres();
-        $totalPages = ceil($totalElements / $elementsParPage);
-
-        // Calcul du démarrage
-        $offset = ($pageActuelle - 1) * $elementsParPage;
-
-        // On demande au modèle de nous envoyer les pages de x à y
-        $offres = $offreModel->getOffresPaginated($elementsParPage, $offset);
-
-        View::render('home.html.twig', [
-            'offres' => $offres,
-            'totalPages' => $totalPages,
-            'pageActuelle' => $pageActuelle
-        ]);
+        
     }
 }
+
