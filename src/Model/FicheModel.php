@@ -17,7 +17,7 @@ class FicheModel
 
     public function getUserById($userId)
     {
-        $stmt = $this->pdo->prepare("SELECT Nom, Prenom, Email FROM Utilisateur WHERE Id_user = :id_user");
+        $stmt = $this->pdo->prepare("SELECT Nom, Prenom, Email, Date_naissance FROM Utilisateur WHERE Id_user = :id_user");
         $stmt->bindValue(':id_user', $userId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -26,7 +26,7 @@ class FicheModel
 
     public function getTotalCandidatures($userId)
     {
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) as total FROM Candidater WHERE Id_user = :id_user");
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) as total FROM Candidature WHERE Id_user = :id_user");
         $stmt->bindValue(':id_user', $userId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,11 +38,11 @@ class FicheModel
     {
 
         $sql = "SELECT c.*, o.Titre AS titre_offre, o.Description AS description, e.Nom AS nom_entreprise
-                FROM Candidater c
+                FROM Candidature c
                 JOIN Offre o ON c.Id_offre = o.Id_offre
                 LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
                 WHERE c.Id_user = :id_user 
-                ORDER BY c.Date_ DESC 
+                ORDER BY c.Date_naissance DESC 
                 LIMIT :limit OFFSET :offset";
         
         $stmt = $this->pdo->prepare($sql);
