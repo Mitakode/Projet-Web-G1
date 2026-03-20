@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use PDO;
-use App\Core\Database;
 
 class OffreModel
 {
@@ -11,7 +10,8 @@ class OffreModel
 
     public function __construct()
     {
-        $this->pdo = Database::getConnection();
+        $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",DB_USER,DB_PASS);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**

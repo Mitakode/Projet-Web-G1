@@ -3,22 +3,24 @@
 
 function get_env($key, $default = null) { //Charge les variables d'environnement mises dans le docker compose
 
-    if (isset($_ENV[$key])) {
-        $value = $_ENV[$key];
+    $value = $_ENV[$key] ?? getenv($key);
 
-        if ($value === 'true') {
-            return true;
-        }
-        if ($value === 'false') {
-            return false;
-        }
-
-        if (is_numeric($value)) {
-            return (int)$value;
-        }
-
-        return $value;
+    if ($value === false || $value === null || $value === '') {
+        return $default;
     }
+
+    if ($value === 'true') {
+        return true;
+    }
+    if ($value === 'false') {
+        return false;
+    }
+
+    if (is_numeric($value)) {
+        return (int)$value;
+    }
+
+    return $value;
 }
 
 
