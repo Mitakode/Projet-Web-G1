@@ -42,7 +42,7 @@ class FicheModel
                 JOIN Offre o ON c.Id_offre = o.Id_offre
                 LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
                 WHERE c.Id_user = :id_user 
-                ORDER BY c.Date_naissance DESC 
+                ORDER BY c.Date_ DESC 
                 LIMIT :limit OFFSET :offset";
         
         $stmt = $this->pdo->prepare($sql);
