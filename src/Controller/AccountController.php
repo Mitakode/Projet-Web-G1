@@ -18,7 +18,7 @@ class AccountController
 
         switch ($role) {
             case 1: // Eleve normal
-                $pannelModel = new PannelModel();           // On initialise le modèle
+                $pannelModel = new PannelModel();
 
                 $infos = $pannelModel->getUserInfos($id);
                 View::render('pannel_eleve.html.twig', [
@@ -26,9 +26,18 @@ class AccountController
                 ]);
                 return;
 
-            case 2: //Pilote
-                    
-                break;
+            case 2: // Pilote
+                $utilisateurModel = new UtilisateurModel();
+                $entrepriseModel  = new EntrepriseModel();
+                $offreModel       = new OffreModel();
+
+                View::render('pannel_pilote.html.twig', [
+                    'user'        => $user,
+                    'eleves'      => $utilisateurModel->getByRole(1),
+                    'offres'      => $offreModel->getAll(),
+                    'entreprises' => $entrepriseModel->getAll(),
+                ]);
+                return;
 
             case 3: // Admin
                 $utilisateurModel = new UtilisateurModel();

@@ -1,5 +1,3 @@
-/* Styles pour la page pannel-pilote */
-
 input[type="recherche"]{
   display: block;
   margin-left: auto;
@@ -131,4 +129,26 @@ label {
   margin: 0;
   font-size: 14px;
   color: #000;
+}
+
+.search-recherche {
+    position: relative;
+    width: 80%;
+    margin: 37px auto 38px auto;
+}
+
+.search-recherche img {
+    position: absolute;
+    left: 20px;
+    top:50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+
+.search-recherche input[type="recherche"] {
+    width: 100%;
+    margin: 0;
+    padding-left: 50px; 
 }
