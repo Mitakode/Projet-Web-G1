@@ -2,13 +2,15 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Controller\AccountController;
 use App\Core\View;
 
-$uri = $_GET['uri'] ?? '/';
+$uri    = $_GET['uri'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
 
-$authController = new AuthController();
-$homeController = new HomeController();
+$authController    = new AuthController();
+$homeController    = new HomeController();
+$accountController = new AccountController();
 
 switch ($uri) {
     case '/':
@@ -22,8 +24,13 @@ switch ($uri) {
             $authController->login();
         }
         break;
+
     case '/logout':
         $authController->logout();
+        break;
+
+    case '/account':
+        $accountController->index();
         break;
 
     case '/mentions-legales':
