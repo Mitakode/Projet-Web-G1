@@ -37,8 +37,17 @@ class FicheController
         
         $utilisateur = $ficheModel->getUserById($id);
 
+        /**
+         * Vérifie si l'utilisateur est authentifié
+         * 
+         * Si aucun utilisateur n'est connecté (variable $utilisateur vide ou nulle),
+         * redirige vers la page d'accueil avec un code de statut HTTP 302 (redirection temporaire)
+         * et termine l'exécution du script.
+         * 
+         * @return void Termine l'exécution si l'utilisateur n'est pas authentifié
+         */
         if(!$utilisateur) {
-            header('Location : /');
+            header('Location: /', true, 302);
             exit;
         }
 

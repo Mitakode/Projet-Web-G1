@@ -45,6 +45,5 @@ define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);  // 5 MB
 
 // Timezone
 define('TIMEZONE', get_env('TIMEZONE','Europe/Paris'));
-date_default_timezone_set('Europe/Paris');;
 
 ?>
