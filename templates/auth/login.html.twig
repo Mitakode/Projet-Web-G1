@@ -17,12 +17,15 @@
 
         <div class="auth-box">
             <h1>Connexion</h1>
-            <form>
+            {% if error %}
+                <p class="auth-error">{{ error }}</p>
+            {% endif %}
+            <form action="/login" method="POST">
                 <label>Adresse email</label>
-                <input type="email">
+                <input type="email" name="email" required>
 
                 <label>Mot de passe</label>
-                <input type="password">
+                <input type="password" name="password" required>
 
                 <div class="checkbox-group">
                     <input type="checkbox"> <span>Rester connecté</span>
