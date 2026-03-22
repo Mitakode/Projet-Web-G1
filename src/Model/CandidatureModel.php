@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Model;
+
+use PDO;
+
+class CandidatureModel
+{
+    private $pdo;
+
+    public function __construct()
+    {
+        if (defined('DB_HOST')) {
+            $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+    }
+
+    public function createCandidature($idOffre, $idUser, $cvName, $lmName)
+    {
+        $sql = "INSERT INTO Candidature (Id_offre, Id_user, Cv, Lettre_motivation, Date_) VALUES (:idOffre, :idUser, :cv, :lm, NOW())";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':idOffre' => $idOffre,
+            ':idUser' => $idUser,
+            ':cv' => $cvName,
+            ':lm' => $lmName
+        ]);
+        return $this->pdo->lastInsertId();
+    }
+}
