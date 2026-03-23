@@ -17,19 +17,33 @@ class OffreModel
     /**
      * Compte combien d'offres existent dans la base de données au total
      */
-    public function getTotalOffres()
+    public function getTotalOffres(string $search = '')
     {
-        $query = $this->pdo->query("SELECT COUNT(*) as total FROM Offre");
-        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($search === '') {
+            $query = $this->pdo->query("SELECT COUNT(*) as total FROM Offre");
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return (int) $result['total'];
+        }
+
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) as total FROM Offre WHERE Titre LIKE :search OR Description LIKE :search");
+        $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return (int) $result['total'];
     }
 
     /**
      * Récupère un certain nombre d'offres (limit) à partir d'un certain point (offset)
      */
-    public function getOffresPaginated($limit, $offset)
+    public function getOffresPaginated(int $limit, int $offset, string $search = '')
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Offre ORDER BY Id_offre DESC LIMIT :limit OFFSET :offset");
+        if ($search === '') {
+            $stmt = $this->pdo->prepare("SELECT * FROM Offre ORDER BY Id_offre DESC LIMIT :limit OFFSET :offset");
+        } else {
+            $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Titre LIKE :search OR Description LIKE :search ORDER BY Id_offre DESC LIMIT :limit OFFSET :offset");
+            $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        }
+
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();

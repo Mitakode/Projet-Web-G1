@@ -17,6 +17,12 @@
     <aside class="sidebar">
 
         {# AFFICHAGE DES OFFRES #}
+        {% if searchQuery is defined and searchQuery is not empty %}
+            <p style="margin-bottom: 16px; font-family: 'Segoe UI', sans-serif; color: #17496E;">
+                Résultats pour: <strong>{{ searchQuery|e }}</strong>
+            </p>
+        {% endif %}
+
         {% if offres is not empty %}
             {% for offre in offres %}
                 <div class="list-offer">
@@ -37,7 +43,7 @@
 
                 {# Bouton Précédent #}
                 {% if pageActuelle > 1 %}
-                    <a href="/?page={{ pageActuelle - 1 }}"
+                    <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Précédent
                     </a>
@@ -45,7 +51,7 @@
 
                 {# Numéros #}
                 {% for i in 1..totalPages %}
-                    <a href="/?page={{ i }}"
+                    <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
                         {{ i }}
                     </a>
@@ -53,7 +59,7 @@
 
                 {# Bouton Suivant #}
                 {% if pageActuelle < totalPages %}
-                    <a href="/?page={{ pageActuelle + 1 }}"
+                    <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Suivant
                     </a>
