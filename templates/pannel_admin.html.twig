@@ -22,74 +22,52 @@
         </div>
 
         <div class="info-item">
-            <label>Email :</label>
-            <p>{{ user.Email }}</p>
+            <label>Date de naissance :</label>
+            <p>{{ user.Date_naissance|default('Non renseigné') }}</p>
         </div>
 
         <div class="info-item">
-            <label>Rôle :</label>
-            <p>{{ user.Role }}</p>
+            <label>Formation :</label>
+            <p>{{ user.Formation|default('Non renseigné') }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Mon niveau d'étude :</label>
+            <p>{{ user.Formation|default('Non renseigné') }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Description sur mon profil :</label>
+            <p>{{ user.Description|default('Aucune description') }}</p>
         </div>
     </section>
 </div>
 
-<div class="favoris-candidatures-container">
+<div class="admin-grid">
 
-    <section class="menus">
-        <h2>Pilotes</h2>
-        <div class="list-scroll-container">
-            {% for pilote in pilotes %}
-                <div class="annonce-card">
-                    <h3>{{ pilote.Nom }} {{ pilote.Prenom }}</h3>
-                    <p>{{ pilote.Email }}</p>
-                </div>
-            {% else %}
-                <p>Aucun pilote trouvé.</p>
-            {% endfor %}
-        </div>
-    </section>
+    <div class="admin-card">
+        <h2>ELEVES</h2>
+        <p>{{ eleves|length }} élèves enregistré</p>
+        <a href="/eleves"><button class="admin-btn">Modifier</button></a>
+    </div>
 
-    <section class="menus">
-        <h2>Élèves</h2>
-        <div class="list-scroll-container">
-            {% for eleve in eleves %}
-                <div class="annonce-card">
-                    <h3>{{ eleve.Nom }} {{ eleve.Prenom }}</h3>
-                    <p>{{ eleve.Email }}</p>
-                </div>
-            {% else %}
-                <p>Aucun élève trouvé.</p>
-            {% endfor %}
-        </div>
-    </section>
+    <div class="admin-card">
+        <h2>ENTREPRISES</h2>
+        <p>{{ entreprises|length }} entreprises enregistré</p>
+        <a href="/entreprises"><button class="admin-btn">Modifier</button></a>
+    </div>
 
-    <section class="menus">
-        <h2>Entreprises</h2>
-        <div class="list-scroll-container">
-            {% for entreprise in entreprises %}
-                <div class="annonce-card">
-                    <h3>{{ entreprise.Nom }}</h3>
-                    <p>{{ entreprise.Email_contact }}</p>
-                </div>
-            {% else %}
-                <p>Aucune entreprise trouvée.</p>
-            {% endfor %}
-        </div>
-    </section>
+    <div class="admin-card">
+        <h2>STAGES</h2>
+        <p>{{ offres|length }} stages enregistré</p>
+        <a href="/stages"><button class="admin-btn">Modifier</button></a>
+    </div>
 
-    <section class="menus">
-        <h2>Stages</h2>
-        <div class="list-scroll-container">
-            {% for offre in offres %}
-                <div class="annonce-card">
-                    <h3>{{ offre.Titre }}</h3>
-                    <p>{{ offre.Description }}</p>
-                </div>
-            {% else %}
-                <p>Aucun stage trouvé.</p>
-            {% endfor %}
-        </div>
-    </section>
+    <div class="admin-card">    
+        <h2>PILOTES</h2>
+        <p>{{ pilotes|length }} pilotes enregistré</p>
+        <a href="/pilotes"><button class="admin-btn">Modifier</button></a>
+    </div>
 
 </div>
 

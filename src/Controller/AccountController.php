@@ -11,22 +11,17 @@ use App\Model\OffreModel;
 class AccountController
 {
     public function index()
-    {
-        //$user = $_SESSION['user'];      
-        //$id   = $user['Id_user'];       
-        //$role = $user['Rôle'];
-        
-    $_SESSION['user'] = [
-        'Id_user' => 4,
-        'role'    => 1,
-        'Nom'     => 'Test',
-        'Prenom'  => 'Admin',
-    ];
-
+    {  
+            $_SESSION['user'] = [
+                'Id_user' => 4,
+                'Role'    => 1,                 //Pour simuler une session
+                'Nom'     => 'Test',
+                'Prenom'  => 'Admin',
+            ];
 
     $user = $_SESSION['user'];
     $id   = $user['Id_user'];
-    $role = $user['role']; 
+    $role = $user['Role']; 
 
 
         switch ($role) {
@@ -46,7 +41,7 @@ class AccountController
 
                 View::render('pannel_pilote.html.twig', [
                     'user'        => $user,
-                    'eleves'      => $utilisateurModel->getByRole(0,$id),
+                    'eleves'      => $utilisateurModel->getByRoleandestgerepar(0,$id),
                     'offres'      => $offreModel->getAll(),
                     'entreprises' => $entrepriseModel->getAll(),
                 ]);
