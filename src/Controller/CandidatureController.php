@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Core\Auth;
 use App\Model\OffreModel;
 use App\Model\CandidatureModel;
 
@@ -11,15 +12,11 @@ class CandidatureController
     public function index()
     {
         // Vérification de la session utilisateur
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        if (!isset($_SESSION['user'])) {
-            header('Location: /?uri=/login');
-            exit;
-        }
-
+        //if (!Auth::check()) {
+        //    header('Location: =/login');
+        //    exit;
+        //}
+        
         // Récupérer l'ID de l'offre depuis l'URL
         $id = isset($_GET['id_offre']) ? (int)$_GET['id_offre'] : 0;
         
@@ -39,17 +36,12 @@ class CandidatureController
 
     public function submit()
     {
-        // 1. Vérification de la session utilisateur
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Redirection si l'utilisateur n'est pas connecté
-        //if (!isset($_SESSION['user']) || !isset($_SESSION['user']['Id_user'])) {
-        //    header('Location: /?uri=/login');
+        //// 1. Vérification de la session utilisateur
+        //if (!Auth::check()) {
+        //    header('Location: /login');
         //    exit;
         //}
-        $idUser = $_SESSION['user']['Id_user'];
+        //$idUser = $_SESSION['user']['Id_user'];
 
         // 2. Vérification de la méthode HTTP
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
