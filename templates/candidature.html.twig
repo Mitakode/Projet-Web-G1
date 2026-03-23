@@ -15,14 +15,14 @@
     <div class="offer-details">
         <h1>{{ offre.Titre }}</h1>
         
-        <div class="offer-meta" style="margin-bottom: 20px; color: #666;">
+        <div class="offer-meta" style="margin-top: 30px; font-size: 20px; color: #333;">
         <strong>Date de l'offre :</strong> {{ offre.Date_offre|date("d/m/Y") }} <br>
         <strong>Rémunération :</strong> {{ offre.Remuneration }} € <br>
         <strong>Durée :</strong> {{ offre.Duree_mois }} mois <br>
         <strong>Nombre de places :</strong> {{ offre.Nombre_place }}
         </div>
 
-        <div class="description-content">
+        <div class="description-content"  style="margin-top: 30px; font-size: 20px; color: #333;">
         <h3>Description du poste</h3>
         <p>{{ offre.Description|nl2br }}</p>
         </div>
@@ -32,20 +32,19 @@
         <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
         
         <form action="/?uri=/candidate" method="post" enctype="multipart/form-data">
+            </br>
             <label class="upload-label" for="cv">CV (Curriculum Vitae)</label>
                 <div class="file-input-wrapper">
                 <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
                 </div>
-            </div>
-
-            <div class="upload-group">
+            </br>
             <label class="upload-label" for="lm">Lettre de motivation</label>
                 <div class="file-input-wrapper">
                 <input type="file" id="lm" name="lm" accept=".pdf,.doc,.docx" required>
                 </div>
-            </div>
-
+            </br></br>
             <button type="submit" class="submit-btn">Envoyer ma candidature</button>
+            </div>
         </form>
     </div>
 </main>

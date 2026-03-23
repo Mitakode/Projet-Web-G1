@@ -1,11 +1,14 @@
 .candidature-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 40px;
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
     font-family: "Segoe UI", sans-serif;
 }
+
 
 .offer-details {
     flex: 2;
