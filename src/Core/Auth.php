@@ -16,8 +16,26 @@ class Auth
         }
 
         $hash = $user['Password'] ?? null;
-        if (!self::verifyPassword($password, $hash)) {
-            return false;
+
+        $info = is_string($hash) ? password_get_info($hash) : ['algo' => 0];
+        if ($info['algo'] === 0) {
+            if (!is_string($hash) || !hash_equals($hash, $password)) {
+                return false;
+            }
+
+            $newHash = password_hash($password, PASSWORD_DEFAULT);
+            $model->updatePassword((int) $user['Id_user'], $newHash);
+            $user['Password'] = $newHash;
+        } else {
+            if (!password_verify($password, $hash)) {
+                return false;
+            }
+
+            if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+                $newHash = password_hash($password, PASSWORD_DEFAULT);
+                $model->updatePassword((int) $user['Id_user'], $newHash);
+                $user['Password'] = $newHash;
+            }
         }
 
         self::login($user);
@@ -108,10 +126,6 @@ class Auth
             return false;
         }
 
-        if (password_verify($password, $hash)) {
-            return true;
-        }
-
-        return hash_equals($hash, $password);
+        return password_verify($password, $hash);
     }
 }

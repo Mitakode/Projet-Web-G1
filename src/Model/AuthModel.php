@@ -55,4 +55,13 @@ class AuthModel
 
         return $this->getByEmail($data['Email']);
     }
+
+    public function updatePassword(int $id, string $hash): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE Utilisateur SET Password = :hash WHERE Id_user = :id");
+        return $stmt->execute([
+            'hash' => $hash,
+            'id' => $id,
+        ]);
+    }
 }
