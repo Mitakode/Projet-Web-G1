@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Auth;
 use App\Core\View;
 use App\Model\PannelModel;
 use App\Model\UtilisateurModel;
@@ -12,9 +13,11 @@ class AccountController
 {
     public function index()
     {
-        $user = $_SESSION['user'];      
+        Auth::requireAuth();
+
+        $user = Auth::user();
         $id   = $user['Id_user'];       
-        $role = $user['Rôle'];          
+        $role = $user['Role'];          
 
         switch ($role) {
             case 1: // Eleve normal
@@ -58,4 +61,3 @@ class AccountController
         
     }
 }
-

@@ -31,6 +31,10 @@ switch ($uri) {
         $authController->logout();
         break;
 
+    case '/register':
+        header('Location: /login');
+        break;
+
     case '/account':
         $accountController->index();
         break;
