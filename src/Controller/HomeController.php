@@ -10,6 +10,7 @@ class HomeController
     public function index()
     {
         $offreModel = new OffreModel();
+        $searchQuery = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
 
         $elementsParPage = 10;
 
@@ -18,17 +19,25 @@ class HomeController
             $pageActuelle = 1;
         }
 
-        $totalElements = $offreModel->getTotalOffres();
+        $totalElements = $offreModel->getTotalOffres($searchQuery);
         $totalPages = ceil($totalElements / $elementsParPage);
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
+
+        if ($pageActuelle > $totalPages) {
+            $pageActuelle = $totalPages;
+        }
 
         $offset = ($pageActuelle - 1) * $elementsParPage;
 
-        $offres = $offreModel->getOffresPaginated($elementsParPage, $offset);
+        $offres = $offreModel->getOffresPaginated($elementsParPage, $offset, $searchQuery);
 
         View::render('home.html.twig', [
             'offres'      => $offres,
             'totalPages'  => $totalPages,
-            'pageActuelle' => $pageActuelle
+            'pageActuelle' => $pageActuelle,
+            'searchQuery' => $searchQuery
         ]);
     }
 }
