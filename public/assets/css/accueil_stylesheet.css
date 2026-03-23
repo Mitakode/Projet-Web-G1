@@ -43,4 +43,6 @@
     right: 50px;
     top: 50%;
     transform: translateY(-50%);
+    text-decoration: none;
+    display: inline-block;
 }
