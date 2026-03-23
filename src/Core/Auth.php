@@ -120,12 +120,4 @@ class Auth
         }
     }
 
-    private static function verifyPassword(string $password, ?string $hash): bool
-    {
-        if (!$hash) {
-            return false;
-        }
-
-        return password_verify($password, $hash);
-    }
 }
