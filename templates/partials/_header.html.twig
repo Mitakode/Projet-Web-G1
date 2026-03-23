@@ -11,18 +11,20 @@
             <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
         </form>
 =======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <div class="search-container">
+        <form method="GET" action="/">
+            <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
+        </form>
+=======
+>>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
     <div class="nav-panel">
         <div class="search-container">
             <input type="text" placeholder="Rechercher" class="search-bar"/>
         </div>
 
-    <div class="account">
-        <a href="/login">
-            <div class="user-icon">
-                <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-            </div>
-            <span class="account-text">Mon compte</span>
-        </a>
         <div class="account">
             {% if isAuth %}
                 <a href="/account">
@@ -37,6 +39,16 @@
                 </a>
             {% endif %}
         </div>
+=======
+            <a href="/account">
+                <div class="user-icon">
+                    <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
+                </div>
+                <span class="account-text">Mon compte</span>
+            </a>
+        </div>
+>>>>>>> 0f71a53 (feat(ui): menu mobile + header centré)
+>>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
     </div>
 
     <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Ouvrir le menu mobile">
@@ -45,6 +57,7 @@
     </label>
 
     <div class="mobile-menu">
+<<<<<<< HEAD
         {% if isAuth %}
             <a class="mobile-menu-item" href="/account">
                 <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
@@ -56,6 +69,12 @@
                 <span>Connexion</span>
             </a>
         {% endif %}
+=======
+        <a class="mobile-menu-item" href="/account">
+            <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
+            <span>Mon compte</span>
+        </a>
+>>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
         <label class="mobile-menu-item" for="mobile-search-toggle">
             <img src="/assets/images/loupe.png" alt="Rechercher"/>
             <span>Rechercher</span>
