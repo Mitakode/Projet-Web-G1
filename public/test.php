@@ -1,4 +1,4 @@
-<?php   
+<?php
 $pdo = new PDO("mysql:host=90.54.20.90;dbname=projet_db;charset=utf8", "projet_user", "projet_pass");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -6,21 +6,38 @@ $action = $_POST['action'] ?? '';
 $id     = $_POST['id']     ?? null;
 
 if ($action === 'add') {
-    $stmt = $pdo->prepare("INSERT INTO Utilisateur (Nom, Prenom, Email, Password, 'Role') VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'], $_POST['role']]);
-     exit;
+    $stmt = $pdo->prepare("INSERT INTO Utilisateur (Nom, Prenom, Email, Date_naissance, Formation, Description, est_gere_par) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $_POST['nom'],
+        $_POST['prenom'],
+        $_POST['email'],
+        $_POST['date_naissance'],
+        $_POST['formation'],
+        $_POST['description'],
+        $_POST['est_gere_par'] ?: null,
+    ]);
+    header('Location: test.php'); exit;
 }
 
 if ($action === 'edit' && $id) {
-    $stmt = $pdo->prepare("UPDATE Utilisateur SET Nom=?, Prenom=?, Email=?, Password=?, 'Role'=? WHERE Id_user=?");
-    $stmt->execute([$_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['password'], $_POST['role'], $id]);
-     exit;
+    $stmt = $pdo->prepare("UPDATE Utilisateur SET Nom=?, Prenom=?, Email=?, Date_naissance=?, Formation=?, Description=?, est_gere_par=? WHERE Id_user=?");
+    $stmt->execute([
+        $_POST['nom'],
+        $_POST['prenom'],
+        $_POST['email'],
+        $_POST['date_naissance'],
+        $_POST['formation'],
+        $_POST['description'],
+        $_POST['est_gere_par'] ?: null,
+        $id,
+    ]);
+    header('Location: test.php'); exit;
 }
 
 if ($action === 'delete' && $id) {
     $stmt = $pdo->prepare("DELETE FROM Utilisateur WHERE Id_user=?");
     $stmt->execute([$id]);
-     exit;
+    header('Location: test.php'); exit;
 }
 
 $users = $pdo->query("SELECT * FROM Utilisateur ORDER BY Id_user ASC")->fetchAll(PDO::FETCH_ASSOC);
@@ -39,6 +56,10 @@ $roles = [0 => 'Élève', 1 => 'Pilote', 2 => 'Admin'];
 <head>
     <meta charset="utf-8">
     <title>CRUD — Utilisateur</title>
+    <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 16px; text-align: center; border-bottom: 1px solid #eee; }
+</style>
 </head>
 <body>
 
@@ -60,17 +81,18 @@ $roles = [0 => 'Élève', 1 => 'Pilote', 2 => 'Admin'];
     <label>Email</label>
     <input type="email" name="email" value="<?= htmlspecialchars($editUser['Email'] ?? '') ?>" required>
 
-    <label>Mot de passe</label>
-    <input type="text" name="password" value="<?= htmlspecialchars($editUser['Password'] ?? '') ?>" required>
+    <label>Date de naissance</label>
+    <input type="date" name="date_naissance" value="<?= htmlspecialchars($editUser['Date_naissance'] ?? '') ?>" required>
 
-    <label>Role</label>
-    <select name="role">
-        <?php foreach ($roles as $val => $label): ?>
-            <option value="<?= $val ?>" <?= ($editUser['Role'] ?? 1) == $val ? 'selected' : '' ?>>
-                <?= $label ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <label>Formation</label>
+    <input type="text" name="formation" value="<?= htmlspecialchars($editUser['Formation'] ?? '') ?>" required>
+
+    <label>Description</label>
+    <input type="text" name="description" value="<?= htmlspecialchars($editUser['Description'] ?? '') ?>" required>
+
+    <label>Est géré par </label>
+    <input type="text" name="est_gere_par" value="<?= htmlspecialchars($editUser['est_gere_par'] ?? '') ?>" required>
+
 
     <button type="submit" class="btn btn-add">
         <?= $editUser ? 'Enregistrer' : 'Ajouter' ?>
@@ -89,6 +111,10 @@ $roles = [0 => 'Élève', 1 => 'Pilote', 2 => 'Admin'];
             <th>Prénom</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Date de naissance</th>
+            <th>Formation</th>
+            <th>Description</th>
+            <th>Est géré par </th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -104,6 +130,10 @@ $roles = [0 => 'Élève', 1 => 'Pilote', 2 => 'Admin'];
                     <?= $roles[$u['Role']] ?? 'Inconnu' ?>
                 </span>
             </td>
+            <td><?= htmlspecialchars($u['Date_naissance']) ?></td>
+            <td><?= htmlspecialchars($u['Formation']) ?></td>
+            <td><?= htmlspecialchars($u['Description']) ?></td>
+            <td><?= htmlspecialchars($u['est_gere_par']) ?></td>
             <td>
                 <a href="?edit=<?= $u['Id_user'] ?>">
                     <button class="btn btn-edit">Modifier</button>
