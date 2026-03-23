@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Auth;
 use App\Core\View;
 use App\Model\PannelModel;
 use App\Model\UtilisateurModel;
@@ -12,7 +13,9 @@ class AccountController
 {
     public function index()
     {
-        $user = $_SESSION['user'];      
+        Auth::requireAuth();
+
+        $user = Auth::user();
         $id   = $user['Id_user'];       
         $role = $user['Role'];          
 
