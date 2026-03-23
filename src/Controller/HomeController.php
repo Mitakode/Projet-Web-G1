@@ -10,7 +10,7 @@ class HomeController
     public function index()
     {
         $offreModel = new OffreModel();
-        $searchQuery = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+        $searchQuery = isset($_GET['query']) ? trim((string) $_GET['query']) : '';
 
         $elementsParPage = 10;
 
