@@ -12,12 +12,25 @@ class AccountController
 {
     public function index()
     {
-        $user = $_SESSION['user'];      
-        $id   = $user['Id_user'];       
-        $role = $user['Rôle'];          
+        //$user = $_SESSION['user'];      
+        //$id   = $user['Id_user'];       
+        //$role = $user['Rôle'];
+        
+    $_SESSION['user'] = [
+        'Id_user' => 4,
+        'role'    => 1,
+        'Nom'     => 'Test',
+        'Prenom'  => 'Admin',
+    ];
+
+
+    $user = $_SESSION['user'];
+    $id   = $user['Id_user'];
+    $role = $user['role']; 
+
 
         switch ($role) {
-            case 1: // Eleve normal
+            case 0: // Eleve normal
                 $pannelModel = new PannelModel();
 
                 $infos = $pannelModel->getUserInfos($id);
@@ -26,28 +39,28 @@ class AccountController
                 ]);
                 return;
 
-            case 2: // Pilote
+            case 1: // Pilote
                 $utilisateurModel = new UtilisateurModel();
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
 
                 View::render('pannel_pilote.html.twig', [
                     'user'        => $user,
-                    'eleves'      => $utilisateurModel->getByRole(1),
+                    'eleves'      => $utilisateurModel->getByRole(0,$id),
                     'offres'      => $offreModel->getAll(),
                     'entreprises' => $entrepriseModel->getAll(),
                 ]);
                 return;
 
-            case 3: // Admin
+            case 2: // Admin
                 $utilisateurModel = new UtilisateurModel();
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
 
                 View::render('pannel_admin.html.twig', [
                     'user'        => $user,
-                    'pilotes'     => $utilisateurModel->getByRole(2),
-                    'eleves'      => $utilisateurModel->getByRole(1),
+                    'pilotes'     => $utilisateurModel->getByRole(1),
+                    'eleves'      => $utilisateurModel->getByRole(0),
                     'entreprises' => $entrepriseModel->getAll(),
                     'offres'      => $offreModel->getAll(),
                 ]);
