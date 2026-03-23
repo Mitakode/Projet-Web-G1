@@ -31,7 +31,8 @@
     <div class="application-form">
         <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
         
-        <form action="/?uri=/candidate" method="post" enctype="multipart/form-data">
+        <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
             </br>
             <label class="upload-label" for="cv">CV (Curriculum Vitae)</label>
                 <div class="file-input-wrapper">
