@@ -20,9 +20,16 @@
         {% if offres is not empty %}
             {% for offre in offres %}
                 <div class="list-offer">
-                    <h3>{{ offre.Titre|default('Titre non défini')|e }}</h3>
-                    <p>{{ 'Lieu à définir' }}</p>
-                    <small>{{ offre.Description|default('Pas de description')|e }}</small>
+                    <h2>{{ offre.Titre|default('Titre non défini')|e }} - {{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</h2>
+                    <h4>Durée du stage : </h4>
+                    <p>{{ offre.Duree_mois|default('Durée à définir')|e }} Mois</p>
+                    <h4>Rémunération : </h4>
+                    <p>{{ offre.Remuneration|default('Rémunération à définir')|e }} €</p>
+                    <h4>Nombre de postes disponibles : </h4>
+                    <p>{{ offre.Nombre_place|default('Nombre de places à définir')|e }}</p><br>
+                    <h3>Description du poste : </h3>
+                    <p>{{ offre.Description|default('Pas de description')|e }}</p>
+                    <button type="link" class="btn-candidate">Postuler</button>
                 </div>
             {% endfor %}
         {% else %}
