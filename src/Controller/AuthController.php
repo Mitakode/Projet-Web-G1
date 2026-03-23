@@ -45,6 +45,12 @@ class AuthController
         exit;
     }
 
+    public function register()
+    {
+        header('Location: /login');
+        exit;
+    }
+
     public function forbidden()
     {
         View::render('auth/forbiden.html.twig');

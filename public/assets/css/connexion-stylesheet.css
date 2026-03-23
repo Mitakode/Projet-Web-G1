@@ -80,11 +80,3 @@ input[type="email"], input[type="password"], input[type="text"] {
     font-family: 'Segoe UI';
     margin: 0 auto;
 }
-
-/* LA SÉPARATION VERTICALE */
-.vertical-divider {
-    width: 2px;
-    background-color: #999;
-    height: 600px;
-    align-self: center;
-}

@@ -18,10 +18,10 @@ class PannelModel
 
     public function getTypeUser($id): int
     {
-        $query = $this->pdo->prepare("SELECT Rôle FROM `Utilisateur` WHERE Id_user = ?");
+        $query = $this->pdo->prepare("SELECT Role FROM `Utilisateur` WHERE Id_user = ?");
         $query->execute([$id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
-        return (int) $result['Rôle'];
+        return (int) $result['Role'];
     }
 
     public function getUserInfos(int $id): array

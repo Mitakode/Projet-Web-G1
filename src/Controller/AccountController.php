@@ -14,7 +14,7 @@ class AccountController
     {
         $user = $_SESSION['user'];      
         $id   = $user['Id_user'];       
-        $role = $user['Rôle'];          
+        $role = $user['Role'];          
 
         switch ($role) {
             case 1: // Eleve normal
@@ -58,4 +58,3 @@ class AccountController
         
     }
 }
-

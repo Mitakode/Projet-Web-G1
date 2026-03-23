@@ -33,9 +33,31 @@ class Auth
         session_regenerate_id(true);
 
         unset($user['Password']);
+        if (isset($user['Role']) && !isset($user['Rôle'])) {
+            $user['Rôle'] = $user['Role'];
+        }
 
         $_SESSION['user'] = $user;
         $_SESSION['auth_at'] = time();
+    }
+
+    public static function register(array $data): array|false
+    {
+        $model = new AuthModel();
+
+        if ($model->emailExists($data['Email'])) {
+            return false;
+        }
+
+        $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
+
+        $user = $model->createUser($data);
+        if (!$user) {
+            return false;
+        }
+
+        self::login($user);
+        return $user;
     }
 
     public static function logout(): void
