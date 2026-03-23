@@ -19,7 +19,7 @@ define('APP_NAME', get_env('APP_NAME', 'CareerQuest'));
 define('APP_URL', get_env('APP_URL', 'http://localhost:8000'));
 
 // Base de données
-define('DB_HOST', get_env('DB_HOST', 'db'));
+define('DB_HOST', get_env('DB_HOST', '90.54.20.90'));
 define('DB_NAME', get_env('DB_NAME', 'projet_db'));      
 define('DB_USER', get_env('DB_USER', 'projet_user'));   
 define('DB_PASS', get_env('DB_PASS', 'projet_pass'));   

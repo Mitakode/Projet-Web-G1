@@ -16,7 +16,7 @@ class UtilisateurModel
 
     public function getByRole(int $role): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Utilisateur WHERE Rôle = :role");
+        $stmt = $this->pdo->prepare("SELECT * FROM Utilisateur WHERE Role = :role");
         $stmt->bindValue(':role', $role, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
