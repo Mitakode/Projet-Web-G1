@@ -18,12 +18,17 @@
 
         <div class="account">
             {% if isAuth %}
-                <a href="/account">
+                <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
+                <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
+                    <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
                     <div class="user-icon">
                         <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
                     </div>
-                    <span class="account-text">Mon compte</span>
-                </a>
+                </label>
+                <div class="account-menu">
+                    <a href="/account" class="account-menu-item">Mon compte</a>
+                    <a href="/logout" class="account-menu-item">Déconnexion</a>
+                </div>
             {% else %}
                 <a href="/login" class="account-button">
                     <span class="account-text">Connexion</span>
@@ -43,6 +48,9 @@
             <a class="mobile-menu-item" href="/account">
                 <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
                 <span>Mon compte</span>
+            </a>
+            <a class="mobile-menu-item" href="/logout">
+                <span>Déconnexion</span>
             </a>
         {% else %}
             <a class="mobile-menu-item mobile-menu-item--cta" href="/login">
