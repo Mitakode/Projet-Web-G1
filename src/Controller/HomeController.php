@@ -9,32 +9,35 @@ class HomeController
 {
     public function index()
     {
-
-        $offreModel = new OffreModel(); // On initialise le modèle
-
+        $offreModel = new OffreModel();
+        $searchQuery = isset($_GET['query']) ? trim((string) $_GET['query']) : '';
 
         $elementsParPage = 10;
 
-        // Lecture de l'url pour la page
         $pageActuelle = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         if ($pageActuelle < 1) {
             $pageActuelle = 1;
         }
 
-        // Calcul du nombre de page
-        $totalElements = $offreModel->getTotalOffres();
+        $totalElements = $offreModel->getTotalOffres($searchQuery);
         $totalPages = ceil($totalElements / $elementsParPage);
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
 
-        // Calcul du démarrage
+        if ($pageActuelle > $totalPages) {
+            $pageActuelle = $totalPages;
+        }
+
         $offset = ($pageActuelle - 1) * $elementsParPage;
 
-        // On demande au modèle de nous envoyer les pages de x à y
-        $offres = $offreModel->getOffresPaginated($elementsParPage, $offset);
+        $offres = $offreModel->getOffresPaginated($elementsParPage, $offset, $searchQuery);
 
         View::render('home.html.twig', [
-            'offres' => $offres,
-            'totalPages' => $totalPages,
-            'pageActuelle' => $pageActuelle
+            'offres'      => $offres,
+            'totalPages'  => $totalPages,
+            'pageActuelle' => $pageActuelle,
+            'searchQuery' => $searchQuery
         ]);
     }
 }

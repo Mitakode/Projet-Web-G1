@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Career Quest</title>
+    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/pannel_admin_style.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<div class="container">
+    <section class="mes-informations">
+        <h2>Mes Informations</h2>
+
+        <div class="info-item">
+            <label>Nom Prénom :</label>
+            <p>{{ user.Nom }} {{ user.Prenom }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Email :</label>
+            <p>{{ user.Email }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Rôle :</label>
+            <p>{{ user.Role }}</p>
+        </div>
+    </section>
+</div>
+
+<div class="favoris-candidatures-container">
+
+    <section class="menus">
+        <h2>Pilotes</h2>
+        <div class="list-scroll-container">
+            {% for pilote in pilotes %}
+                <div class="annonce-card">
+                    <h3>{{ pilote.Nom }} {{ pilote.Prenom }}</h3>
+                    <p>{{ pilote.Email }}</p>
+                </div>
+            {% else %}
+                <p>Aucun pilote trouvé.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="menus">
+        <h2>Élèves</h2>
+        <div class="list-scroll-container">
+            {% for eleve in eleves %}
+                <div class="annonce-card">
+                    <h3>{{ eleve.Nom }} {{ eleve.Prenom }}</h3>
+                    <p>{{ eleve.Email }}</p>
+                </div>
+            {% else %}
+                <p>Aucun élève trouvé.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="menus">
+        <h2>Entreprises</h2>
+        <div class="list-scroll-container">
+            {% for entreprise in entreprises %}
+                <div class="annonce-card">
+                    <h3>{{ entreprise.Nom }}</h3>
+                    <p>{{ entreprise.Email_contact }}</p>
+                </div>
+            {% else %}
+                <p>Aucune entreprise trouvée.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="menus">
+        <h2>Stages</h2>
+        <div class="list-scroll-container">
+            {% for offre in offres %}
+                <div class="annonce-card">
+                    <h3>{{ offre.Titre }}</h3>
+                    <p>{{ offre.Description }}</p>
+                </div>
+            {% else %}
+                <p>Aucun stage trouvé.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+
+{% include 'partials/_footer.html.twig' %}
+
+</body>
+</html>
