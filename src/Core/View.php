@@ -12,6 +12,17 @@ class View
         $loader = new FilesystemLoader(__DIR__ . "/../../templates");
         $twig = new Environment($loader);
 
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        if (!array_key_exists('isAuth', $data)) {
+            $data['isAuth'] = isset($_SESSION['user']);
+        }
+        if (!array_key_exists('authUser', $data)) {
+            $data['authUser'] = $_SESSION['user'] ?? null;
+        }
+
         echo $twig->render($view, $data);
     }
 }
