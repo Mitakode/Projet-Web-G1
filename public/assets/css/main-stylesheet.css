@@ -347,6 +347,19 @@
         color: #000;
     }
 
+    .mobile-menu-item--cta {
+        background-color: #348635;
+        border: 1px solid #444;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .mobile-menu-item--cta:hover,
+    .mobile-menu-item--cta:focus {
+        background-color: #2f7a30;
+        color: #000;
+    }
+
     .mobile-menu-item img {
         width: 20px;
         height: 20px;
