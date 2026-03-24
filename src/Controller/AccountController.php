@@ -20,7 +20,7 @@ class AccountController
         $role = $user['Role'];          
 
         switch ($role) {
-            case 1: // Eleve normal
+            case 0: // Eleve normal
                 $pannelModel = new PannelModel();
 
                 $infos = $pannelModel->getUserInfos($id);
@@ -29,7 +29,7 @@ class AccountController
                 ]);
                 return;
 
-            case 2: // Pilote
+            case 1: // Pilote
                 $utilisateurModel = new UtilisateurModel();
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
@@ -42,15 +42,15 @@ class AccountController
                 ]);
                 return;
 
-            case 3: // Admin
+            case 2: // Admin
                 $utilisateurModel = new UtilisateurModel();
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
 
                 View::render('pannel_admin.html.twig', [
                     'user'        => $user,
-                    'pilotes'     => $utilisateurModel->getByRole(2),
-                    'eleves'      => $utilisateurModel->getByRole(1),
+                    'pilotes'     => $utilisateurModel->getByRole(1),
+                    'eleves'      => $utilisateurModel->getByRole(0),
                     'entreprises' => $entrepriseModel->getAll(),
                     'offres'      => $offreModel->getAll(),
                 ]);
