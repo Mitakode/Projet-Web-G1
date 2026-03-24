@@ -88,6 +88,21 @@
     font-weight: bold;
 }
 
+.account-button {
+    background-color: #348635;
+    border: 2px solid #444;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: #000;
+    font-family: "Segoe UI";
+}
+
+.account-button:hover,
+.account-button:focus {
+    background-color: #2f7a30;
+    color: #000;
+}
+
 .site-footer {
     position: fixed;
     bottom: 0;
