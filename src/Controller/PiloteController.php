@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\UtilisateurModel;
+use App\Model\EntrepriseModel;
 use App\Core\View;
 
 class PiloteController
@@ -43,5 +44,16 @@ class PiloteController
             'users' => $users
         ]);
 
+    }
+
+    public function listEntreprise()
+    {
+        $model = new EntrepriseModel();
+
+        $entreprise = $model->getAll();
+
+        View::render('liste_entreprise.html.twig', [
+            'entreprises' => $entreprise
+        ]);
     }
 }
