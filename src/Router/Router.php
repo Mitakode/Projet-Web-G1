@@ -4,18 +4,10 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Core\View;
-use App\Controller\FicheController;
 
 $uri    = $_GET['uri'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
 
-$authController = new AuthController();
-$homeController = new HomeController();
-$ficheController = new FicheController();
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
