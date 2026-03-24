@@ -49,11 +49,12 @@
                 <td>{{ u.Description|default('') }}</td>
                 <td>{{ u.est_gere_par|default('') }}</td>
                 <td>
-                    <a href="/pilotes/edit?id={{ u.Id_user }}">
+                    <a href="/user?id={{ u.Id_user }}">
                         <button class="btn-edit">Modifier</button>
                     </a>
-                    <form method="POST" action="/pilotes/delete" style="display:inline"
-                          onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
+                    <form method="POST" action="/user" style="display:inline"
+                        onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
+                        <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
                     </form>

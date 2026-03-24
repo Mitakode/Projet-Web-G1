@@ -4,6 +4,7 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Controller\PiloteController;
+use App\Controller\UserController;
 use App\Core\View;
 
 $uri    = $_GET['uri'] ?? '/';
@@ -13,6 +14,7 @@ $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
 $pilotecontroller = new PiloteController();
+$userController = new UserController();
 
 switch ($uri) {
     case '/':
@@ -35,20 +37,24 @@ switch ($uri) {
         $accountController->index();
         break;
     
-    case '/account/student_list':
+    case '/student_list':
         $pilotecontroller->index();
         break;
     
-    case '/account/enterprise_list':
+    case '/enterprise_list':
         $pilotecontroller->listEntreprise();
         break;
     
-    case '/account/offer_list':
+    case '/offer_list':
         $pilotecontroller->listOffre();
         break;
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
+        break;
+    
+    case '/user':
+        $userController->index();
         break;
 
     default:

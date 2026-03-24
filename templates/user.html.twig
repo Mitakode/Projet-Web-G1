@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>CRUD — Utilisateur</title>
+</head>
+<body>
+
+<h1>CRUD — table <code>Utilisateur</code></h1>
+
+<h2>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
+
+<form method="POST" action="/user" class="main-form">
+    <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
+    {% if editUser %}
+        <input type="hidden" name="id" value="{{ editUser.Id_user }}">
+    {% endif %}
+
+    <label>Nom</label>
+    <input type="text" name="nom" value="{{ editUser.Nom|default('') }}" required>
+
+    <label>Prénom</label>
+    <input type="text" name="prenom" value="{{ editUser.Prenom|default('') }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ editUser.Email|default('') }}" required>
+
+    <label>Date de naissance</label>
+    <input type="date" name="date_naissance" value="{{ editUser.Date_naissance|default('') }}" required>
+
+    <label>Formation</label>
+    <input type="text" name="formation" value="{{ editUser.Formation|default('') }}" required>
+
+    <label>Description</label>
+    <input type="text" name="description" value="{{ editUser.Description|default('') }}" required>
+    
+    <label>Est géré par</label>
+    <input type="text" name="est_gere_par" value="{{ editUser.est_gere_par|default('') }}">
+
+    {% if editUser %}
+        <input type="hidden" name="role" value="{{ editUser.Role ?? 0 }}">
+    {% else %}
+        <label>Rôle</label>
+        <select name="role">
+            <option value="0">Élève</option>
+            <option value="1">Pilote</option>
+            <option value="2">Admin</option>
+        </select>
+    {% endif %}
+
+    {% if editUser %}
+        <input type="hidden" name="Password" value="{{ editUser.Password|default('') }}">
+    {% else %}
+        <label>Mot de passe</label>
+    <input type="text" name="Password" value="{{ editUser.Password|default('') }}">
+    {% endif %}
+
+
+    <button type="submit" class="btn btn-add">
+        {{ editUser ? 'Enregistrer' : 'Ajouter' }}
+    </button>
+    {% if editUser %}
+        <a href="/account" style="margin-left:10px;">Annuler</a>
+    {% endif %}
+</form>
+
+</body>
+</html>

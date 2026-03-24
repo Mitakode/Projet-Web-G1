@@ -89,8 +89,8 @@ class UtilisateurModel
             ':date_naissance' => $data['date_naissance'],
             ':formation' => $data['formation'],
             ':description' => $data['description'],
-            ':est_gere_par' => $data['est_gere_par'] ?: null,
-            ':role' => $data['role'],
+            ':est_gere_par' => !empty($data['est_gere_par']) ? (int)$data['est_gere_par'] : null,
+            ':role' => $data['role'] ?? 0,
             ':id' => $id,
         ]);
     }
