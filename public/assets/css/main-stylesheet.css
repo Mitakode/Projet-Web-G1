@@ -57,6 +57,7 @@
     align-items: center;
     cursor: pointer;
     flex: 0 0 120px;
+    position: relative;
 }
 
 .account a {
@@ -90,6 +91,65 @@
 .account-text {
     font-family: "Segoe UI";
     font-weight: bold;
+}
+
+.account-menu-toggle {
+    display: none;
+}
+
+.account-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 18px;
+    background: #f3f3f3;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.account-arrow {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.2s ease;
+}
+
+.account-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 160px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+}
+
+.account-menu-item {
+    text-decoration: none;
+    color: #222;
+    font-family: "Segoe UI";
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
+.account-menu-item:hover,
+.account-menu-item:focus {
+    background: #f3f3f3;
+}
+
+.account-menu-toggle:checked + .account-menu-button .account-arrow {
+    transform: rotate(90deg);
+}
+
+.account-menu-toggle:checked ~ .account-menu {
+    display: flex;
 }
 
 .account-button {
