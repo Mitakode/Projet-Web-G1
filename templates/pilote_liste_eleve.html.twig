@@ -25,7 +25,6 @@
                 <th>Date naissance</th>
                 <th>Formation</th>
                 <th>Description</th>
-                <th>Géré par</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -47,7 +46,6 @@
                 <td>{{ u.Date_naissance|default('') }}</td>
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
-                <td>{{ u.est_gere_par|default('') }}</td>
                 <td>
                     <a href="/user?id={{ u.Id_user }}">
                         <button class="btn-edit">Modifier</button>

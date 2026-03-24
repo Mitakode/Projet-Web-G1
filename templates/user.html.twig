@@ -34,8 +34,7 @@
     <label>Description</label>
     <input type="text" name="description" value="{{ editUser.Description|default('') }}" required>
     
-    <label>Est géré par</label>
-    <input type="text" name="est_gere_par" value="{{ editUser.est_gere_par|default('') }}">
+    <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
 
     {% if editUser %}
         <input type="hidden" name="role" value="{{ editUser.Role ?? 0 }}">

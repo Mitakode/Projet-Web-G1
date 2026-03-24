@@ -39,7 +39,8 @@ class UserController
         }
 
         View::render('user.html.twig', [
-            'editUser' => $editUser
+            'editUser' => $editUser,
+            'pilote_id' => $_SESSION['user']['Id_user'] ?? null
         ]);
     }
 }
