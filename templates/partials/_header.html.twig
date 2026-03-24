@@ -17,12 +17,18 @@
         </div>
 
         <div class="account">
-            <a href="/account">
-                <div class="user-icon">
-                    <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-                </div>
-                <span class="account-text">Mon compte</span>
-            </a>
+            {% if isAuth %}
+                <a href="/account">
+                    <div class="user-icon">
+                        <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
+                    </div>
+                    <span class="account-text">Mon compte</span>
+                </a>
+            {% else %}
+                <a href="/login" class="account-button">
+                    <span class="account-text">Connexion</span>
+                </a>
+            {% endif %}
         </div>
 >>>>>>> 0f71a53 (feat(ui): menu mobile + header centré)
     </div>
@@ -33,10 +39,17 @@
     </label>
 
     <div class="mobile-menu">
-        <a class="mobile-menu-item" href="/account">
-            <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
-            <span>Mon compte</span>
-        </a>
+        {% if isAuth %}
+            <a class="mobile-menu-item" href="/account">
+                <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
+                <span>Mon compte</span>
+            </a>
+        {% else %}
+            <a class="mobile-menu-item mobile-menu-item--cta" href="/login">
+                <img src="/assets/images/user_icon.svg" alt="Connexion"/>
+                <span>Connexion</span>
+            </a>
+        {% endif %}
         <label class="mobile-menu-item" for="mobile-search-toggle">
             <img src="/assets/images/loupe.png" alt="Rechercher"/>
             <span>Rechercher</span>
