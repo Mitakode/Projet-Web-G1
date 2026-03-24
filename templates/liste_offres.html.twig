@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Career Quest</title>
+    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/liste_entreprise.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<main>
+    <h2>Liste des offres ({{ offres|length }})</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Rémunération</th>
+                <th>Date de l'offre</th>
+                <th>Durée (mois)</th>
+                <th>Nombre de places</th>
+                <th>Id de l'entreprise</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in offres %}
+            <tr>
+                <td>{{ o.Id_offre }}</td>
+                <td>{{ o.Titre }}</td>
+                <td>{{ o.Description }}</td>
+                <td>{{ o.Remuneration }}</td>
+                <td>{{ o.Date_offre }}</td>
+                <td>{{ o.Duree_mois }}</td>
+                <td>{{ o.Nombre_place }}</td>
+                <td>{{ o.Id_entreprise }}</td>
+                <td>
+                    <a href="/pilotes/edit?id={{ o.Id_offre }}">
+                        <button class="btn-edit">Modifier</button>
+                    </a>
+                    <form method="POST" action="/pilotes/delete" style="display:inline"
+                          onsubmit="return confirm('Supprimer {{ o.Nom }} ?')">
+                        <input type="hidden" name="id" value="{{ o.Id_offre }}">
+                        <button type="submit" class="btn-delete">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+                <tr><td colspan="10">Aucune offre trouvée.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+{% include 'partials/_footer.html.twig' %}
+
+</body>
+</html>

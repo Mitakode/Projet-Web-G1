@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\UtilisateurModel;
 use App\Model\EntrepriseModel;
+use App\Model\OffreModel;
 use App\Core\View;
 
 class PiloteController
@@ -54,6 +55,17 @@ class PiloteController
 
         View::render('liste_entreprise.html.twig', [
             'entreprises' => $entreprise
+        ]);
+    }
+
+    public function listOffre()
+    {
+        $model = new OffreModel();
+
+        $offres = $model->getAll();
+
+        View::render('liste_offres.html.twig', [
+            'offres' => $offres
         ]);
     }
 }

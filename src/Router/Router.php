@@ -42,6 +42,10 @@ switch ($uri) {
     case '/account/enterprise_list':
         $pilotecontroller->listEntreprise();
         break;
+    
+    case '/account/offer_list':
+        $pilotecontroller->listOffre();
+        break;
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
