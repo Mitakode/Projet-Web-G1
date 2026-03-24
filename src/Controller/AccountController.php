@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Auth;
 use App\Core\View;
 use App\Model\PannelModel;
 use App\Model\UtilisateurModel;
@@ -11,18 +12,12 @@ use App\Model\OffreModel;
 class AccountController
 {
     public function index()
-    {  
-            $_SESSION['user'] = [
-                'Id_user' => 4,
-                'Role'    => 1,                 //Pour simuler une session
-                'Nom'     => 'Test',
-                'Prenom'  => 'Admin',
-            ];
+    {
+        Auth::requireAuth();
 
-    $user = $_SESSION['user'];
-    $id   = $user['Id_user'];
-    $role = $user['Role']; 
-
+        $user = Auth::user();
+        $id   = $user['Id_user'];       
+        $role = $user['Role'];          
 
         switch ($role) {
             case 0: // Eleve normal
@@ -66,4 +61,3 @@ class AccountController
         
     }
 }
-

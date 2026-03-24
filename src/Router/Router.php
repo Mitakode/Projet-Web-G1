@@ -6,6 +6,7 @@ use App\Controller\AccountController;
 use App\Controller\PiloteController;
 use App\Controller\UserController;
 use App\Core\View;
+use App\Core\Auth;
 
 $uri    = $_GET['uri'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
@@ -22,7 +23,9 @@ switch ($uri) {
         break;
 
     case '/login':
-        if ($method == 'GET') {
+        if (Auth::check()){
+            header('Location: /');
+        } else if ($method == 'GET') {
             $authController->showLogin();
         } else {
             $authController->login();
@@ -31,6 +34,10 @@ switch ($uri) {
 
     case '/logout':
         $authController->logout();
+        break;
+
+    case '/register':
+        header('Location: /login');
         break;
 
     case '/account':

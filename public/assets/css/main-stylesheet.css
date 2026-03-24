@@ -13,6 +13,8 @@
     background-color: white;
     border-bottom: 1px solid #ddd;
     font-family: sans-serif;
+    position: relative;
+    gap: 24px;
 }
 
 .logo {
@@ -20,6 +22,7 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    flex: 0 0 160px;
 }
 
 .logo img {
@@ -30,7 +33,7 @@
 .search-container {
     flex-grow: 1;
     max-width: 600px;
-    margin: 0 60px;
+    margin: 0 auto;
 }
 
 .search-bar {
@@ -53,6 +56,8 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    flex: 0 0 120px;
+    position: relative;
 }
 
 .account a {
@@ -88,6 +93,86 @@
     font-weight: bold;
 }
 
+.account-menu-toggle {
+    display: none;
+}
+
+.account-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 18px;
+    background: #f3f3f3;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.account-arrow {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.2s ease;
+}
+
+.account-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 160px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+}
+
+.account-menu-item {
+    text-decoration: none;
+    color: #222;
+    font-family: "Segoe UI";
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
+.account-menu-item:hover,
+.account-menu-item:focus {
+    background: #f3f3f3;
+}
+
+.account-menu-toggle:checked + .account-menu-button .account-arrow {
+    transform: rotate(90deg);
+}
+
+.account-menu-toggle:checked ~ .account-menu {
+    display: flex;
+}
+
+.account-button {
+    background-color: #348635;
+    border: 2px solid #444;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: #000;
+    font-family: "Segoe UI";
+}
+
+.account-button:hover,
+.account-button:focus {
+    background-color: #2f7a30;
+    color: #000;
+}
+
+.nav-panel {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
 .site-footer {
     position: fixed;
     bottom: 0;
@@ -115,4 +200,209 @@
 
 .footer-link:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 10px 16px;
+    }
+
+    .logo img {
+        width: 120px;
+    }
+
+    .nav-panel {
+        display: none;
+    }
+
+    .search-container {
+        max-width: none;
+        margin: 0;
+        width: 100%;
+    }
+
+    .search-bar {
+        border-width: 2px;
+        padding: 10px 14px;
+    }
+
+    .account {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .user-icon {
+        width: 44px;
+    }
+
+    .account-text {
+        font-size: 14px;
+    }
+
+    .site-footer {
+        position: static;
+    }
+
+    .site-footer p {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+}
+
+.mobile-menu-toggle,
+.mobile-search-toggle {
+    display: none;
+}
+
+.mobile-fab,
+.mobile-menu,
+.mobile-search {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .mobile-fab {
+        display: flex;
+        position: fixed !important;
+        right: 16px;
+        bottom: 16px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #17496E;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        align-items: center;
+        justify-content: center;
+        z-index: 3000;
+        cursor: pointer;
+    }
+
+    .mobile-fab span,
+    .mobile-fab span::before,
+    .mobile-fab span::after {
+        display: block;
+        width: 24px;
+        height: 3px;
+        background: #ffffff;
+        border-radius: 2px;
+        position: relative;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        content: "";
+    }
+
+    .mobile-fab span::before {
+        position: absolute;
+        top: -7px;
+    }
+
+    .mobile-fab span::after {
+        position: absolute;
+        top: 7px;
+    }
+
+    .mobile-menu {
+        display: flex;
+        position: fixed !important;
+        right: 16px;
+        bottom: 84px;
+        flex-direction: column;
+        gap: 10px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+        transform: scale(0.9);
+        opacity: 0;
+        pointer-events: none;
+        transform-origin: bottom right;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        z-index: 3000;
+    }
+
+    .mobile-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 14px;
+        color: #222;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: #f3f3f3;
+        border: 1px solid #e0e0e0;
+    }
+
+    .mobile-menu-item--cta {
+        background-color: #348635;
+        border: 1px solid #444;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .mobile-menu-item--cta:hover,
+    .mobile-menu-item--cta:focus {
+        background-color: #2f7a30;
+        color: #000;
+    }
+
+    .mobile-menu-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-menu-toggle:checked ~ .mobile-menu {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .mobile-menu-toggle:checked + .mobile-fab span {
+        transform: rotate(45deg);
+    }
+
+    .mobile-menu-toggle:checked + .mobile-fab span::before {
+        transform: rotate(90deg);
+        top: 0;
+    }
+
+    .mobile-menu-toggle:checked + .mobile-fab span::after {
+        opacity: 0;
+    }
+
+    .mobile-search {
+        position: fixed;
+        inset: 0;
+        z-index: 3500;
+        display: none;
+    }
+
+    .mobile-search-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+    }
+
+    .mobile-search-box {
+        position: relative;
+        margin: 120px 20px 0 20px;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mobile-search-title {
+        font-family: "Segoe UI", sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .mobile-search-toggle:checked ~ .mobile-search {
+        display: block;
+    }
 }
