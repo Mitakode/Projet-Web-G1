@@ -12,17 +12,11 @@
     </div>
 
     <div class="account">
-        {% if isAuth %}
-            <a href="/account">
-                <div class="user-icon">
-                    <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-                </div>
-                <span class="account-text">Mon compte</span>
-            </a>
-        {% else %}
-            <a href="/login" class="account-button">
-                <span class="account-text">Connexion</span>
-            </a>
-        {% endif %}
+        <a href="/login">
+            <div class="user-icon">
+                <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
+            </div>
+            <span class="account-text">Mon compte</span>
+        </a>
     </div>
 </header>
