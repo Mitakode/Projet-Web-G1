@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Career Quest</title>
+    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/liste_eleve.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<main>
+    <h2>Liste des utilisateurs ({{ users|length }})</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Date naissance</th>
+                <th>Formation</th>
+                <th>Description</th>
+                <th>Géré par</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.Id_user }}</td>
+                <td>{{ u.Nom }}</td>
+                <td>{{ u.Prenom }}</td>
+                <td>{{ u.Email }}</td>
+                <td>
+                    <span class="badge">
+                        {% if u.Role == 0 %}Élève
+                        {% elseif u.Role == 1 %}Pilote
+                        {% elseif u.Role == 2 %}Admin
+                        {% else %}Inconnu{% endif %}
+                    </span>
+                </td>
+                <td>{{ u.Date_naissance|default('') }}</td>
+                <td>{{ u.Formation|default('') }}</td>
+                <td>{{ u.Description|default('') }}</td>
+                <td>{{ u.est_gere_par|default('') }}</td>
+                <td>
+                    <a href="/pilotes/edit?id={{ u.Id_user }}">
+                        <button class="btn-edit">Modifier</button>
+                    </a>
+                    <form method="POST" action="/pilotes/delete" style="display:inline"
+                          onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
+                        <input type="hidden" name="id" value="{{ u.Id_user }}">
+                        <button type="submit" class="btn-delete">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+                <tr><td colspan="10">Aucun utilisateur trouvé.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+{% include 'partials/_footer.html.twig' %}
+
+</body>
+</html>
