@@ -1,6 +1,5 @@
 .main-container {
     display: grid !important;
-    grid-template-columns: 1fr 2fr;
     gap: 30px;
     padding: 40px;
     max-width: 1200px;
@@ -14,7 +13,7 @@
     border-radius: 15px;
     margin-bottom: 20px;
     font-family: "Segoe UI", sans-serif;
-
+    position: relative;
 }
 
 .detail-offer {
@@ -33,11 +32,17 @@
 }
 
 .btn-candidate {
-    background-color: #17496E ;
+    background-color: #348635;
     color: white;
     padding: 10px 20px;
-    border: none;
+    border: 2px solid #348635;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    display: inline-block;
 }
