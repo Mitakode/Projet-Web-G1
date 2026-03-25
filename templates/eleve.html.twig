@@ -10,7 +10,7 @@
 
 <h2>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
 
-<form method="POST" action="/user" class="main-form">
+<form method="POST" action="/eleve" class="main-form">
     <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
     {% if editUser %}
         <input type="hidden" name="id" value="{{ editUser.Id_user }}">
@@ -58,9 +58,13 @@
     <button type="submit" class="btn btn-add">
         {{ editUser ? 'Enregistrer' : 'Ajouter' }}
     </button>
+
     {% if editUser %}
+        <a href="/student_list" style="margin-left:10px;">Annuler</a>
+    {% else %}
         <a href="/account" style="margin-left:10px;">Annuler</a>
     {% endif %}
+    
 </form>
 
 </body>

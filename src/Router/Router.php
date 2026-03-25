@@ -4,7 +4,6 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Controller\PiloteController;
-use App\Controller\UserController;
 use App\Controller\OffreController;
 use App\Core\View;
 use App\Core\Auth;
@@ -16,7 +15,6 @@ $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
 $pilotecontroller = new PiloteController();
-$userController = new UserController();
 $offreController = new OffreController();
 
 switch ($uri) {
@@ -62,12 +60,16 @@ switch ($uri) {
         View::render('mentions_legales.html.twig');
         break;
     
-    case '/user':
-        $userController->index();
+    case '/eleve':
+        $pilotecontroller->index();
         break;
     
     case '/offres_de_stages':
         $offreController->index();
+        break;
+    
+    case '/student_creation':
+        $pilotecontroller->addEleve();
         break;
 
     default:

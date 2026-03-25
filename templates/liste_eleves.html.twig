@@ -47,10 +47,10 @@
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
                 <td>
-                    <a href="/user?id={{ u.Id_user }}">
+                    <a href="/eleve?id={{ u.Id_user }}">
                         <button class="btn-edit">Modifier</button>
                     </a>
-                    <form method="POST" action="/user" style="display:inline"
+                    <form method="POST" action="/eleve" style="display:inline"
                         onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">

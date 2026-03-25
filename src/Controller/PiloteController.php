@@ -17,34 +17,44 @@ class PiloteController
 
         if ($action === 'add') {
             $model->create($_POST);
-            header('Location: /account');
+            header('Location: /student_list');
             exit;
         }
 
         if ($action === 'edit') {
             $model->update($_POST['id'], $_POST);
-            header('Location: /account');
+            header('Location: /student_list');
             exit;
         }
 
         if ($action === 'delete') {
             $model->delete($_POST['id']);
-            header('Location: /account');
+            header('Location: /student_list');
             exit;
         }
 
-        $users = $model->getByRoleandestgerepar(0,$_SESSION['user']['Id_user']);
-
         $editUser = null;
-        if (isset($_GET['edit'])) {
-            $editUser = $model->getById($_GET['edit']);
+        if (isset($_GET['id'])) {
+            $editUser = $model->getById((int)$_GET['id']);
+            View::render('eleve.html.twig', [
+                'editUser' => $editUser,
+                'pilote_id' => $_SESSION['user']['Id_user'] ?? null
+            ]);
+            return;
         }
 
+        $users = $model->getByRoleandestgerepar(0, $_SESSION['user']['Id_user']);
         View::render('liste_eleves.html.twig', [
-            'edituser'  => $editUser,
             'users' => $users
         ]);
+    }
 
+    public function addEleve()
+    {
+        View::render('eleve.html.twig', [
+            'editUser' => null,
+            'pilote_id' => $_SESSION['user']['Id_user'] ?? null
+        ]);
     }
 
     public function listEntreprise()
