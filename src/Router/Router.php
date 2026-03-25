@@ -3,6 +3,7 @@
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
+use App\Controller\WishlistController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -12,6 +13,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
+$wishlistController = new WishlistController();
 
 switch ($uri) {
     case '/':
@@ -42,6 +44,22 @@ switch ($uri) {
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
+        break;
+
+    case '/wishlist/add':
+        if ($method === 'POST') {
+            $wishlistController->add();
+        } else {
+            http_response_code(405);
+        }
+        break;
+
+    case '/wishlist/remove':
+        if ($method === 'POST') {
+            $wishlistController->remove();
+        } else {
+            http_response_code(405);
+        }
         break;
 
     default:
