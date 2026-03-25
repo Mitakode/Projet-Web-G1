@@ -59,4 +59,60 @@ class OffreModel
         ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getById(int $id): array|false
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Id_offre = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function create(): void
+    {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO Offre (Titre, Description, Date_offre, Duree_mois, Nombre_place, Id_entreprise) 
+            VALUES (:titre, :description, :date_offre, :duree_mois, :nombre_place, :id_entreprise)
+        ");
+
+        $stmt->execute([
+            ':titre' => $_POST['titre'],
+            ':description' => $_POST['description'],
+            ':date_offre' => $_POST['date_offre'],
+            ':duree_mois' => $_POST['duree_mois'],
+            ':nombre_place' => $_POST['nombre_place'],
+            ':id_entreprise' => $_POST['id_entreprise'] ?: null,
+        ]);
+    }
+
+    public function update(int $id): void
+    {
+        $stmt = $this->pdo->prepare("
+            UPDATE Offre SET
+                Titre = :titre,
+                Description = :description,
+                Date_offre = :date_offre,
+                Duree_mois = :duree_mois,
+                Nombre_place = :nombre_place,
+                Id_entreprise = :id_entreprise
+            WHERE Id_offre = :id
+        ");
+
+        $stmt->execute([
+            ':titre' => $_POST['titre'],
+            ':description' => $_POST['description'],
+            ':date_offre' => $_POST['date_offre'],
+            ':duree_mois' => $_POST['duree_mois'],
+            ':nombre_place' => $_POST['nombre_place'],
+            ':id_entreprise' => $_POST['id_entreprise'] ?: null,
+            ':id' => $id,
+        ]);
+    }
+
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Offre WHERE Id_offre = :id");
+        $stmt->execute([':id' => $id]);
+    }
 }

@@ -40,10 +40,10 @@
                 <td>{{ o.Nombre_place }}</td>
                 <td>{{ o.Nom_entreprise|default('Inconnue') }}</td>
                 <td>
-                    <a href="/pilotes/edit?id={{ o.Id_offre }}">
+                    <a href="/offres_de_stages">
                         <button class="btn-edit">Modifier</button>
                     </a>
-                    <form method="POST" action="/pilotes/delete" style="display:inline"
+                    <form method="POST" action="/offres_de_stages" style="display:inline"
                           onsubmit="return confirm('Supprimer {{ o.Nom }} ?')">
                         <input type="hidden" name="id" value="{{ o.Id_offre }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
