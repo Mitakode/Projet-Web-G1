@@ -113,6 +113,7 @@ class OffreModel
     public function delete(int $id): void
     {
         $stmt = $this->pdo->prepare("DELETE FROM Offre WHERE Id_offre = :id");
-        $stmt->execute([':id' => $id]);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 }

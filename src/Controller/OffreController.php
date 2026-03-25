@@ -16,19 +16,19 @@ class OffreController
 
             if ($action === 'edit') {
                 $model->update((int)$_POST['id'], $_POST);
-                header('Location: /liste_offres');
+                header('Location: /offer_list');
                 exit;
             }
 
             if ($action === 'add') {
                 $model->create($_POST);
-                header('Location: /liste_offres');
+                header('Location: /offer_list');
                 exit;
             }
 
             if ($action === 'delete') {
                 $model->delete((int)$_POST['id']);
-                header('Location: /liste_offres');
+                header('Location: /offer_list');
                 exit;
             }
         }

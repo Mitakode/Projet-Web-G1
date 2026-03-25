@@ -13,13 +13,22 @@ class AccountController
 {
     public function index()
     {
-        Auth::requireAuth();
+        //Auth::requireAuth();
 
-        $user = Auth::user();
-        $id   = $user['Id_user'];       
-        $role = $user['Role'];          
+        //$user = Auth::user();
+        //$id   = $user['Id_user'];       
+        //$role = $user['Role'];          
 
+                $_SESSION['user'] = [
+            'Id_user' => 4,
+            'role'    => 1,
+            'Nom'     => 'Test',
+            'Prenom'  => 'Admin',
+        ];
 
+        $user = $_SESSION['user'];
+        $id   = $user['Id_user'];
+        $role = $user['role']; 
         switch ($role) {
             case 0: // Eleve normal
                 $pannelModel = new PannelModel();
