@@ -4,7 +4,6 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Controller\PiloteController;
-use App\Controller\OffreController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -15,7 +14,6 @@ $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
 $pilotecontroller = new PiloteController();
-$offreController = new OffreController();
 
 switch ($uri) {
     case '/':
@@ -65,7 +63,7 @@ switch ($uri) {
         break;
     
     case '/offres_de_stages':
-        $offreController->index();
+        $pilotecontroller->Offre();
         break;
     
     case '/student_creation':
