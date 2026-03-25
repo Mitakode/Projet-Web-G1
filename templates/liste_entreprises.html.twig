@@ -34,7 +34,7 @@
                 <td>{{ e.Description }}</td>
                 <td>{{ e.Email }}</td>
                 <td>{{ e.Telephone|default('') }}</td>
-                <td>{{ e.Est_actif|default('') }}</td>
+                <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
                 <td>
                     <a href="/pilotes/edit?id={{ e.Id_entreprise }}">
                         <button class="btn-edit">Modifier</button>

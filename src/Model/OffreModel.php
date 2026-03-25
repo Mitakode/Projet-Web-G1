@@ -52,7 +52,11 @@ class OffreModel
     }
     public function getAll(): array
     {
-    $query = $this->pdo->query("SELECT * FROM Offre");
-    return $query->fetchAll(PDO::FETCH_ASSOC);
+        $query = $this->pdo->query("
+            SELECT o.*, e.Nom AS Nom_entreprise 
+            FROM Offre o
+            LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
+        ");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

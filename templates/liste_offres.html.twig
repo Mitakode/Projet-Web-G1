@@ -24,7 +24,7 @@
                 <th>Date de l'offre</th>
                 <th>Durée (mois)</th>
                 <th>Nombre de places</th>
-                <th>Id de l'entreprise</th>
+                <th>Entreprise</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,7 +38,7 @@
                 <td>{{ o.Date_offre }}</td>
                 <td>{{ o.Duree_mois }}</td>
                 <td>{{ o.Nombre_place }}</td>
-                <td>{{ o.Id_entreprise }}</td>
+                <td>{{ o.Nom_entreprise|default('Inconnue') }}</td>
                 <td>
                     <a href="/pilotes/edit?id={{ o.Id_offre }}">
                         <button class="btn-edit">Modifier</button>
