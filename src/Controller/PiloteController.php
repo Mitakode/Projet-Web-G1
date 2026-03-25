@@ -40,7 +40,7 @@ class PiloteController
             $editUser = $model->getById($_GET['edit']);
         }
 
-        View::render('pilote_liste_eleve.html.twig', [
+        View::render('liste_eleves.html.twig', [
             'edituser'  => $editUser,
             'users' => $users
         ]);
@@ -53,7 +53,7 @@ class PiloteController
 
         $entreprise = $model->getAll();
 
-        View::render('liste_entreprise.html.twig', [
+        View::render('liste_entreprises.html.twig', [
             'entreprises' => $entreprise
         ]);
     }
