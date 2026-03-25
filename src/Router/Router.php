@@ -4,6 +4,7 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Core\View;
+use App\Core\Auth;
 
 $uri    = $_GET['uri'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
@@ -18,7 +19,9 @@ switch ($uri) {
         break;
 
     case '/login':
-        if ($method == 'GET') {
+        if (Auth::check()){
+            header('Location: /');
+        } else if ($method == 'GET') {
             $authController->showLogin();
         } else {
             $authController->login();
