@@ -69,6 +69,18 @@ switch ($uri) {
     case '/student_creation':
         $pilotecontroller->addEleve();
         break;
+    
+    case '/entreprise':
+    $pilotecontroller->Entreprise();
+    break;
+
+    case '/enterprise_list':
+    $pilotecontroller->listEntreprise();
+    break;
+
+    case '/add_entreprise':
+    $pilotecontroller->addEntreprise();
+    break;
 
     default:
         http_response_code(404);

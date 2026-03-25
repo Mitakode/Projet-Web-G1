@@ -32,15 +32,16 @@
                 <td>{{ e.Id_entreprise }}</td>
                 <td>{{ e.Nom }}</td>
                 <td>{{ e.Description }}</td>
-                <td>{{ e.Email }}</td>
+                <td>{{ e.Email_contact }}</td>
                 <td>{{ e.Telephone|default('') }}</td>
                 <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="/pilotes/edit?id={{ e.Id_entreprise }}">
+                    <a href="/entreprise?id={{ e.Id_entreprise }}">
                         <button class="btn-edit">Modifier</button>
                     </a>
-                    <form method="POST" action="/pilotes/delete" style="display:inline"
-                          onsubmit="return confirm('Supprimer {{ e.Nom }} ?')">
+                    <form method="POST" action="/entreprise" style="display:inline"
+                        onsubmit="return confirm('Supprimer {{ e.Nom }} ?')">
+                        <input type="hidden" name="action" value="delete">  {# ← manquait ça #}
                         <input type="hidden" name="id" value="{{ e.Id_entreprise }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
                     </form>

@@ -57,6 +57,50 @@ class PiloteController
         ]);
     }
 
+
+    public function Entreprise()
+    {
+        $model = new EntrepriseModel();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['action'] ?? null;
+
+            if ($action === 'edit') {
+                $model->update((int)$_POST['id'], $_POST);
+                header('Location: /enterprise_list');
+                exit;
+            }
+
+            if ($action === 'add') {
+                $model->create($_POST);
+                header('Location: /enterprise_list');
+                exit;
+            }
+
+            if ($action === 'delete') {
+                $model->delete((int)$_POST['id']);
+                header('Location: /enterprise_list');
+                exit;
+            }
+        }
+
+        $editEntreprise = null;
+        if (isset($_GET['id'])) {
+            $editEntreprise = $model->getById((int)$_GET['id']);
+        }
+
+        View::render('entreprise.html.twig', [
+            'editEntreprise' => $editEntreprise,
+        ]);
+    }
+
+    public function addEntreprise()
+    {
+        View::render('entreprise.html.twig', [
+            'editEntreprise' => null,
+        ]);
+    }
+
     public function listEntreprise()
     {
         $model = new EntrepriseModel();
