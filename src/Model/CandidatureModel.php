@@ -18,7 +18,7 @@ class CandidatureModel
 
     public function createCandidature($idOffre, $idUser, $cvName, $lmName)
     {
-        $sql = "INSERT INTO Candidature (Id_offre, Id_user, Cv, Lettre_motivation, Date_) VALUES (:idOffre, :idUser, :cv, :lm, NOW())";
+        $sql = "INSERT INTO Candidater (Id_offre, Id_user, Cv, LM, Date_) VALUES (:idOffre, :idUser, :cv, :lm, NOW())";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':idOffre' => $idOffre,
