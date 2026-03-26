@@ -51,7 +51,7 @@
 
                 {# Bouton Précédent #}
                 {% if pageActuelle > 1 %}
-                    <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Précédent
                     </a>
@@ -59,7 +59,7 @@
 
                 {# Numéros #}
                 {% for i in 1..totalPages %}
-                    <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
                         {{ i }}
                     </a>
@@ -67,7 +67,7 @@
 
                 {# Bouton Suivant #}
                 {% if pageActuelle < totalPages %}
-                    <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Suivant
                     </a>
