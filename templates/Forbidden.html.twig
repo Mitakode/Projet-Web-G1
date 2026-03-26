@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Interdit - Career Quest</title>
+    <link rel="stylesheet" href="/assets/css/main-stylesheet.css">
+    <link rel="stylesheet" href="/assets/css/Forbidden-style.css">
+</head>
+<body>
+
+    {% include 'partials/_header.html.twig' %}
+
+    <main class="forbidden-container">
+        <h1>403</h1>
+        <p>Désolé, vous n'avez pas la permission d'accéder à cette page.</p>
+        <a href="/" class="btn-home">Retour à l'accueil</a>
+    </main>
+
+    {% include 'partials/_footer.html.twig' %}
+</body>
+</html>
