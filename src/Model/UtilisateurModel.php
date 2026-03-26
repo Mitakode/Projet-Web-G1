@@ -48,22 +48,21 @@ class UtilisateurModel
 
     public function create(array $data): void
     {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO Utilisateur 
-            (Nom, Prenom, Email, Date_naissance, Formation, Description, est_gere_par, Role) 
-            VALUES 
-            (:nom, :prenom, :email, :date_naissance, :formation, :description, :est_gere_par, :role)
-        ");
+        $stmt = $this->pdo->prepare(
+            "INSERT INTO Utilisateur (Nom, Prenom, Date_naissance, Formation, Description, Email, Password, Role, est_gere_par)
+             VALUES (:nom, :prenom, :date_naissance, :formation, :description, :email, :password, :role, :est_gere_par)"
+        );
 
         $stmt->execute([
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':date_naissance' => $data['date_naissance'],
-            ':formation' => $data['formation'],
-            ':description' => $data['description'],
-            ':est_gere_par' => $data['est_gere_par'] ?: null,
-            ':role' => $data['role'] ?? 0,
+            'nom' => $data['Nom'],
+            'prenom' => $data['Prenom'],
+            'date_naissance' => $data['Date_naissance'],
+            'formation' => $data['Formation'],
+            'description' => $data['Description'],
+            'email' => $data['Email'],
+            'password' => $data['Password'],
+            'role' => $data['Role'],
+            'est_gere_par' => $data['est_gere_par'],
         ]);
     }
 
