@@ -52,6 +52,8 @@ switch ($uri) {
         } else {
             $candidatureController->index();
         }
+        break;
+
     case '/forbidden':
         http_response_code(403);
         View::render('Forbidden.html.twig');
