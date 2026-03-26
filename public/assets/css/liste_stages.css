@@ -70,3 +70,11 @@ tr:hover {
     background: #888;
 }
 
+.btn-back   { 
+    background: #716f6a; 
+    color: white;
+    border: none; 
+    border-radius: 6px; 
+    padding: 5px 12px; 
+    cursor: pointer; 
+}
