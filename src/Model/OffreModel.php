@@ -72,4 +72,12 @@ class OffreModel
         ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getOffreById($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Id_offre = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

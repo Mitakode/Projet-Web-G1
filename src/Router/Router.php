@@ -3,6 +3,7 @@
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
+use App\Controller\CandidatureController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -12,6 +13,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
+$candidatureController = new CandidatureController();
 
 switch ($uri) {
     case '/':
@@ -44,6 +46,12 @@ switch ($uri) {
         View::render('mentions_legales.html.twig');
         break;
 
+    case '/candidater':
+        if ($method === 'POST') {
+            $candidatureController->submit();
+        } else {
+            $candidatureController->index();
+        }
     case '/forbidden':
         http_response_code(403);
         View::render('Forbidden.html.twig');
