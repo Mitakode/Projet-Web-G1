@@ -5,21 +5,6 @@
         </a>
     </div>
 
-<<<<<<< HEAD
-    <div class="search-container">
-        <form method="GET" action="/">
-            <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
-        </form>
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    <div class="search-container">
-        <form method="GET" action="/">
-            <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
-        </form>
-=======
->>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
     <div class="nav-panel">
         <div class="search-container">
             <input type="text" placeholder="Rechercher" class="search-bar"/>
@@ -27,40 +12,23 @@
 
         <div class="account">
             {% if isAuth %}
-                <a href="/account">
+                <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
+                <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
+                    <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
                     <div class="user-icon">
                         <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
                     </div>
-                    <span class="account-text">Mon compte</span>
-                </a>
-=======
-            {% if isAuth %}
-                <a href="/account">
-                    <div class="user-icon">
-                        <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-                    </div>
-                    <span class="account-text">Mon compte</span>
-                </a>
->>>>>>> 3afd0bb (Bouton dynamique pour connexion :)
+                </label>
+                <div class="account-menu">
+                    <a href="/account" class="account-menu-item">Mon compte</a>
+                    <a href="/logout" class="account-menu-item">Déconnexion</a>
+                </div>
             {% else %}
                 <a href="/login" class="account-button">
                     <span class="account-text">Connexion</span>
                 </a>
             {% endif %}
-<<<<<<< HEAD
         </div>
-=======
-            <a href="/account">
-                <div class="user-icon">
-                    <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-                </div>
-                <span class="account-text">Mon compte</span>
-            </a>
-=======
->>>>>>> 3afd0bb (Bouton dynamique pour connexion :)
-        </div>
->>>>>>> 0f71a53 (feat(ui): menu mobile + header centré)
->>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
     </div>
 
     <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Ouvrir le menu mobile">
@@ -69,36 +37,20 @@
     </label>
 
     <div class="mobile-menu">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3afd0bb (Bouton dynamique pour connexion :)
         {% if isAuth %}
             <a class="mobile-menu-item" href="/account">
                 <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
                 <span>Mon compte</span>
             </a>
-<<<<<<< HEAD
             <a class="mobile-menu-item" href="/logout">
                 <span>Déconnexion</span>
             </a>
-=======
->>>>>>> 3afd0bb (Bouton dynamique pour connexion :)
         {% else %}
             <a class="mobile-menu-item mobile-menu-item--cta" href="/login">
                 <img src="/assets/images/user_icon.svg" alt="Connexion"/>
                 <span>Connexion</span>
             </a>
         {% endif %}
-<<<<<<< HEAD
-=======
-        <a class="mobile-menu-item" href="/account">
-            <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
-            <span>Mon compte</span>
-        </a>
->>>>>>> dab94a7 (feat(ui): menu mobile + header centré)
-=======
->>>>>>> 3afd0bb (Bouton dynamique pour connexion :)
         <label class="mobile-menu-item" for="mobile-search-toggle">
             <img src="/assets/images/loupe.png" alt="Rechercher"/>
             <span>Rechercher</span>
