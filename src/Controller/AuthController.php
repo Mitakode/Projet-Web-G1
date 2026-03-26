@@ -53,7 +53,8 @@ class AuthController
 
     public function forbidden()
     {
-        View::render('auth/forbiden.html.twig');
+        header('Location: /forbidden');
+        exit;
     }
 
 }

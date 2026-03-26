@@ -44,6 +44,11 @@ switch ($uri) {
         View::render('mentions_legales.html.twig');
         break;
 
+    case '/forbidden':
+        http_response_code(403);
+        View::render('Forbidden.html.twig');
+        break;
+
     default:
         http_response_code(404);
         echo $uri;
