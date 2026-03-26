@@ -37,7 +37,9 @@
                             <i class="{{ offre.is_in_wishlist ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
                         </button>
                     {% endif %}              
-                    <h2>{{ offre.Titre|default('Titre non défini')|e }} - {{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</h2>
+                    <h2>{{ offre.Titre|default('Titre non défini')|e }}</h2>
+                    <h4>Entreprise : </h4>
+                    <p>{{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</p>
                     <h4>Durée du stage : </h4>
                     <p>{{ offre.Duree_mois|default('Durée à définir')|e }} Mois</p>
                     <h4>Rémunération : </h4>
