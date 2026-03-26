@@ -48,28 +48,28 @@
 
     <div class="admin-card">
         <h2>ELEVES</h2>
-        <p>{{ eleves|length }} élèves enregistré</p>
-        <a href="/student_list"><button class="admin-btn">Modifier</button></a>
-        <a href="/student_creation"><button class="admin-btn">Ajouter</button></a>
-    </div>
+    <p>{{ eleves|length }} élève{% if eleves|length != 1 %}s{% endif %} enregistré{% if eleves|length != 1 %}s{% endif %}</p>  
+            <a href="/student_list"><button class="admin-btn">Modifier</button></a>  
+            <a href="/student_creation"><button class="admin-btn">Ajouter</button></a>  
+        </div>  
 
-    <div class="admin-card">
-        <h2>ENTREPRISES</h2>
-        <p>{{ entreprises|length }} entreprises enregistré</p>
-        <a href="/enterprise_list"><button class="admin-btn">Modifier</button></a>
-        <a href="/add_entreprise"><button class="admin-btn">Ajouter</button></a>  
-    </div>
+        <div class="admin-card">  
+            <h2>ENTREPRISES</h2>  
+            <p>{{ entreprises|length }} entreprise{% if entreprises|length != 1 %}s{% endif %} enregistrée{% if entreprises|length != 1 %}s{% endif %}</p>  
+            <a href="/enterprise_list"><button class="admin-btn">Modifier</button></a>  
+            <a href="/add_entreprise"><button class="admin-btn">Ajouter</button></a>  
+        </div>  
 
-    <div class="admin-card">
-        <h2>STAGES</h2>
-        <p>{{ offres|length }} stages enregistré</p>
-        <a href="/offer_list"><button class="admin-btn">Modifier</button></a>
-        <a href="/offres_de_stages"><button class="admin-btn">Ajouter</button></a>
-    </div>
+        <div class="admin-card">  
+            <h2>STAGES</h2>  
+            <p>{{ offres|length }} stage{% if offres|length != 1 %}s{% endif %} enregistré{% if offres|length != 1 %}s{% endif %}</p>  
+            <a href="/offer_list"><button class="admin-btn">Modifier</button></a>  
+            <a href="/offres_de_stages"><button class="admin-btn">Ajouter</button></a>  
+        </div>  
 
-    <div class="admin-card">    
-        <h2>PILOTES</h2>
-        <p>{{ pilotes|length }} pilotes enregistré</p>
+        <div class="admin-card">    
+            <h2>PILOTES</h2>  
+            <p>{{ pilotes|length }} pilote{% if pilotes|length != 1 %}s{% endif %} enregistré{% if pilotes|length != 1 %}s{% endif %}</p>  
         <a href="/pilotes_list"><button class="admin-btn">Modifier</button></a>
         <a href="/add_pilote"><button class="admin-btn">Ajouter</button></a>
     </div>

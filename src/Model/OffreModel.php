@@ -68,44 +68,45 @@ class OffreModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function create(): void
+    public function create(array $data): void
     {
         $stmt = $this->pdo->prepare("
-            INSERT INTO Offre (Titre, Description, Date_offre, Duree_mois, Nombre_place, Id_entreprise) 
-            VALUES (:titre, :description, :date_offre, :duree_mois, :nombre_place, :id_entreprise)
+            INSERT INTO Offre (Titre, Description, Remuneration, Date_offre, Duree_mois, Nombre_place, Id_entreprise)
+            VALUES (:titre, :description, :remuneration, :date_offre, :duree_mois, :nombre_place, :id_entreprise)
         ");
-
         $stmt->execute([
-            ':titre' => $_POST['titre'],
-            ':description' => $_POST['description'],
-            ':date_offre' => $_POST['date_offre'],
-            ':duree_mois' => $_POST['duree_mois'],
-            ':nombre_place' => $_POST['nombre_place'],
-            ':id_entreprise' => $_POST['id_entreprise'] ?: null,
+            ':titre'         => $data['titre'],
+            ':description'   => $data['description'],
+            ':remuneration'  => $data['remuneration'],
+            ':date_offre'    => $data['date_offre'],
+            ':duree_mois'    => $data['duree_mois'],
+            ':nombre_place'  => $data['nombre_place'],
+            ':id_entreprise' => $data['id_entreprise'] ?: null,
         ]);
     }
 
-    public function update(int $id): void
+    public function update(int $id, array $data): void
     {
         $stmt = $this->pdo->prepare("
             UPDATE Offre SET
-                Titre = :titre,
-                Description = :description,
-                Date_offre = :date_offre,
-                Duree_mois = :duree_mois,
-                Nombre_place = :nombre_place,
+                Titre         = :titre,
+                Description   = :description,
+                Remuneration  = :remuneration,
+                Date_offre    = :date_offre,
+                Duree_mois    = :duree_mois,
+                Nombre_place  = :nombre_place,
                 Id_entreprise = :id_entreprise
             WHERE Id_offre = :id
         ");
-
         $stmt->execute([
-            ':titre' => $_POST['titre'],
-            ':description' => $_POST['description'],
-            ':date_offre' => $_POST['date_offre'],
-            ':duree_mois' => $_POST['duree_mois'],
-            ':nombre_place' => $_POST['nombre_place'],
-            ':id_entreprise' => $_POST['id_entreprise'] ?: null,
-            ':id' => $id,
+            ':titre'         => $data['titre'],
+            ':description'   => $data['description'],
+            ':remuneration'  => $data['remuneration'],
+            ':date_offre'    => $data['date_offre'],
+            ':duree_mois'    => $data['duree_mois'],
+            ':nombre_place'  => $data['nombre_place'],
+            ':id_entreprise' => $data['id_entreprise'] ?: null,
+            ':id'            => $id,
         ]);
     }
 

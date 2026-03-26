@@ -13,7 +13,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
-$dashboardController = new DashboardController();
 
 switch ($uri) {
     case '/':
@@ -21,9 +20,9 @@ switch ($uri) {
         break;
 
     case '/login':
-        if (Auth::check()){
+        if (Auth::check()) {
             header('Location: /');
-        } else if ($method == 'GET') {
+        } elseif ($method == 'GET') {
             $authController->showLogin();
         } else {
             $authController->login();
@@ -41,58 +40,37 @@ switch ($uri) {
     case '/account':
         $accountController->index();
         break;
-    
-    case '/student_list':
-        $dashboardController->index();
-        break;
-    
-    case '/enterprise_list':
-        $dashboardController->listEntreprise();
-        break;
-    
-    case '/offer_list':
-        $dashboardController->listOffre();
-        break;
 
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
         break;
-    
+
+    case '/student_list':
     case '/eleve':
-        $dashboardController->index();
-        break;
-    
-    case '/offres_de_stages':
-        $dashboardController->Offre();
-        break;
-    
     case '/student_creation':
-        $dashboardController->addEleve();
-        break;
-    
-    case '/entreprise':
-    $dashboardController->Entreprise();
-    break;
-
     case '/enterprise_list':
-    $dashboardController->listEntreprise();
-    break;
-
+    case '/offer_list':
+    case '/offres_de_stages':
+    case '/entreprise':
     case '/add_entreprise':
-    $dashboardController->addEntreprise();
-    break;
-
     case '/pilotes_list':
-    $dashboardController->listPilotes();
-    break;
-
     case '/pilote':
-    $dashboardController->Pilote();
-    break;
-
     case '/add_pilote':
-    $dashboardController->addPilote();
-    break;
+        $dashboardController = new DashboardController();
+        match ($uri) {
+            '/student_list'    => $dashboardController->index(),
+            '/eleve'           => $dashboardController->index(),
+            '/student_creation'=> $dashboardController->addEleve(),
+            '/enterprise_list' => $dashboardController->listEntreprise(),
+            '/offer_list'      => $dashboardController->listOffre(),
+            '/offres_de_stages'=> $dashboardController->Offre(),
+            '/entreprise'      => $dashboardController->Entreprise(),
+            '/add_entreprise'  => $dashboardController->addEntreprise(),
+            '/pilotes_list'    => $dashboardController->listPilotes(),
+            '/pilote'          => $dashboardController->Pilote(),
+            '/add_pilote'      => $dashboardController->addPilote(),
+        };
+        break;
 
     default:
         http_response_code(404);

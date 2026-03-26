@@ -14,7 +14,7 @@ class UtilisateurModel
     $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function getByRoleandestgerepar(int $role, int $est_gere_par): array
+    public function getByRoleAndEstGerePar(int $role, int $est_gere_par): array
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Utilisateur WHERE `Role` = :role AND est_gere_par = :est_gere_par");
         $stmt->bindValue(':role', $role, PDO::PARAM_INT);
@@ -50,19 +50,19 @@ class UtilisateurModel
     {
         $stmt = $this->pdo->prepare(
             "INSERT INTO Utilisateur (Nom, Prenom, Date_naissance, Formation, Description, Email, Password, Role, est_gere_par)
-             VALUES (:nom, :prenom, :date_naissance, :formation, :description, :email, :password, :role, :est_gere_par)"
+            VALUES (:nom, :prenom, :date_naissance, :formation, :description, :email, :password, :role, :est_gere_par)"
         );
 
         $stmt->execute([
-            'nom' => $data['Nom'],
-            'prenom' => $data['Prenom'],
-            'date_naissance' => $data['Date_naissance'],
-            'formation' => $data['Formation'],
-            'description' => $data['Description'],
-            'email' => $data['Email'],
-            'password' => $data['Password'],
-            'role' => $data['Role'],
-            'est_gere_par' => $data['est_gere_par'],
+            'nom'            => $data['nom'],
+            'prenom'         => $data['prenom'],
+            'date_naissance' => $data['date_naissance'],
+            'formation'      => $data['formation'],
+            'description'    => $data['description'],
+            'email'          => $data['email'],
+            'password'       => password_hash($data['Password'], PASSWORD_DEFAULT),
+            'role'           => $data['role'] ?? 0,
+            'est_gere_par'   => $data['est_gere_par'] ?: null,
         ]);
     }
 

@@ -56,7 +56,7 @@
         <input type="hidden" name="Password" value="{{ editUser.Password|default('') }}">
     {% else %}
         <label>Mot de passe</label>
-        <input type="text" name="Password" value="{{ editUser.Password|default('') }}">
+        <input type="password" name="Password" value="{{ editUser.Password|default('') }}" autocomplete="new-password">
     {% endif %}
 
 

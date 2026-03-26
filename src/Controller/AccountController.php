@@ -36,7 +36,7 @@ class AccountController
 
                 View::render('pannel_pilote.html.twig', [
                     'user'        => $user,
-                    'eleves'      => $utilisateurModel->getByRoleandestgerepar(0,$id),
+                    'eleves'      => $utilisateurModel->getByRoleAndEstGerePar(0,$id),
                     'offres'      => $offreModel->getAll(),
                     'entreprises' => $entrepriseModel->getAll(),
                 ]);

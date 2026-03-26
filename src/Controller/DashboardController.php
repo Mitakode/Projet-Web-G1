@@ -5,63 +5,76 @@ namespace App\Controller;
 use App\Model\UtilisateurModel;
 use App\Model\EntrepriseModel;
 use App\Model\OffreModel;
+use App\Core\Auth;
 use App\Core\View;
 
 class DashboardController
 {
+    public function __construct()
+    {
+        Auth::requireAuth();
+        
+        $user = Auth::user();
+        $role = (int)($user['Role'] ?? 0);
+        
+        if ($role < 1) {
+            header('Location: /account');
+            exit;
+        }
+    }
+
     public function index()
     {
         $model = new UtilisateurModel();
+        $user  = Auth::user();
 
-        $action = $_POST['action'] ?? null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['action'] ?? null;
 
-        if ($action === 'add') {
-            $model->create($_POST);
-            header('Location: /student_list');
-            exit;
+            if ($action === 'add') {
+                $model->create($_POST);
+                header('Location: /student_list');
+                exit;
+            }
+            if ($action === 'edit') {
+                $model->update($_POST['id'], $_POST);
+                header('Location: /student_list');
+                exit;
+            }
+            if ($action === 'delete') {
+                $model->delete($_POST['id']);
+                header('Location: /student_list');
+                exit;
+            }
         }
 
-        if ($action === 'edit') {
-            $model->update($_POST['id'], $_POST);
-            header('Location: /student_list');
-            exit;
-        }
-
-        if ($action === 'delete') {
-            $model->delete($_POST['id']);
-            header('Location: /student_list');
-            exit;
-        }
-
-         $editUser = null;
         if (isset($_GET['id'])) {
             $editUser = $model->getById((int)$_GET['id']);
             View::render('eleve.html.twig', [
                 'editUser'     => $editUser,
-                'pilote_id'    => $_SESSION['user']['Id_user'] ?? null,
-                'session_role' => $_SESSION['user']['Role'] ?? null
+                'pilote_id'    => $user['Id_user'],
+                'session_role' => $user['Role']
             ]);
-            return; 
+            return;
         }
 
-        $role = $_SESSION['user']['Role'] ?? null;
+        $role = (int)($user['Role'] ?? 0);
+        $users = ($role === 2) 
+            ? $model->getByRole(0) 
+            : $model->getByRoleAndEstGerePar(0, $user['Id_user']);
 
-        if ($role === 2) {
-            $users = $model->getByRole(0);
-        } else {
-            $users = $model->getByRoleandestgerepar(0, $_SESSION['user']['Id_user']);
-        }
         View::render('liste_eleves.html.twig', [
             'users' => $users
         ]);
-}
+    }
 
     public function addEleve()
     {
+        $user = Auth::user();
         View::render('eleve.html.twig', [
             'editUser'     => null,
-            'pilote_id'    => $_SESSION['user']['Id_user'] ?? null,
-            'session_role' => $_SESSION['user']['Role'] ?? null
+            'pilote_id'    => $user['Id_user'],
+            'session_role' => $user['Role']
         ]);
     }
 
@@ -205,19 +218,21 @@ class DashboardController
             $editUser = $model->getById((int)$_GET['id']);
         }
 
+        $user = Auth::user();
         View::render('pilotes.html.twig', [
             'editUser'     => $editUser,
-            'pilote_id'    => $_SESSION['user']['Id_user'] ?? null,
-            'session_role' => $_SESSION['user']['Role'] ?? null
+            'pilote_id'    => $user['Id_user'],
+            'session_role' => $user['Role']
         ]);
     }
 
     public function addPilote()
     {
-        View::render('pilotes.html.twig', [
+    $user = Auth::user();
+    View::render('pilotes.html.twig', [
         'editUser'     => null,
-        'pilote_id'    => $_SESSION['user']['Id_user'] ?? null,
-        'session_role' => $_SESSION['user']['Role'] ?? null
-        ]);
+        'pilote_id'    => $user['Id_user'],
+        'session_role' => $user['Role']
+    ]);
     }
 }
