@@ -45,6 +45,7 @@ switch ($uri) {
         break;
 
     case '/forbidden':
+        http_response_code(403);
         View::render('Forbidden.html.twig');
         break;
 
