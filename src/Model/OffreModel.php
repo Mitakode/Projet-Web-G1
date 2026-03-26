@@ -72,4 +72,37 @@ class OffreModel
         ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function isInWishlist($idOffre, $idUser)
+    {
+        $sql = "SELECT * FROM Wishlist WHERE Id_offre = :idOffre AND Id_user = :idUser";
+        $params = ['idOffre' => $idOffre, 'idUser' => $idUser];
+        $stmt = $this->connection->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    
+    public function getWishlist($idUser)
+    {
+        $sql = "SELECT * FROM Wishlist WHERE Id_user = :idUser";
+        $params = ['idUser' => $idUser];
+        $stmt = $this->connection->getConnection()->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function addWishlist($idOffre, $idUser)
+    {
+        $sql = "INSERT INTO Wishlist (Id_user, Id_offre) VALUES (:idUser, :idOffre)";
+        $params = ['idUser' => $idUser, 'idOffre' => $idOffre];
+        $stmt = $this->connection->getConnection()->prepare($sql);
+        return $stmt->execute($params);
+    }
+
+    public function removeFromWishlist($idUser, $idOffre) 
+    {
+        $sql = "DELETE FROM Wishlist WHERE Id_user = :idUser AND Id_offre = :idOffre";
+        $stmt = $this->connection->getConnection()->prepare($sql);
+        return $stmt->execute(['idUser' => $idUser, 'idOffre' => $idOffre]);
+    }
 }

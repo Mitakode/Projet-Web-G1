@@ -33,11 +33,63 @@ class HomeController
 
         $offres = $offreModel->getOffresPaginated($elementsParPage, $offset, $searchQuery);
 
+        $userId = $_SESSION['user_id'] ?? null;
+        $userRole = $_SESSION['role'] ?? null; 
+
+        $isStudent = ($userId && $userRole === 0);
+
+        if ($isStudent) {
+            foreach ($offres as &$offre) {
+                $offre['is_in_wishlist'] = false; 
+                $wishlistEntry = $offreModel->isInWishlist($offre['Id_offre'], $userId);
+                
+                if ($wishlistEntry) {
+                    $offre['is_in_wishlist'] = true;
+                }
+            }
+            unset($offre);
+        }
+
         View::render('home.html.twig', [
-            'offres'      => $offres,
-            'totalPages'  => $totalPages,
+            'offres'       => $offres,
+            'totalPages'   => $totalPages,
             'pageActuelle' => $pageActuelle,
-            'searchQuery' => $searchQuery
+            'searchQuery'  => $searchQuery,
+            'isStudent'    => $isStudent,
         ]);
+    }
+
+    public function addWishlist()
+    {
+        $offerId = $_GET['Id_offre'] ?? null;
+        $userId = $_SESSION['user_id'] ?? null;
+        $userRole = $_SESSION['role'] ?? null;
+        
+        if ($offerId && $userId && $userRole === 0) {
+            $offreModel = new OffreModel();
+            if (!$offreModel->isInWishlist($offerId, $userId)) {
+                $offreModel->addWishlist($offerId, $userId);
+            }
+            echo json_encode(['success' => true]);
+            exit;
+        }
+        echo json_encode(['success' => false]);
+        exit;
+    }
+
+    public function deleteWishlist()
+    {
+        $offerId = $_GET['Id_offre'] ?? null;
+        $userId = $_SESSION['user_id'] ?? null;
+        $userRole = $_SESSION['role'] ?? null;
+
+        if ($offerId && $userId && $userRole === 0) {
+            $offreModel = new OffreModel();
+            $offreModel->removeFromWishlist($userId, $offerId);
+            echo json_encode(['success' => true]);
+            exit;
+        }
+        echo json_encode(['success' => false]);
+        exit;
     }
 }
