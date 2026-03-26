@@ -6,6 +6,7 @@ use App\Core\View;
 use App\Core\Auth;
 use App\Model\OffreModel;
 use App\Model\CandidatureModel;
+use PDOException;
 
 class CandidatureController
 {
@@ -64,7 +65,21 @@ class CandidatureController
             die("ID de l'offre invalide.");
         }
 
-        $uploadDir = __DIR__ . '/../../public/uploads/';       
+        // `__DIR__` = src/Controller, on remonte à la racine du projet.
+        $uploadDir = dirname(__DIR__, 2) . '/uploads/';
+
+        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
+            die("Impossible de créer le dossier d'upload.");
+        }
+
+        if (!is_writable($uploadDir)) {
+            die("Le dossier d'upload n'est pas accessible en écriture.");
+        }
+
+        $candidatureModel = new CandidatureModel();
+        if ($candidatureModel->candidatureExists($idOffre, $idUser)) {
+            die("Vous avez déjà candidaté à cette offre.");
+        }
       
 
         // Fonction pour générer un nom unique et sécurisé
@@ -88,20 +103,31 @@ class CandidatureController
         // Vérification présence et erreurs, Modif nom + "Upload"
         if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
             $cvName = $generateFileName($_FILES['cv'], 'cv');
-            move_uploaded_file($_FILES['cv']['tmp_name'], $uploadDir . $cvName);
+            if (!move_uploaded_file($_FILES['cv']['tmp_name'], $uploadDir . $cvName)) {
+                die("Erreur lors de l'upload du CV.");
+            }
         } else {
             die("Erreur sur le fichier CV");
         }
 
         if (isset($_FILES['lm']) && $_FILES['lm']['error'] === UPLOAD_ERR_OK) {
             $lmName = $generateFileName($_FILES['lm'], 'lm');
-            move_uploaded_file($_FILES['lm']['tmp_name'], $uploadDir . $lmName);
+            if (!move_uploaded_file($_FILES['lm']['tmp_name'], $uploadDir . $lmName)) {
+                @unlink($uploadDir . $cvName);
+                die("Erreur lors de l'upload de la lettre de motivation.");
+            }
         } else {
+            @unlink($uploadDir . $cvName);
             die("Erreur sur le fichier Lettre de Motivation");
         }
 
-        $candidatureModel = new CandidatureModel();
-        $candidatureModel->createCandidature($idOffre, $idUser, $cvName, $lmName);
+        try {
+            $candidatureModel->createCandidature($idOffre, $idUser, $cvName, $lmName);
+        } catch (PDOException $e) {
+            @unlink($uploadDir . $cvName);
+            @unlink($uploadDir . $lmName);
+            die("Impossible d'enregistrer la candidature.");
+        }
 
         // 6. Redirection vers une page de succès
         // On pourrait rediriger vers l'offre avec un message de succès

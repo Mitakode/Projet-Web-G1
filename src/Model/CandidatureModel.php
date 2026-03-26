@@ -28,4 +28,16 @@ class CandidatureModel
         ]);
         return $this->pdo->lastInsertId();
     }
+
+    public function candidatureExists($idOffre, $idUser)
+    {
+        $sql = "SELECT 1 FROM Candidater WHERE Id_offre = :idOffre AND Id_user = :idUser LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':idOffre' => $idOffre,
+            ':idUser' => $idUser,
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
 }
