@@ -43,6 +43,14 @@ switch ($uri) {
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
         break;
+    
+    case '/addWishlist':
+        $homeController->addWishlist();
+        break;
+
+    case '/deleteWishlist':
+        $homeController->deleteWishlist();
+        break;
 
     default:
         http_response_code(404);
