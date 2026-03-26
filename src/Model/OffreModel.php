@@ -37,13 +37,26 @@ class OffreModel
      */
     public function getOffresPaginated(int $limit, int $offset, string $search = '')
     {
-        $stmt = $this->pdo->prepare("
-            SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
-            FROM Offre 
-            LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
-            ORDER BY Offre.Id_offre DESC 
-            LIMIT :limit OFFSET :offset
-        ");
+        if ($search === '') {
+            $stmt = $this->pdo->prepare("
+                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+                FROM Offre 
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                ORDER BY Offre.Id_offre DESC 
+                LIMIT :limit OFFSET :offset
+            ");
+        } else {
+            $stmt = $this->pdo->prepare("
+                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+                FROM Offre 
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                WHERE Offre.Titre LIKE :search OR Offre.Description LIKE :search
+                ORDER BY Offre.Id_offre DESC 
+                LIMIT :limit OFFSET :offset
+            ");
+            $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        }
+
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
