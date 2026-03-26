@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    padding-bottom: 20px;
+}
+
 
 .navbar {
     display: flex;
@@ -203,6 +207,11 @@
 }
 
 @media (max-width: 600px) {
+
+    body{
+        padding-bottom: 0;
+    }
+
     .navbar {
         padding: 10px 16px;
     }
@@ -240,6 +249,7 @@
     }
 
     .site-footer {
+        margin-top: 10px;
         position: static;
     }
 
