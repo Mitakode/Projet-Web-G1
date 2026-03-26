@@ -38,9 +38,22 @@ class OffreModel
     public function getOffresPaginated(int $limit, int $offset, string $search = '')
     {
         if ($search === '') {
-            $stmt = $this->pdo->prepare("SELECT * FROM Offre ORDER BY Id_offre DESC LIMIT :limit OFFSET :offset");
+            $stmt = $this->pdo->prepare("
+                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+                FROM Offre 
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                ORDER BY Offre.Id_offre DESC 
+                LIMIT :limit OFFSET :offset
+            ");
         } else {
-            $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Titre LIKE :search OR Description LIKE :search ORDER BY Id_offre DESC LIMIT :limit OFFSET :offset");
+            $stmt = $this->pdo->prepare("
+                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+                FROM Offre 
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                WHERE Offre.Titre LIKE :search OR Offre.Description LIKE :search
+                ORDER BY Offre.Id_offre DESC 
+                LIMIT :limit OFFSET :offset
+            ");
             $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         }
 
@@ -52,8 +65,12 @@ class OffreModel
     }
     public function getAll(): array
     {
-    $query = $this->pdo->query("SELECT * FROM Offre");
-    return $query->fetchAll(PDO::FETCH_ASSOC);
+        $query = $this->pdo->query("
+            SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+            FROM Offre 
+            LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise
+        ");
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getOffreById($id)

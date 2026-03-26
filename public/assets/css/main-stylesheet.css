@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    padding-bottom: 20px;
+}
+
 
 .navbar {
     display: flex;
@@ -240,6 +244,7 @@
     }
 
     .site-footer {
+        margin-top: 10px;
         position: static;
     }
 
