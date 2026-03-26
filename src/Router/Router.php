@@ -3,7 +3,7 @@
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
-use App\Controller\PiloteController;
+use App\Controller\DashboardController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -13,7 +13,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
-$pilotecontroller = new PiloteController();
+$dashboardController = new DashboardController();
 
 switch ($uri) {
     case '/':
@@ -43,15 +43,15 @@ switch ($uri) {
         break;
     
     case '/student_list':
-        $pilotecontroller->index();
+        $dashboardController->index();
         break;
     
     case '/enterprise_list':
-        $pilotecontroller->listEntreprise();
+        $dashboardController->listEntreprise();
         break;
     
     case '/offer_list':
-        $pilotecontroller->listOffre();
+        $dashboardController->listOffre();
         break;
 
     case '/mentions-legales':
@@ -59,27 +59,39 @@ switch ($uri) {
         break;
     
     case '/eleve':
-        $pilotecontroller->index();
+        $dashboardController->index();
         break;
     
     case '/offres_de_stages':
-        $pilotecontroller->Offre();
+        $dashboardController->Offre();
         break;
     
     case '/student_creation':
-        $pilotecontroller->addEleve();
+        $dashboardController->addEleve();
         break;
     
     case '/entreprise':
-    $pilotecontroller->Entreprise();
+    $dashboardController->Entreprise();
     break;
 
     case '/enterprise_list':
-    $pilotecontroller->listEntreprise();
+    $dashboardController->listEntreprise();
     break;
 
     case '/add_entreprise':
-    $pilotecontroller->addEntreprise();
+    $dashboardController->addEntreprise();
+    break;
+
+    case '/pilotes_list':
+    $dashboardController->listPilotes();
+    break;
+
+    case '/pilote':
+    $dashboardController->Pilote();
+    break;
+
+    case '/add_pilote':
+    $dashboardController->addPilote();
     break;
 
     default:

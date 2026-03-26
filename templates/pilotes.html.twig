@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>CRUD — Utilisateur</title>
+    <title>CRUD — Pilote</title>
 </head>
 <body>
 
-<h1>CRUD — table <code>Utilisateur</code></h1>
+<h1>CRUD — table <code>Pilote</code></h1>
 
-<h2>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
+<h2>{{ editUser ? 'Modifier le pilote' : 'Ajouter un pilote' }}</h2>
 
-<form method="POST" action="/eleve" class="main-form">
+<form method="POST" action="/pilote" class="main-form">
     <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
     {% if editUser %}
         <input type="hidden" name="id" value="{{ editUser.Id_user }}">
@@ -34,29 +34,15 @@
     <label>Description</label>
     <input type="text" name="description" value="{{ editUser.Description|default('') }}" required>
     
-    {% if session_role == 2 %}
-        <label>Est géré par</label>
-        <input type="text" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : '' }}">
-    {% else %}
-        <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
-    {% endif %}
+    <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
 
-    {% if editUser %}
-        <input type="hidden" name="role" value="{{ editUser.Role ?? 0 }}">
-    {% else %}
-        <label>Rôle</label>
-        <select name="role">
-            <option value="0">Élève</option>
-            <option value="1">Pilote</option>
-            <option value="2">Admin</option>
-        </select>
-    {% endif %}
+    <input type="hidden" name="role" value="{{ editUser.Role ?? 1 }}">
 
     {% if editUser %}
         <input type="hidden" name="Password" value="{{ editUser.Password|default('') }}">
     {% else %}
         <label>Mot de passe</label>
-        <input type="text" name="Password" value="{{ editUser.Password|default('') }}">
+    <input type="text" name="Password" value="{{ editUser.Password|default('') }}">
     {% endif %}
 
 
@@ -65,7 +51,7 @@
     </button>
 
     {% if editUser %}
-        <a href="/student_list" style="margin-left:10px;">Annuler</a>
+        <a href="/pilotes_list" style="margin-left:10px;">Annuler</a>
     {% else %}
         <a href="/account" style="margin-left:10px;">Annuler</a>
     {% endif %}
