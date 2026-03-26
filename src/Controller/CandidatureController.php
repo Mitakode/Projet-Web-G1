@@ -13,7 +13,7 @@ class CandidatureController
     {
          //Vérification de la session utilisateur
         if (!Auth::check()) {
-            header('Location: =/login');
+            header('Location: /login');
             exit;
         }
 

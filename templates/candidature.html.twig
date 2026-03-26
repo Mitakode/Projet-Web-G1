@@ -15,22 +15,14 @@
     <div class="offer-details">
         <h1>{{ offre.Titre }}</h1>
         
-<<<<<<< HEAD
         <div class="offer-meta" style="margin-top: 30px; font-size: 20px; color: #333;">
-=======
-        <div class="offer-meta" style="margin-bottom: 20px; color: #666;">
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
         <strong>Date de l'offre :</strong> {{ offre.Date_offre|date("d/m/Y") }} <br>
         <strong>Rémunération :</strong> {{ offre.Remuneration }} € <br>
         <strong>Durée :</strong> {{ offre.Duree_mois }} mois <br>
         <strong>Nombre de places :</strong> {{ offre.Nombre_place }}
         </div>
 
-<<<<<<< HEAD
         <div class="description-content"  style="margin-top: 30px; font-size: 20px; color: #333;">
-=======
-        <div class="description-content">
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
         <h3>Description du poste</h3>
         <p>{{ offre.Description|nl2br }}</p>
         </div>
@@ -39,37 +31,21 @@
     <div class="application-form">
         <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
         
-<<<<<<< HEAD
         <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
             </br>
-=======
-        <form action="/?uri=/candidate" method="post" enctype="multipart/form-data">
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
             <label class="upload-label" for="cv">CV (Curriculum Vitae)</label>
                 <div class="file-input-wrapper">
                 <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
                 </div>
-<<<<<<< HEAD
             </br>
-=======
-            </div>
-
-            <div class="upload-group">
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
             <label class="upload-label" for="lm">Lettre de motivation</label>
                 <div class="file-input-wrapper">
                 <input type="file" id="lm" name="lm" accept=".pdf,.doc,.docx" required>
                 </div>
-<<<<<<< HEAD
             </br></br>
             <button type="submit" class="submit-btn">Envoyer ma candidature</button>
             </div>
-=======
-            </div>
-
-            <button type="submit" class="submit-btn">Envoyer ma candidature</button>
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
         </form>
     </div>
 </main>

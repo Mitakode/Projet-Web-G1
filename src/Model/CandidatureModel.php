@@ -18,11 +18,7 @@ class CandidatureModel
 
     public function createCandidature($idOffre, $idUser, $cvName, $lmName)
     {
-<<<<<<< HEAD
         $sql = "INSERT INTO Candidater (Id_offre, Id_user, Cv, LM, Date_) VALUES (:idOffre, :idUser, :cv, :lm, NOW())";
-=======
-        $sql = "INSERT INTO Candidature (Id_offre, Id_user, Cv, Lettre_motivation, Date_) VALUES (:idOffre, :idUser, :cv, :lm, NOW())";
->>>>>>> a60df6e (Ajout v1 page candidature, modif sur offreModel pour getOffre, manque le submit)
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':idOffre' => $idOffre,
