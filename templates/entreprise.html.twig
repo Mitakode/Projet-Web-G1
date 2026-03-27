@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>CRUD — Entreprise</title>
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href= "/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
 <body>
 
-<h1>CRUD — <code>Entreprise</code></h1>
+{% include 'partials/_header.html.twig' %}
 
-<h2>{{ editEntreprise ? 'Modifier l\'entreprise' : 'Ajouter une entreprise' }}</h2>
+<h1>{{ editEntreprise ? 'Modifier l\'entreprise' : 'Ajouter une entreprise' }}</h1>
 
 <form method="POST" action="/entreprise" class="main-form">
     <input type="hidden" name="action" value="{{ editEntreprise ? 'edit' : 'add' }}">
@@ -43,6 +45,8 @@
         <a href="/account" style="margin-left:10px;">Annuler</a>
     {% endif %}
 </form>
+
+{% include 'partials/_footer.html.twig' %}
 
 </body>
 </html>
