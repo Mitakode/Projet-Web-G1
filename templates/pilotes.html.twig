@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>CRUD — Pilote</title>
+    <link href="assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href= "assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
 <body>
 
-<h1>CRUD — table <code>Pilote</code></h1>
+{% include 'partials/_header.html.twig' %}
 
-<h2>{{ editUser ? 'Modifier le pilote' : 'Ajouter un pilote' }}</h2>
+<h1>{{ editUser ? 'Modifier le pilote' : 'Ajouter un pilote' }}</h1>
 
 <form method="POST" action="/pilote" class="main-form">
     <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
@@ -57,6 +59,8 @@
     {% endif %}
     
 </form>
+
+{% include 'partials/_footer.html.twig' %}
 
 </body>
 </html>
