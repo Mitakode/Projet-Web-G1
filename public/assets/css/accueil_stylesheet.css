@@ -46,29 +46,3 @@
     text-decoration: none;
     display: inline-block;
 }
-
-.btn-action.star {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 26px;
-    color: #e0e0e0;
-    transition: color 0.3s ease, transform 0.1s ease;
-    z-index: 10;
-}
-
-.btn-action.star:hover {
-    color: #f1c40f;
-}
-
-.btn-action.star.active {
-    color: #f1c40f;
-}
-
-.btn-action.star:active {
-    transform: scale(1.2);
-}
