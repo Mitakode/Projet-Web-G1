@@ -1,0 +1,82 @@
+.candidature-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+
+.offer-details {
+    flex: 2;
+}
+
+.offer-details h1 {
+    color: #17496E;
+    margin-bottom: 20px;
+}
+
+.offer-details p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.application-form {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    border: 1px solid #e0e0e0;
+}
+
+.upload-group {
+    margin-bottom: 20px;
+}
+
+.upload-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.file-input-wrapper {
+    position: relative;
+    background: #f5f5f5;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input-wrapper:hover {
+    background: #eef;
+    border-color: #17496E;
+}
+
+input[type="file"] {
+    width: 100%;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #17496E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0f3550;
+}
