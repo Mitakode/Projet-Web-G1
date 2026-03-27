@@ -118,10 +118,37 @@
 
                 {% if dashboard.dernieres_candidatures is not empty %}
                     {% for candidature in dashboard.dernieres_candidatures %}
+                        {% set avg = candidature.note_moyenne|default(0) %}
+                        {% set avgRounded = avg|round(0, 'common') %}
                         <div class="annonce-card">
                             <h3>{{ candidature.Titre }}</h3>
                             <p>{{ candidature.entreprise }}</p>
                             <p>Candidature envoyée le {{ candidature.date_candidature }}</p>
+
+                            <div class="rating-summary">
+                                <p class="rating-title">Note moyenne de l'entreprise</p>
+                                <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+                                    {% for i in 1..5 %}
+                                        <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
+                                    {% endfor %}
+                                    <span class="rating-meta">{{ avg }}/5 ({{ candidature.total_votes|default(0) }} avis)</span>
+                                </div>
+                            </div>
+
+                            <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
+                                <input type="hidden" name="id_entreprise" value="{{ candidature.Id_entreprise }}">
+                                <label class="rating-form-label" for="note-{{ candidature.Id_offre }}">Ta note</label>
+                                <select id="note-{{ candidature.Id_offre }}" name="note" required>
+                                    <option value="">Choisir</option>
+                                    {% for i in 1..5 %}
+                                        <option value="{{ i }}" {{ candidature.note_utilisateur is not null and candidature.note_utilisateur == i ? 'selected' : '' }}>
+                                            {{ i }} étoile{{ i > 1 ? 's' : '' }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit">Enregistrer</button>
+                            </form>
+
                             <a href="/offre/{{ candidature.Id_offre }}">Voir l'annonce</a>
                         </div>
                     {% endfor %}

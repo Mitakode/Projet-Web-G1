@@ -60,4 +60,34 @@ class AccountController
 
         
     }
+
+    public function noterEntreprise(): void
+    {
+        Auth::requireAuth();
+
+        $user = Auth::user();
+        if ((int) ($user['Role'] ?? -1) !== 0) {
+            header('Location: /forbidden');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /account');
+            exit;
+        }
+
+        $idEntreprise = isset($_POST['id_entreprise']) ? (int) $_POST['id_entreprise'] : 0;
+        $note = isset($_POST['note']) ? (int) $_POST['note'] : 0;
+
+        if ($idEntreprise <= 0 || $note < 1 || $note > 5) {
+            header('Location: /account');
+            exit;
+        }
+
+        $entrepriseModel = new EntrepriseModel();
+        $entrepriseModel->noterEntreprise((int) $user['Id_user'], $idEntreprise, $note);
+
+        header('Location: /account');
+        exit;
+    }
 }
