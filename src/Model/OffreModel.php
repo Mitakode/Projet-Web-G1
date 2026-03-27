@@ -73,15 +73,60 @@ class OffreModel
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOffreById(int $id)
+    public function getById(int $id): array|false
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Id_offre = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function create(array $data): void
     {
         $stmt = $this->pdo->prepare("
-            SELECT o.*, e.Nom AS Nom_entreprise
-            FROM Offre o
-            LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
-            WHERE o.Id_offre = :id
-            LIMIT 1
+            INSERT INTO Offre (Titre, Description, Remuneration, Date_offre, Duree_mois, Nombre_place, Id_entreprise)
+            VALUES (:titre, :description, :remuneration, :date_offre, :duree_mois, :nombre_place, :id_entreprise)
         ");
+        $stmt->execute([
+            ':titre'         => $data['titre'],
+            ':description'   => $data['description'],
+            ':remuneration'  => $data['remuneration'],
+            ':date_offre'    => $data['date_offre'],
+            ':duree_mois'    => $data['duree_mois'],
+            ':nombre_place'  => $data['nombre_place'],
+            ':id_entreprise' => $data['id_entreprise'] ?: null,
+        ]);
+    }
+
+    public function update(int $id, array $data): void
+    {
+        $stmt = $this->pdo->prepare("
+            UPDATE Offre SET
+                Titre         = :titre,
+                Description   = :description,
+                Remuneration  = :remuneration,
+                Date_offre    = :date_offre,
+                Duree_mois    = :duree_mois,
+                Nombre_place  = :nombre_place,
+                Id_entreprise = :id_entreprise
+            WHERE Id_offre = :id
+        ");
+        $stmt->execute([
+            ':titre'         => $data['titre'],
+            ':description'   => $data['description'],
+            ':remuneration'  => $data['remuneration'],
+            ':date_offre'    => $data['date_offre'],
+            ':duree_mois'    => $data['duree_mois'],
+            ':nombre_place'  => $data['nombre_place'],
+            ':id_entreprise' => $data['id_entreprise'] ?: null,
+            ':id'            => $id,
+        ]);
+    }
+
+
+    public function delete(int $id): array|false
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Offre WHERE Id_offre = :id");
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 

@@ -37,12 +37,12 @@ class DashboardController
                 exit;
             }
             if ($action === 'edit') {
-                $model->update((int)$_POST['id'], $_POST);
+                $model->update($_POST['id'], $_POST);
                 header('Location: /student_list');
                 exit;
             }
             if ($action === 'delete') {
-                $model->delete((int)$_POST['id']);
+                $model->delete($_POST['id']);
                 header('Location: /student_list');
                 exit;
             }
@@ -74,10 +74,14 @@ class DashboardController
     public function addEleve()
     {
         $user = Auth::user();
+        $pilotesModel = new UtilisateurModel();
+        $pilotes = $pilotesModel->getByRole(1);
+
         View::render('eleve.html.twig', [
             'editUser'     => null,
             'pilote_id'    => $user['Id_user'],
-            'session_role' => $user['Role']
+            'session_role' => $user['Role'],
+            'pilotes'      => $pilotes
         ]);
     }
 
@@ -167,8 +171,10 @@ class DashboardController
             $editOffre = $model->getById((int)$_GET['id']);
         }
 
+        $model_entreprise = new EntrepriseModel();
         View::render('offre.html.twig', [
-            'editOffre' => $editOffre,
+            'editOffre'    => $editOffre,
+            'entreprises'  => $model_entreprise->getAll(),
         ]);
     }
 
