@@ -37,12 +37,12 @@ class DashboardController
                 exit;
             }
             if ($action === 'edit') {
-                $model->update($_POST['id'], $_POST);
+                $model->update((int)$_POST['id'], $_POST);
                 header('Location: /student_list');
                 exit;
             }
             if ($action === 'delete') {
-                $model->delete($_POST['id']);
+                $model->delete((int)$_POST['id']);
                 header('Location: /student_list');
                 exit;
             }
@@ -50,10 +50,13 @@ class DashboardController
 
         if (isset($_GET['id'])) {
             $editUser = $model->getById((int)$_GET['id']);
+            $pilotes = $model->getByRole(1); 
+
             View::render('eleve.html.twig', [
                 'editUser'     => $editUser,
                 'pilote_id'    => $user['Id_user'],
-                'session_role' => $user['Role']
+                'session_role' => $user['Role'],
+                'pilotes'      => $pilotes
             ]);
             return;
         }
