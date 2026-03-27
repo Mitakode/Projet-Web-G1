@@ -35,7 +35,7 @@
 
     <label>Description</label>
     <input type="text" name="description" value="{{ editUser.Description|default('') }}" required>
-    
+
     {% if session_role == 2 %}
         <label>Est géré par</label>
         <input type="text" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : '' }}">
@@ -43,15 +43,15 @@
         <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
     {% endif %}
 
-    {% if editUser %}
-        <input type="hidden" name="role" value="{{ editUser.Role ?? 0 }}">
-    {% else %}
-        <label>Rôle</label>
+    {% if session_role == 2 %}
+        <label>Role</label>
         <select name="role">
-            <option value="0">Élève</option>
+            <option value="0">Étudiant</option>
             <option value="1">Pilote</option>
             <option value="2">Admin</option>
         </select>
+    {% else %}
+        <input type="hidden" name="role" value="0">
     {% endif %}
 
     {% if editUser %}
