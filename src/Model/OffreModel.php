@@ -72,4 +72,53 @@ class OffreModel
         ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getOffreById(int $id)
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT o.*, e.Nom AS Nom_entreprise
+            FROM Offre o
+            LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
+            WHERE o.Id_offre = :id
+            LIMIT 1
+        ");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function isInWishlist(int $idOffre, int $idUser)
+    {
+        $sql = "SELECT 1 FROM Wishlist WHERE Id_offre = :idOffre AND Id_user = :idUser LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idOffre' => $idOffre, 'idUser' => $idUser]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getWishlist(int $idUser): array
+    {
+        $sql = "SELECT * FROM Wishlist WHERE Id_user = :idUser";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idUser' => $idUser]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addWishlist(int $idOffre, int $idUser): bool
+    {
+        $sql = "INSERT INTO Wishlist (Id_user, Id_offre) VALUES (:idUser, :idOffre)";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute(['idUser' => $idUser, 'idOffre' => $idOffre]);
+    }
+
+    public function removeFromWishlist(int $idUser, int $idOffre): bool
+    {
+        $sql = "DELETE FROM Wishlist WHERE Id_user = :idUser AND Id_offre = :idOffre";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute(['idUser' => $idUser, 'idOffre' => $idOffre]);
+    }
 }
