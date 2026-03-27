@@ -3,6 +3,7 @@
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
+use App\Controller\DashboardController;
 use App\Controller\CandidatureController;
 use App\Core\View;
 use App\Core\Auth;
@@ -21,9 +22,9 @@ switch ($uri) {
         break;
 
     case '/login':
-        if (Auth::check()){
+        if (Auth::check()) {
             header('Location: /');
-        } else if ($method == 'GET') {
+        } elseif ($method == 'GET') {
             $authController->showLogin();
         } else {
             $authController->login();
@@ -46,6 +47,31 @@ switch ($uri) {
         View::render('mentions_legales.html.twig');
         break;
 
+    case '/student_list':
+    case '/eleve':
+    case '/student_creation':
+    case '/enterprise_list':
+    case '/offer_list':
+    case '/offres_de_stages':
+    case '/entreprise':
+    case '/add_entreprise':
+    case '/pilotes_list':
+    case '/pilote':
+    case '/add_pilote':
+        $dashboardController = new DashboardController();
+        match ($uri) {
+            '/student_list'    => $dashboardController->index(),
+            '/eleve'           => $dashboardController->index(),
+            '/student_creation'=> $dashboardController->addEleve(),
+            '/enterprise_list' => $dashboardController->listEntreprise(),
+            '/offer_list'      => $dashboardController->listOffre(),
+            '/offres_de_stages'=> $dashboardController->Offre(),
+            '/entreprise'      => $dashboardController->Entreprise(),
+            '/add_entreprise'  => $dashboardController->addEntreprise(),
+            '/pilotes_list'    => $dashboardController->listPilotes(),
+            '/pilote'          => $dashboardController->Pilote(),
+            '/add_pilote'      => $dashboardController->addPilote(),
+        };
     case '/candidater':
         if ($method === 'POST') {
             $candidatureController->submit();

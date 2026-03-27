@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>CRUD — Offres de stages</title>
+</head>
+<body>
+
+<h1>CRUD — <code>Offres de stages</code></h1>
+
+<h2>{{ editOffre ? 'Modifier l\'offre' : 'Ajouter une offre' }}</h2>
+
+<form method="POST" action="/offres_de_stages" class="main-form">
+    <input type="hidden" name="action" value="{{ editOffre ? 'edit' : 'add' }}">
+    {% if editOffre %}
+        <input type="hidden" name="id" value="{{ editOffre.Id_offre }}">
+    {% endif %}
+
+    <label>Titre</label>
+    <input type="text" name="titre" value="{{ editOffre.Titre|default('') }}" required>
+
+    <label>Description</label>
+    <input type="text" name="description" value="{{ editOffre.Description|default('') }}" required>
+
+    <label>Rémunération</label>
+    <input type="number" step="0.01" name="remuneration" value="{{ editOffre.Remuneration|default('') }}" required>
+
+    <label>Date de l'offre</label>
+    <input type="date" name="date_offre" value="{{ editOffre.Date_offre|default('') }}" required>
+
+    <label>Durée (mois)</label>
+    <input type="number" name="duree_mois" value="{{ editOffre.Duree_mois|default('') }}" required>
+
+    <label>Nombre de places</label>
+    <input type="number" name="nombre_place" value="{{ editOffre.Nombre_place|default('') }}" required>
+
+    <label>ID Entreprise</label>
+    <input type="number" name="id_entreprise" value="{{ editOffre.Id_entreprise|default('') }}" required>
+
+    <button type="submit" class="btn btn-add">
+        {{ editOffre ? 'Enregistrer' : 'Ajouter' }}
+    </button>
+    {% if editOffre %}
+        <a href="/offer_list" style="margin-left:10px;">Annuler</a>
+    {% else %}
+        <a href="/account" style="margin-left:10px;">Annuler</a>
+    {% endif %}
+</form>
+
+</body>
+</html>
