@@ -27,10 +27,10 @@ class PannelModel
     public function getUserInfos(int $id): array
     {
         $userrequest = $this->pdo->prepare(
-            "SELECT Id_user, Nom, Prenom, Email FROM Utilisateur WHERE Id_user = :id"
+            "SELECT Id_user, Nom, Prenom, Email, Date_naissance, Formation, Description FROM Utilisateur WHERE Id_user = :id"
         );
         $userrequest->execute(['id' => $id]);
-        $user = $userrequest->fetch(PDO::FETCH_ASSOC);
+        $user = $userrequest->fetch(PDO::FETCH_ASSOC) ?: [];
 
         $statsrequest = $this->pdo->prepare(
             "SELECT COUNT(*) AS total FROM Candidater WHERE Id_user = :id"
@@ -88,10 +88,10 @@ class PannelModel
                 'refusees' => 0,
             ],
             'profil' => [
-                'date_naissance' => '',
-                'formation' => '',
-                'niveau_etude' => '',
-                'description' => '',
+                'date_naissance' => $user['Date_naissance'] ?? '',
+                'formation' => $user['Formation'] ?? '',
+                'niveau_etude' => $user['Niveau_etude'] ?? ($user['Formation'] ?? ''),
+                'description' => $user['Description'] ?? '',
             ],
             'cv' => $cv,
             'competences' => $competences,
