@@ -207,6 +207,9 @@ body {
 }
 
 @media (max-width: 600px) {
+    body {
+        padding-bottom: 0;
+    }
     .navbar {
         padding: 10px 16px;
     }
