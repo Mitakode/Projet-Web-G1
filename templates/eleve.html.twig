@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>CRUD — Utilisateur</title>
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
 <body>
 
-<h1>CRUD — table <code>Utilisateur</code></h1>
+{% include 'partials/_header.html.twig' %}
 
-<h2>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
+<h1>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h1>
 
 <form method="POST" action="/eleve" class="main-form">
     <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
@@ -71,6 +73,8 @@
     {% endif %}
     
 </form>
+
+{% include 'partials/_footer.html.twig' %}
 
 </body>
 </html>

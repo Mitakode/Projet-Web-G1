@@ -80,6 +80,7 @@ switch ($uri) {
             '/pilote'          => $dashboardController->Pilote(),
             '/add_pilote'      => $dashboardController->addPilote(),
         };
+        break;
     case '/candidater':
         if ($method === 'POST') {
             $candidatureController->submit();
