@@ -46,14 +46,6 @@ switch ($uri) {
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
         break;
-    
-    case '/addWishlist':
-        $homeController->addWishlist();
-        break;
-
-    case '/deleteWishlist':
-        $homeController->deleteWishlist();
-        break;
 
     case '/student_list':
     case '/eleve':
