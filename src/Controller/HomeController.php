@@ -33,11 +33,85 @@ class HomeController
 
         $offres = $offreModel->getOffresPaginated($elementsParPage, $offset, $searchQuery);
 
+        $userId = $_SESSION['user']['Id_user'] ?? null; 
+        
+        $userRole = isset($_SESSION['user']['Role']) ? (int)$_SESSION['user']['Role'] : null; 
+
+        $isStudent = ($userId && $userRole === 0);
+        
+        if ($isStudent) {
+            foreach ($offres as &$offre) {
+                $offre['is_in_wishlist'] = false; 
+                $wishlistEntry = $offreModel->isInWishlist($offre['Id_offre'], $userId);
+                
+                if ($wishlistEntry) {
+                    $offre['is_in_wishlist'] = true;
+                }
+            }
+            unset($offre);
+        }
+
         View::render('home.html.twig', [
-            'offres'      => $offres,
-            'totalPages'  => $totalPages,
+            'offres'       => $offres,
+            'totalPages'   => $totalPages,
             'pageActuelle' => $pageActuelle,
-            'searchQuery' => $searchQuery
+            'searchQuery'  => $searchQuery,
+            'isStudent'    => $isStudent,
         ]);
+    }
+
+public function addWishlist()
+    {
+        header('Content-Type: application/json');
+        
+        try {
+            $offerId = isset($_GET['Id_offre']) ? (int)$_GET['Id_offre'] : null;
+            $userId = isset($_SESSION['user']['Id_user']) ? (int)$_SESSION['user']['Id_user'] : null;
+            $userRole = isset($_SESSION['user']['Role']) ? (int)$_SESSION['user']['Role'] : null;
+            
+            if ($offerId && $userId && $userRole === 0) {
+                $offreModel = new \App\Model\OffreModel();
+                
+                if (!$offreModel->isInWishlist($offerId, $userId)) {
+                    $offreModel->addWishlist($offerId, $userId);
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => true]);
+                }
+                exit;
+            }
+            
+            echo json_encode(['success' => false]);
+            exit;
+            
+        } catch (\Exception $e) {
+            echo json_encode(['success' => false]);
+            exit;
+        }
+    }
+
+    public function deleteWishlist()
+    {
+        header('Content-Type: application/json');
+        
+        try {
+            $offerId = isset($_GET['Id_offre']) ? (int)$_GET['Id_offre'] : null;
+            $userId = isset($_SESSION['user']['Id_user']) ? (int)$_SESSION['user']['Id_user'] : null;
+            $userRole = isset($_SESSION['user']['Role']) ? (int)$_SESSION['user']['Role'] : null;
+
+            if ($offerId && $userId && $userRole === 0) {
+                $offreModel = new \App\Model\OffreModel();
+                $offreModel->removeFromWishlist($userId, $offerId);
+                echo json_encode(['success' => true]);
+                exit;
+            }
+            
+            echo json_encode(['success' => false]);
+            exit;
+
+        } catch (\Exception $e) {
+            echo json_encode(['success' => false]);
+            exit;
+        }
     }
 }
