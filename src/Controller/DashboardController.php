@@ -163,9 +163,11 @@ class DashboardController
         if (isset($_GET['id'])) {
             $editOffre = $model->getById((int)$_GET['id']);
         }
-
+        
+        $model_entreprise = new EntrepriseModel();
         View::render('offre.html.twig', [
-            'editOffre' => $editOffre,
+            'editOffre'    => $editOffre,
+            'entreprises'  => $model_entreprise->getAll(),
         ]);
     }
 
