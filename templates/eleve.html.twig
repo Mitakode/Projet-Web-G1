@@ -36,13 +36,7 @@
     
     {% if session_role == 2 %}
         <label>Est géré par</label>
-        <select name="est_gere_par">
-            {% for p in pilotes %}
-                <option value="{{ p.Id_user }}" {{ editUser.est_gere_par == p.Id_user ? 'selected' : '' }}>
-                    {{ p.Nom }} {{ p.Prenom }}
-                </option>
-            {% endfor %}
-        </select>
+        <input type="text" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : '' }}">
     {% else %}
         <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
     {% endif %}
