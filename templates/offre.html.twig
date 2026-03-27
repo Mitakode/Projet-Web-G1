@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>CRUD — Offres de stages</title>
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
-    <link href= "/assets/css/CRUD_style.css" rel="stylesheet"/>
+    <link href="/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -36,16 +36,8 @@
     <label>Nombre de places</label>
     <input type="number" name="nombre_place" value="{{ editOffre.Nombre_place|default('') }}" required>
 
-    <label>Entreprise</label>
-    <select name="id_entreprise" required>
-        <option value="">-- Choisir une entreprise --</option>
-        {% for e in entreprises %}
-            <option value="{{ e.Id_entreprise }}" 
-                {{ editOffre.Id_entreprise == e.Id_entreprise ? 'selected' : '' }}>
-                {{ e.Nom }}
-            </option>
-        {% endfor %}
-    </select>
+    <label>ID Entreprise</label>
+    <input type="number" name="id_entreprise" value="{{ editOffre.Id_entreprise|default('') }}" required>
 
     <button type="submit" class="btn btn-add">
         {{ editOffre ? 'Enregistrer' : 'Ajouter' }}

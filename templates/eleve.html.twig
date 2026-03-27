@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Eleve</title>
+    <title>CRUD — Utilisateur</title>
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
-    <link href= "/assets/css/CRUD_style.css" rel="stylesheet"/>
+    <link href="/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
 <body>
 
 {% include 'partials/_header.html.twig' %}
 
-<h1>{{ editUser ? 'Modifier l\'eleve' : 'Ajouter un eleve' }}</h1>
+<h1>{{ editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h1>
 
 <form method="POST" action="/eleve" class="main-form">
     <input type="hidden" name="action" value="{{ editUser ? 'edit' : 'add' }}">
@@ -38,13 +38,7 @@
 
     {% if session_role == 2 %}
         <label>Est géré par</label>
-        <select name="est_gere_par">
-            {% for p in pilotes %}
-                <option value="{{ p.Id_user }}" {{ editUser.est_gere_par == p.Id_user ? 'selected' : '' }}>
-                    {{ p.Nom }} {{ p.Prenom }}
-                </option>
-            {% endfor %}
-        </select>
+        <input type="text" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : '' }}">
     {% else %}
         <input type="hidden" name="est_gere_par" value="{{ editUser ? editUser.est_gere_par : pilote_id }}">
     {% endif %}
