@@ -4,6 +4,7 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Controller\DashboardController;
+use App\Controller\CandidatureController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -13,6 +14,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
+$candidatureController = new CandidatureController();
 
 switch ($uri) {
     case '/':
@@ -70,6 +72,17 @@ switch ($uri) {
             '/pilote'          => $dashboardController->Pilote(),
             '/add_pilote'      => $dashboardController->addPilote(),
         };
+    case '/candidater':
+        if ($method === 'POST') {
+            $candidatureController->submit();
+        } else {
+            $candidatureController->index();
+        }
+        break;
+
+    case '/forbidden':
+        http_response_code(403);
+        View::render('Forbidden.html.twig');
         break;
 
     default:

@@ -27,9 +27,16 @@
         {% if offres is not empty %}
             {% for offre in offres %}
                 <div class="list-offer">
-                    <h3>{{ offre.Titre|default('Titre non défini')|e }}</h3>
-                    <p>{{ 'Lieu à définir' }}</p>
-                    <small>{{ offre.Description|default('Pas de description')|e }}</small>
+                    <h2>{{ offre.Titre|default('Titre non défini')|e }} - {{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</h2>
+                    <h4>Durée du stage : </h4>
+                    <p>{{ offre.Duree_mois|default('Durée à définir')|e }} Mois</p>
+                    <h4>Rémunération : </h4>
+                    <p>{{ offre.Remuneration|default('Rémunération à définir')|e }} €</p>
+                    <h4>Nombre de postes disponibles : </h4>
+                    <p>{{ offre.Nombre_place|default('Nombre de places à définir')|e }}</p><br>
+                    <h3>Description du poste : </h3>
+                    <p>{{ offre.Description|default('Pas de description')|e }}</p>
+                    <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
                 </div>
             {% endfor %}
         {% else %}
@@ -44,7 +51,7 @@
 
                 {# Bouton Précédent #}
                 {% if pageActuelle > 1 %}
-                    <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Précédent
                     </a>
@@ -52,7 +59,7 @@
 
                 {# Numéros #}
                 {% for i in 1..totalPages %}
-                    <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
                         {{ i }}
                     </a>
@@ -60,7 +67,7 @@
 
                 {# Bouton Suivant #}
                 {% if pageActuelle < totalPages %}
-                    <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&q={{ searchQuery|url_encode }}{% endif %}"
+                    <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                         Suivant
                     </a>

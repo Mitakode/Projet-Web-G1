@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    padding-bottom: 20px;
+}
+
 
 .navbar {
     display: flex;
@@ -203,6 +207,9 @@
 }
 
 @media (max-width: 600px) {
+    body {
+        padding-bottom: 0;
+    }
     .navbar {
         padding: 10px 16px;
     }
@@ -240,6 +247,7 @@
     }
 
     .site-footer {
+        margin-top: 10px;
         position: static;
     }
 
@@ -332,6 +340,19 @@
         border-radius: 10px;
         background: #f3f3f3;
         border: 1px solid #e0e0e0;
+    }
+
+    .mobile-menu-item--cta {
+        background-color: #348635;
+        border: 1px solid #444;
+        color: #000;
+        font-weight: 600;
+    }
+
+    .mobile-menu-item--cta:hover,
+    .mobile-menu-item--cta:focus {
+        background-color: #2f7a30;
+        color: #000;
     }
 
     .mobile-menu-item--cta {
