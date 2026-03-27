@@ -21,3 +21,7 @@ li{
     line-height: 1.5;
     font-family :'Segoe UI';
 }
+section{
+    margin-bottom: 40px;
+    margin-top: 20px;
+} 

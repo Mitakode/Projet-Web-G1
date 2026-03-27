@@ -36,13 +36,26 @@
     color: white;
     padding: 10px 20px;
     border: 2px solid #348635;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
     position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 30px;
+    right: 30px;
+    transform: none;
     text-decoration: none;
     display: inline-block;
+}
+
+@media (max-width: 600px) {
+    .btn-candidate {
+        position: relative;
+        transform: none;
+        margin-top: 15px;
+        width: 100%;
+        bottom : 0;
+        right: 0;
+        border-radius: 15px;
+        text-align: center;
+    }
 }
