@@ -37,6 +37,8 @@ class OffreModel
      */
     public function getOffresPaginated(int $limit, int $offset, string $search = '')
     {
+        // On joint un agrégat de Evaluer pour exposer la moyenne et le nombre d'avis
+        // directement dans les cartes d'offres (home).
         if ($search === '') {
             $stmt = $this->pdo->prepare("
                 SELECT Offre.*, 
@@ -95,6 +97,7 @@ class OffreModel
 
     public function getById(int $id): array|false
     {
+        // Même logique d'agrégat pour la page détail offre/candidature.
         $stmt = $this->pdo->prepare("
             SELECT Offre.*, Entreprise.Nom AS Nom_entreprise,
                    COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,

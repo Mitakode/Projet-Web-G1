@@ -121,6 +121,8 @@ public function getStats(int $id): array
     }
     private function hasAppliedInTable(string $tableName, int $idUser, int $idEntreprise): bool
     {
+        // Vérifie l'existence d'au moins une candidature de l'utilisateur
+        // vers une offre appartenant à l'entreprise ciblée.
         $sql = "
             SELECT 1
             FROM {$tableName} c
@@ -141,15 +143,8 @@ public function getStats(int $id): array
 
     public function canUserRateEntreprise(int $idUser, int $idEntreprise): bool
     {
-        try {
-            return $this->hasAppliedInTable('Candidature', $idUser, $idEntreprise);
-        } catch (\PDOException $e) {
-            try {
-                return $this->hasAppliedInTable('Candidater', $idUser, $idEntreprise);
-            } catch (\PDOException $e) {
-                return false;
-            }
-        }
+        // Le projet utilise la table Candidater pour les candidatures.
+        return $this->hasAppliedInTable('Candidater', $idUser, $idEntreprise);
     }
 
     public function noterEntreprise(int $idUser, int $idEntreprise, int $note): bool
@@ -158,6 +153,7 @@ public function getStats(int $id): array
             return false;
         }
 
+        // UPSERT: si la note existe déjà pour (user, entreprise), elle est remplacée.
         $sql = "
             INSERT INTO Evaluer (Id_User, Id_Entreprise, Note)
             VALUES (:idUser, :idEntreprise, :note)
@@ -176,6 +172,7 @@ public function getStats(int $id): array
 
     public function getNoteMoyenneEntreprise(int $idEntreprise): array
     {
+        // Renvoie moyenne arrondie + nombre total d'avis pour l'entreprise.
         $sql = "
             SELECT ROUND(AVG(Note), 2) AS moyenne, COUNT(*) AS total_votes
             FROM Evaluer
@@ -195,6 +192,7 @@ public function getStats(int $id): array
 
     public function getUserNoteEntreprise(int $idUser, int $idEntreprise): ?int
     {
+        // Sert à pré-remplir la note dans l'interface si l'utilisateur a déjà voté.
         $sql = "
             SELECT Note
             FROM Evaluer
