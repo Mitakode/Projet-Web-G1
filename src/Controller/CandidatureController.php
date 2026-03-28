@@ -6,6 +6,7 @@ use App\Core\View;
 use App\Core\Auth;
 use App\Model\OffreModel;
 use App\Model\CandidatureModel;
+use App\Model\EntrepriseModel;
 use PDOException;
 
 class CandidatureController
@@ -13,11 +14,6 @@ class CandidatureController
     public function index()
     {
          //Vérification de la session utilisateur
-        if (!Auth::check()) {
-            header('Location: /login');
-            exit;
-        }
-
         // Récupérer l'ID de l'offre depuis l'URL
         $id = isset($_GET['id_offre']) ? (int)$_GET['id_offre'] : 0;
         
@@ -30,8 +26,27 @@ class CandidatureController
             exit;
         }
 
+        $user = Auth::user();
+        $canRate = false;
+        $userNote = null;
+
+        if ($user && (int) ($user['Role'] ?? -1) === 0) {
+            $entrepriseModel = new EntrepriseModel();
+            $idEntreprise = (int) ($offre['Id_entreprise'] ?? 0);
+
+            if ($idEntreprise > 0) {
+                $canRate = $entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise);
+                $userNote = $entrepriseModel->getUserNoteEntreprise((int) $user['Id_user'], $idEntreprise);
+            }
+        }
+
+        $ratingStatus = isset($_GET['rating']) ? (string) $_GET['rating'] : '';
+
         View::render('candidature.html.twig', [
-            'offre' => $offre
+            'offre' => $offre,
+            'canRate' => $canRate,
+            'userNote' => $userNote,
+            'ratingStatus' => $ratingStatus,
         ]);
     }
 
