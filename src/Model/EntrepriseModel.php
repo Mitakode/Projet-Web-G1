@@ -20,6 +20,39 @@ class EntrepriseModel
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    private function hasAppliedInTable(string $tableName, int $idUser, int $idEntreprise): bool
+    {
+        $sql = "
+            SELECT 1
+            FROM {$tableName} c
+            JOIN Offre o ON o.Id_offre = c.Id_offre
+            WHERE c.Id_user = :idUser
+              AND o.Id_entreprise = :idEntreprise
+            LIMIT 1
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':idUser' => $idUser,
+            ':idEntreprise' => $idEntreprise,
+        ]);
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public function canUserRateEntreprise(int $idUser, int $idEntreprise): bool
+    {
+        try {
+            return $this->hasAppliedInTable('Candidature', $idUser, $idEntreprise);
+        } catch (\PDOException $e) {
+            try {
+                return $this->hasAppliedInTable('Candidater', $idUser, $idEntreprise);
+            } catch (\PDOException $e) {
+                return false;
+            }
+        }
+    }
+
     public function noterEntreprise(int $idUser, int $idEntreprise, int $note): bool
     {
         if ($note < 1 || $note > 5) {
@@ -59,6 +92,25 @@ class EntrepriseModel
             'moyenne' => ($row && $row['moyenne'] !== null) ? (float) $row['moyenne'] : 0.0,
             'total_votes' => $row ? (int) $row['total_votes'] : 0,
         ];
+    }
+
+    public function getUserNoteEntreprise(int $idUser, int $idEntreprise): ?int
+    {
+        $sql = "
+            SELECT Note
+            FROM Evaluer
+            WHERE Id_User = :idUser AND Id_Entreprise = :idEntreprise
+            LIMIT 1
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':idUser' => $idUser,
+            ':idEntreprise' => $idEntreprise,
+        ]);
+
+        $note = $stmt->fetchColumn();
+        return $note !== false ? (int) $note : null;
     }
 
 

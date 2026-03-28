@@ -63,7 +63,10 @@ class AccountController
 
     public function noterEntreprise(): void
     {
-        Auth::requireAuth();
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
 
         $user = Auth::user();
         if ((int) ($user['Role'] ?? -1) !== 0) {
@@ -72,22 +75,31 @@ class AccountController
         }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /account');
+            header('Location: /');
             exit;
         }
 
+        $idOffre = isset($_POST['id_offre']) ? (int) $_POST['id_offre'] : 0;
         $idEntreprise = isset($_POST['id_entreprise']) ? (int) $_POST['id_entreprise'] : 0;
         $note = isset($_POST['note']) ? (int) $_POST['note'] : 0;
 
-        if ($idEntreprise <= 0 || $note < 1 || $note > 5) {
-            header('Location: /account');
+        $redirectUrl = '/candidater?id_offre=' . max(0, $idOffre);
+
+        if ($idOffre <= 0 || $idEntreprise <= 0 || $note < 1 || $note > 5) {
+            header('Location: ' . $redirectUrl . '&rating=invalid');
             exit;
         }
 
         $entrepriseModel = new EntrepriseModel();
+
+        if (!$entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise)) {
+            header('Location: ' . $redirectUrl . '&rating=forbidden');
+            exit;
+        }
+
         $entrepriseModel->noterEntreprise((int) $user['Id_user'], $idEntreprise, $note);
 
-        header('Location: /account');
+        header('Location: ' . $redirectUrl . '&rating=saved');
         exit;
     }
 }

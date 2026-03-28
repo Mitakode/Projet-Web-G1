@@ -14,6 +14,55 @@
 
     <div class="offer-details">
         <h1>{{ offre.Titre }}</h1>
+
+        <div class="entreprise-meta">
+            <strong>Entreprise :</strong> {{ offre.Nom_entreprise|default('Entreprise inconnue') }}
+        </div>
+
+        {% set avg = offre.note_moyenne|default(0) %}
+        {% set avgRounded = avg|round(0, 'common') %}
+        <section class="rating-panel">
+            <h3>Note de l'entreprise</h3>
+            <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+                {% for i in 1..5 %}
+                    <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
+                {% endfor %}
+                <span class="rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} avis)</span>
+            </div>
+
+            {% if ratingStatus == 'saved' %}
+                <p class="rating-flash success">Ta note a bien été enregistrée.</p>
+            {% elseif ratingStatus == 'forbidden' %}
+                <p class="rating-flash error">Tu dois déjà avoir candidaté à cette entreprise pour la noter.</p>
+            {% elseif ratingStatus == 'invalid' %}
+                <p class="rating-flash error">La note envoyée est invalide.</p>
+            {% endif %}
+
+            {% if canRate %}
+                <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
+                    <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
+                    <input type="hidden" name="id_entreprise" value="{{ offre.Id_entreprise }}">
+
+                    <div class="rating-input" role="radiogroup" aria-label="Noter cette entreprise">
+                        {% for i in 5..1 %}
+                            <input
+                                type="radio"
+                                id="note-{{ i }}"
+                                name="note"
+                                value="{{ i }}"
+                                {{ userNote is not null and userNote == i ? 'checked' : '' }}
+                                required
+                            >
+                            <label for="note-{{ i }}" title="{{ i }} étoile{{ i > 1 ? 's' : '' }}">★</label>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="rate-submit">Enregistrer ma note</button>
+                </form>
+            {% else %}
+                <p class="rating-hint">La notation sera disponible après une candidature à cette entreprise.</p>
+            {% endif %}
+        </section>
         
         <div class="offer-meta" style="margin-top: 30px; font-size: 20px; color: #333;">
         <strong>Date de l'offre :</strong> {{ offre.Date_offre|date("d/m/Y") }} <br>
