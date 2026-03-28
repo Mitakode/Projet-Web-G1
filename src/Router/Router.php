@@ -58,12 +58,12 @@ switch ($uri) {
         break;
 
     case '/companies':
-    $entreprisePublicController->index();
-    break;
+        $entreprisePublicController->index();
+        break;
 
     case '/company':
-    $entreprisePublicController->fiche();
-    break;
+        $entreprisePublicController->fiche();
+        break;
 
     case '/student_list':
     case '/eleve':
