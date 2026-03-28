@@ -26,6 +26,10 @@ class CandidatureController
             exit;
         }
 
+        // Données de notation injectées dans la vue:
+        // - canRate: droit de noter ou non
+        // - userNote: note déjà posée par l'élève (pré-sélection)
+        // - ratingStatus: message de retour après soumission
         $user = Auth::user();
         $canRate = false;
         $userNote = null;
@@ -35,6 +39,7 @@ class CandidatureController
             $idEntreprise = (int) ($offre['Id_entreprise'] ?? 0);
 
             if ($idEntreprise > 0) {
+                // Vérifie si l'élève a déjà candidaté à une offre de cette entreprise.
                 $canRate = $entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise);
                 $userNote = $entrepriseModel->getUserNoteEntreprise((int) $user['Id_user'], $idEntreprise);
             }

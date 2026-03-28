@@ -19,10 +19,12 @@
             <strong>Entreprise :</strong> {{ offre.Nom_entreprise|default('Entreprise inconnue') }}
         </div>
 
+        {# Note moyenne calculée côté backend + version arrondie pour le rendu des étoiles #}
         {% set avg = offre.note_moyenne|default(0) %}
         {% set avgRounded = avg|round(0, 'common') %}
         <section class="rating-panel">
             <h3>Note de l'entreprise</h3>
+            {# Affichage visuel de la moyenne globale #}
             <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
                 {% for i in 1..5 %}
                     <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
@@ -39,10 +41,12 @@
             {% endif %}
 
             {% if canRate %}
+                {# Formulaire de notation: soumet l'offre + l'entreprise + la note 1..5 #}
                 <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
                     <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
                     <input type="hidden" name="id_entreprise" value="{{ offre.Id_entreprise }}">
 
+                    {# Les étoiles sont construites en radios inversés pour l'effet hover classique #}
                     <div class="rating-input" role="radiogroup" aria-label="Noter cette entreprise">
                         {% for i in 5..1 %}
                             <input
@@ -60,6 +64,7 @@
                     <button type="submit" class="rate-submit">Enregistrer ma note</button>
                 </form>
             {% else %}
+                {# Message affiché si l'élève n'a pas encore de candidature pour cette entreprise #}
                 <p class="rating-hint">La notation sera disponible après une candidature à cette entreprise.</p>
             {% endif %}
         </section>
