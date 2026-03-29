@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard — Career Quest</title>
+    <meta name="description" content="Statistiques globales et par offre.">
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/dashboard.css" rel="stylesheet"/>
+</head>
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<main class="dashboard-page">
+    <div class="dashboard-header">
+        <a class="back-link" href="/account">
+            <img class="back-icon" src="/assets/images/fleche-droite.png" alt="Retour"/>
+            <span>retoure</span>
+        </a>
+        <h1>Dashboard</h1>
+    </div>
+
+    {% if offerStats %}
+        <section class="offer-stats">
+            <div class="offer-stats-header">
+                <h2>Détails de l'offre #{{ offerStats.Id_offre }}</h2>
+                <a href="/dashboard" class="offer-stats-link">Voir les stats globales</a>
+            </div>
+            <div class="offer-stats-title">
+                <p class="offer-stats-name">{{ offerStats.Titre }}</p>
+                <p class="offer-stats-meta">
+                    {% if offerStats.Nom_entreprise %}{{ offerStats.Nom_entreprise }}{% endif %}
+                    {% if offerStats.Duree_mois %} • {{ offerStats.Duree_mois }} mois{% endif %}
+                    {% if offerStats.Nombre_place %} • {{ offerStats.Nombre_place }} place(s){% endif %}
+                </p>
+                <a class="offer-stats-cta" href="/candidater?id_offre={{ offerStats.Id_offre }}">Voir annonce</a>
+            </div>
+
+            <div class="offer-stats-grid">
+                <article class="stat-card stat-card--compact">
+                    <h3>Ajouts en wish-list</h3>
+                    <p class="stat-value">{{ offerStats.total_wishlist|default(0) }}</p>
+                </article>
+                <article class="stat-card stat-card--compact">
+                    <h3>Candidatures</h3>
+                    <p class="stat-value">{{ offerStats.total_candidatures|default(0) }}</p>
+                </article>
+                <article class="stat-card stat-card--compact">
+                    <h3>Date de l'offre</h3>
+                    <p class="stat-value">{{ offerStats.Date_offre|default('Non renseignée') }}</p>
+                </article>
+            </div>
+        </section>
+    {% elseif offerId %}
+        <section class="offer-stats">
+            <h2>Offre introuvable</h2>
+            <p class="stat-empty">Aucune offre n'a été trouvée pour l'identifiant {{ offerId }}.</p>
+            <a href="/dashboard" class="offer-stats-link">Retour aux stats globales</a>
+        </section>
+    {% endif %}
+
+    {% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offres', stats: statsOffres } %}
+    {% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Entreprises', stats: statsEntreprises } %}
+    {% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Élèves', stats: statsEleves } %}
+</main>
+
+{% include 'partials/_footer.html.twig' %}
+
+<script src="/assets/js/stats-carousel.js"></script>
+</body>
+</html>
