@@ -73,6 +73,43 @@
     {% endif %}
     
 </form>
+{% if editUser %}
+    {% set stages = stagesEleve|default(editUser.stages|default([])) %}
+
+    <section class="main-form candidatures-section">
+        <h2>Candidatures de l'élève</h2>
+
+        {% if stages is not empty %}
+            <ul class="candidatures-list">
+                {% for stage in stages %}
+                    <li class="candidature-item">
+                        <strong class="candidature-titre">
+                            {{ stage.offre.titre|default('Stage sans titre') }}
+                        </strong>
+                        
+                        <div class="candidature-actions">
+                            {% if stage.Cv is defined and stage.Cv is not empty %}
+                                {% set cvPath = stage.Cv starts with '/uploads/' ? stage.Cv : '/uploads/' ~ stage.Cv %}
+                                <a href="{{ cvPath }}" target="_blank" class="btn-document">
+                                    📄 Voir le CV
+                                </a>
+                            {% endif %}
+                            
+                            {% if stage.LM is defined and stage.LM is not empty %}
+                                {% set lmPath = stage.LM starts with '/uploads/' ? stage.LM : '/uploads/' ~ stage.LM %}
+                                <a href="{{ lmPath }}" target="_blank" class="btn-document">
+                                    📝 Voir la Lettre de Motivation
+                                </a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="candidatures-empty">Aucune candidature associée à cet élève pour le moment.</p>
+        {% endif %}
+    </section>
+{% endif %}
 
 {% include 'partials/_footer.html.twig' %}
 

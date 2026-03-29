@@ -88,6 +88,64 @@ h1 code {
 .main-form .btn:focus {
 	background-color: #2f7a30;
 }
+.candidatures-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eaeaea; 
+}
+
+.candidatures-section h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+}
+
+.candidatures-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.candidature-item {
+    padding: 15px 0; 
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.candidature-item:last-child {
+    border-bottom: none;
+}
+
+.candidature-titre {
+    display: block;
+    font-size: 1.1em;
+    color: #222;
+    margin-bottom: 12px; 
+}
+
+.candidature-actions {
+    display: flex;
+    gap: 30px; 
+    align-items: center;
+}
+
+.btn-document {
+    text-decoration: none;
+    color: #2f7a30;
+    font-weight: 500;
+    font-size: 0.95em;
+    transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.btn-document:hover {
+    text-decoration: underline;
+    opacity: 0.8; 
+}
+
+.candidatures-empty {
+    color: #777;
+    font-style: italic;
+}
 
 .main-form a {
 	align-self: center;

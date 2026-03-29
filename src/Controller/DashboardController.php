@@ -49,11 +49,15 @@ class DashboardController
         }
 
         if (isset($_GET['id'])) {
-            $editUser = $model->getById((int)$_GET['id']);
+            $userId = (int)$_GET['id'];
+            $editUser = $model->getById($userId);
+            $stagesEleve = $model->getCandidatures($userId);
+
             View::render('eleve.html.twig', [
                 'editUser'     => $editUser,
                 'pilote_id'    => $user['Id_user'],
-                'session_role' => $user['Role']
+                'session_role' => $user['Role'],
+                'stagesEleve'  => $stagesEleve
             ]);
             return;
         }
