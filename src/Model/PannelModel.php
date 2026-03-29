@@ -80,7 +80,7 @@ class PannelModel
                     COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
                     COALESCE(notesAgg.total_votes, 0) AS total_votes,
                     noteUser.Note AS note_utilisateur
-             FROM Candidature ca
+             FROM Candidater ca
              JOIN Offre o ON o.Id_offre = ca.Id_offre
              JOIN Entreprise e ON e.Id_entreprise = o.Id_entreprise
                  LEFT JOIN (
