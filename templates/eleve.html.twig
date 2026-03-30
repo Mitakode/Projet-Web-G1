@@ -89,6 +89,12 @@
             <ul class="candidatures-list">
                 {% for stage in stages %}
                     <li class="candidature-item">
+                        {% if stage.Id_offre is defined and stage.Id_offre is not empty %}
+                            <a href="/candidater?id_offre={{ stage.Id_offre }}" class="btn-annonce">
+                                Voir l'annonce
+                            </a>
+                        {% endif %}
+
                         <strong class="candidature-titre">
                             {{ stage.offre.titre|default('Stage sans titre') }}
                         </strong>
@@ -97,14 +103,14 @@
                             {% if stage.Cv is defined and stage.Cv is not empty %}
                                 {% set cvPath = stage.Cv starts with '/uploads/' ? stage.Cv : '/uploads/' ~ stage.Cv %}
                                 <a href="{{ cvPath }}" target="_blank" class="btn-document">
-                                    📄 Voir le CV
+                                    Voir le CV
                                 </a>
                             {% endif %}
                             
                             {% if stage.LM is defined and stage.LM is not empty %}
                                 {% set lmPath = stage.LM starts with '/uploads/' ? stage.LM : '/uploads/' ~ stage.LM %}
                                 <a href="{{ lmPath }}" target="_blank" class="btn-document">
-                                    📝 Voir la Lettre de Motivation
+                                    Voir la Lettre de Motivation
                                 </a>
                             {% endif %}
                         </div>
