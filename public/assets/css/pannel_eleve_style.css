@@ -260,6 +260,7 @@
     font: 15px "Segoe UI";
     font-weight: 600;
     color: #333;
+    margin: 0;
 }
 
 .rating-form select {
@@ -268,6 +269,33 @@
     padding: 6px 10px;
     background: #fff;
     font: 14px "Segoe UI";
+}
+
+.rating-input {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: 2px;
+}
+
+.rating-input input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rating-input label {
+    font-size: 22px;
+    line-height: 1;
+    color: #b8b8b8;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s ease;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label {
+    color: #f4b400;
 }
 
 .rating-form button {
