@@ -318,3 +318,13 @@
         padding-bottom: 15px;
     }
 }
+
+.annonce-card a.entreprise-link {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.annonce-card a.entreprise-link:hover {
+    text-decoration: underline;
+}
