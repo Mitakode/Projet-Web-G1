@@ -1,0 +1,58 @@
+<section class="stats-section" data-carousel-scope>
+    <div class="stats-header">
+        <h2>{{ title|default('Élèves') }}</h2>
+        <div class="stats-controls">
+            <button class="stats-nav" type="button" data-carousel-prev aria-label="Précédent">‹</button>
+            <button class="stats-nav" type="button" data-carousel-next aria-label="Suivant">›</button>
+        </div>
+    </div>
+
+    <div class="stats-carousel" data-carousel>
+        <div class="stats-track" data-carousel-track>
+            <article class="stat-card">
+                <h3>Élèves inscrits</h3>
+                <p class="stat-value">{{ stats.total_eleves|default(0) }}</p>
+                <p class="stat-hint">Nombre total d'élèves</p>
+            </article>
+
+            <article class="stat-card">
+                <h3>Moyenne candidatures / élève</h3>
+                <p class="stat-value">{{ stats.avg_candidatures|default(0)|number_format(2, ',', ' ') }}</p>
+                <p class="stat-hint">Candidatures par élève</p>
+            </article>
+
+            <article class="stat-card">
+                <h3>Top élèves (candidatures)</h3>
+                {% if stats.top_candidatures is empty %}
+                    <p class="stat-empty">Aucune candidature enregistrée.</p>
+                {% else %}
+                    <ul class="stat-list">
+                        {% for eleve in stats.top_candidatures %}
+                            <li>
+                                {{ eleve.Prenom }} {{ eleve.Nom }}
+                                <span class="stat-badge">{{ eleve.total_candidatures }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </article>
+
+            <article class="stat-card">
+                <h3>Top élèves (wish-list)</h3>
+                {% if stats.top_wishlist is empty %}
+                    <p class="stat-empty">Aucune wish-list disponible.</p>
+                {% else %}
+                    <ul class="stat-list">
+                        {% for eleve in stats.top_wishlist %}
+                            <li>
+                                {{ eleve.Prenom }} {{ eleve.Nom }}
+                                <span class="stat-badge">{{ eleve.total_wishlist }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </article>
+        </div>
+        <div class="stats-dots" data-carousel-dots aria-label="Navigation du carrousel"></div>
+    </div>
+</section>
