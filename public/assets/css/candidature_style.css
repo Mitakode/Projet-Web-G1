@@ -14,6 +14,12 @@
     flex: 2;
 }
 
+.entreprise-meta {
+    font-size: 18px;
+    color: #17496E;
+    margin: 6px 0 18px 0;
+}
+
 .offer-details h1 {
     color: #17496E;
     margin-bottom: 20px;
@@ -22,6 +28,116 @@
 .offer-details p {
     line-height: 1.6;
     margin-bottom: 20px;
+}
+
+.rating-panel {
+    border: 1px solid #d7e0e6;
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.rating-panel h3 {
+    margin: 0 0 8px 0;
+    color: #17496E;
+}
+
+.stars-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.star {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.star.filled {
+    color: #f4b400;
+}
+
+.star.empty {
+    color: #bcc6cf;
+}
+
+.rating-meta {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #4f5e6b;
+}
+
+.rating-form {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rating-input {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    font-size: 30px;
+    color: #c2cad2;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label {
+    color: #f4b400;
+}
+
+.rate-submit {
+    width: fit-content;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #17496E;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rate-submit:hover {
+    background: #123a58;
+}
+
+.rating-hint {
+    margin-top: 10px;
+    color: #586673;
+    font-size: 14px;
+}
+
+.rating-flash {
+    margin: 10px 0 0 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.rating-flash.success {
+    background: #e8f6ec;
+    color: #206437;
+    border: 1px solid #bde4c7;
+}
+
+.rating-flash.error {
+    background: #fdecec;
+    color: #7c2424;
+    border: 1px solid #f4b9b9;
 }
 
 .application-form {

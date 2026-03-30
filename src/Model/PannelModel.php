@@ -68,10 +68,29 @@ class PannelModel
         $favoris = $favorisrequest->fetchAll(PDO::FETCH_ASSOC);
 
         $candidaturesrequest = $this->pdo->prepare(
-            "SELECT o.Id_offre, o.Titre, o.Description, o.Date_offre, e.Nom AS entreprise, ca.Date_ AS date_candidature, ca.Cv, ca.lm
-             FROM Candidater ca
+            "SELECT o.Id_offre,
+                    o.Id_entreprise,
+                    o.Titre,
+                    o.Description,
+                    o.Date_offre,
+                    e.Nom AS entreprise,
+                    ca.Date_ AS date_candidature,
+                    ca.Cv,
+                    ca.LM,
+                    COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
+                    COALESCE(notesAgg.total_votes, 0) AS total_votes,
+                    noteUser.Note AS note_utilisateur
+             FROM Candidature ca
              JOIN Offre o ON o.Id_offre = ca.Id_offre
              JOIN Entreprise e ON e.Id_entreprise = o.Id_entreprise
+                 LEFT JOIN (
+                     SELECT Id_Entreprise AS Id_entreprise, ROUND(AVG(Note), 2) AS note_moyenne, COUNT(*) AS total_votes
+                     FROM Evaluer
+                     GROUP BY Id_Entreprise
+                 ) notesAgg ON notesAgg.Id_entreprise = o.Id_entreprise
+                 LEFT JOIN Evaluer noteUser
+                          ON noteUser.Id_Entreprise = o.Id_entreprise
+                         AND noteUser.Id_User = ca.Id_user
              WHERE ca.Id_user = :id
              ORDER BY ca.Date_ DESC
              LIMIT 5"

@@ -10,8 +10,8 @@ class OffreModel
 
     public function __construct()
     {
-    $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",DB_USER,DB_PASS);
-    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**
@@ -37,19 +37,41 @@ class OffreModel
      */
     public function getOffresPaginated(int $limit, int $offset, string $search = '')
     {
+        // On joint un agrégat de Evaluer pour exposer la moyenne et le nombre d'avis
+        // directement dans les cartes d'offres (home).
         if ($search === '') {
             $stmt = $this->pdo->prepare("
-                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
-                FROM Offre 
-                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                SELECT Offre.*, 
+                       Entreprise.Nom AS Nom_entreprise,
+                       COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
+                       COALESCE(notesAgg.total_votes, 0) AS total_votes
+                FROM Offre
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise
+                LEFT JOIN (
+                    SELECT Id_Entreprise,
+                           ROUND(AVG(Note), 2) AS note_moyenne,
+                           COUNT(*) AS total_votes
+                    FROM Evaluer
+                    GROUP BY Id_Entreprise
+                ) notesAgg ON notesAgg.Id_Entreprise = Offre.Id_entreprise
                 ORDER BY Offre.Id_offre DESC 
                 LIMIT :limit OFFSET :offset
             ");
         } else {
             $stmt = $this->pdo->prepare("
-                SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
-                FROM Offre 
-                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise 
+                SELECT Offre.*, 
+                       Entreprise.Nom AS Nom_entreprise,
+                       COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
+                       COALESCE(notesAgg.total_votes, 0) AS total_votes
+                FROM Offre
+                LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise
+                LEFT JOIN (
+                    SELECT Id_Entreprise,
+                           ROUND(AVG(Note), 2) AS note_moyenne,
+                           COUNT(*) AS total_votes
+                    FROM Evaluer
+                    GROUP BY Id_Entreprise
+                ) notesAgg ON notesAgg.Id_Entreprise = Offre.Id_entreprise
                 WHERE Offre.Titre LIKE :search OR Offre.Description LIKE :search
                 ORDER BY Offre.Id_offre DESC 
                 LIMIT :limit OFFSET :offset
@@ -66,16 +88,32 @@ class OffreModel
     public function getAll(): array
     {
         $query = $this->pdo->query("
-            SELECT o.*, e.Nom AS Nom_entreprise 
-            FROM Offre o
-            LEFT JOIN Entreprise e ON o.Id_entreprise = e.Id_entreprise
+            SELECT Offre.*, Entreprise.Nom AS Nom_entreprise 
+            FROM Offre
+            LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise
         ");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getById(int $id): array|false
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Offre WHERE Id_offre = :id");
+        // Même logique d'agrégat pour la page détail offre/candidature.
+        $stmt = $this->pdo->prepare("
+            SELECT Offre.*, Entreprise.Nom AS Nom_entreprise,
+                   COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
+                   COALESCE(notesAgg.total_votes, 0) AS total_votes
+            FROM Offre
+            LEFT JOIN Entreprise ON Offre.Id_entreprise = Entreprise.Id_entreprise
+            LEFT JOIN (
+                SELECT Id_Entreprise,
+                       ROUND(AVG(Note), 2) AS note_moyenne,
+                       COUNT(*) AS total_votes
+                FROM Evaluer
+                GROUP BY Id_Entreprise
+            ) notesAgg ON notesAgg.Id_Entreprise = Offre.Id_entreprise
+            WHERE Offre.Id_offre = :id
+            LIMIT 1
+        ");
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);

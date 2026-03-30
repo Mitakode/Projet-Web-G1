@@ -169,3 +169,74 @@
     color: #333;
     font: 16px "Segoe UI";
 }
+
+.rating-summary {
+    margin: 12px 0 10px 0;
+}
+
+.rating-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.stars-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.star {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.star.filled {
+    color: #f4b400;
+}
+
+.star.empty {
+    color: #b8b8b8;
+}
+
+.rating-meta {
+    margin-left: 8px;
+    font: 14px "Segoe UI";
+    color: #555;
+}
+
+.rating-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+}
+
+.rating-form-label {
+    font: 15px "Segoe UI";
+    font-weight: 600;
+    color: #333;
+}
+
+.rating-form select {
+    border: 1px solid #b9b9b9;
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: #fff;
+    font: 14px "Segoe UI";
+}
+
+.rating-form button {
+    border: none;
+    border-radius: 8px;
+    padding: 7px 12px;
+    background: #17496E;
+    color: #fff;
+    cursor: pointer;
+    font: 14px "Segoe UI";
+}
+
+.rating-form button:hover {
+    background: #113b59;
+}

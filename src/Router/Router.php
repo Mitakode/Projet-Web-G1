@@ -45,6 +45,15 @@ switch ($uri) {
         $accountController->index();
         break;
 
+    case '/noter-entreprise':
+        if ($method === 'POST') {
+            $accountController->noterEntreprise();
+        } else {
+            header('Location: /account');
+            exit;
+        }
+        break;
+
     case '/mentions-legales':
         View::render('mentions_legales.html.twig');
         break;
