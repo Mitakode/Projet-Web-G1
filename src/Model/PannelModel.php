@@ -76,7 +76,7 @@ class PannelModel
                     e.Nom AS entreprise,
                     ca.Date_ AS date_candidature,
                     ca.Cv,
-                    ca.Lettre_motivation,
+                    ca.LM,
                     COALESCE(notesAgg.note_moyenne, 0) AS note_moyenne,
                     COALESCE(notesAgg.total_votes, 0) AS total_votes,
                     noteUser.Note AS note_utilisateur

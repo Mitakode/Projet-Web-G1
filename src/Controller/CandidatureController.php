@@ -13,7 +13,6 @@ class CandidatureController
 {
     public function index()
     {
-         //Vérification de la session utilisateur
         // Récupérer l'ID de l'offre depuis l'URL
         $id = isset($_GET['id_offre']) ? (int)$_GET['id_offre'] : 0;
         
