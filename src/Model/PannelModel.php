@@ -27,19 +27,19 @@ class PannelModel
     public function getUserInfos(int $id): array
     {
         $userrequest = $this->pdo->prepare(
-            "SELECT Id_user, Nom, Prenom, Email FROM Utilisateur WHERE Id_user = :id"
+            "SELECT Id_user, Nom, Prenom, Email, Date_naissance, Formation, Description FROM Utilisateur WHERE Id_user = :id"
         );
         $userrequest->execute(['id' => $id]);
-        $user = $userrequest->fetch(PDO::FETCH_ASSOC);
+        $user = $userrequest->fetch(PDO::FETCH_ASSOC) ?: [];
 
         $statsrequest = $this->pdo->prepare(
-            "SELECT COUNT(*) AS total FROM Candidature WHERE Id_user = :id"
+            "SELECT COUNT(*) AS total FROM Candidater WHERE Id_user = :id"
         );
         $statsrequest->execute(['id' => $id]);
         $totalCandidatures = (int) $statsrequest->fetch(PDO::FETCH_ASSOC)['total'];
 
         $cvrequest = $this->pdo->prepare(
-            "SELECT Cv FROM Candidature WHERE Id_user = :id AND Cv IS NOT NULL AND Cv <> '' ORDER BY Date_ DESC LIMIT 1"
+            "SELECT Cv FROM Candidater WHERE Id_user = :id AND Cv IS NOT NULL AND Cv <> '' ORDER BY Date_ DESC LIMIT 1"
         );
         $cvrequest->execute(['id' => $id]);
         $cv = $cvrequest->fetchColumn() ?: null;
@@ -48,7 +48,7 @@ class PannelModel
             "SELECT DISTINCT c.Nom
              FROM Competence c
              JOIN Requiert r ON r.Id_competence = c.Id_competence
-             JOIN Candidature ca ON ca.Id_offre = r.Id_offre
+             JOIN Candidater ca ON ca.Id_offre = r.Id_offre
              WHERE ca.Id_user = :id
              ORDER BY c.Nom ASC
              LIMIT 2"
@@ -107,10 +107,10 @@ class PannelModel
                 'refusees' => 0,
             ],
             'profil' => [
-                'date_naissance' => '',
-                'formation' => '',
-                'niveau_etude' => '',
-                'description' => '',
+                'date_naissance' => $user['Date_naissance'] ?? '',
+                'formation' => $user['Formation'] ?? '',
+                'niveau_etude' => $user['Niveau_etude'] ?? ($user['Formation'] ?? ''),
+                'description' => $user['Description'] ?? '',
             ],
             'cv' => $cv,
             'competences' => $competences,

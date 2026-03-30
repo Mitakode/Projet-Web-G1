@@ -6,110 +6,68 @@
     <title>Career Quest</title>
     <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
-    <link href="/assets/css/pannel-pilote-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/pannel_pilote_style.css" rel="stylesheet"/>
 </head>
 
 <body>
 
 {% include 'partials/_header.html.twig' %}
 
-<section>
-    <div class="search-recherche">
-        <img src="/assets/images/loupe.png" alt="Rechercher"/>
-        <input type="recherche" placeholder="Rechercher parmi les listes...">
+<div class="container">
+    <section class="mes-informations">
+        <h2>Mes Informations</h2>
+
+        <div class="info-item">
+            <label>Nom Prénom :</label>
+            <p>{{ user.Nom }} {{ user.Prenom }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Date de naissance :</label>
+            <p>{{ user.Date_naissance|default('Non renseigné') }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Formation :</label>
+            <p>{{ user.Formation|default('Non renseigné') }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Mon niveau d'étude :</label>
+            <p>{{ user.Formation|default('Non renseigné') }}</p>
+        </div>
+
+        <div class="info-item">
+            <label>Description sur mon profil :</label>
+            <p>{{ user.Description|default('Aucune description') }}</p>
+        </div>
+    </section>
+</div>
+
+<div class="admin-grid">
+
+    <div class="admin-card">
+        <h2>ELEVES</h2>
+        <p>{{ eleves|length }} élèves enregistrés</p>
+        <a href="/student_list"><button class="admin-btn">Modifier</button></a>
+        <a href="/student_creation"><button class="admin-btn">Ajouter</button></a>
     </div>
-    <hr>
-    <div class="auth-containers">
 
-        <div class="auth-container">
-            <a href="/eleve/create"><button type="button" class="btn"> + Créer un élève</button></a>
-            <div class="auth-box">
-                <h1>Liste élèves</h1>
-                <div class="list-scroll-container">
-                    {% for eleve in eleves %}
-                        <div class="list-item">
-                            <a href="/eleve/{{ eleve.Id_user }}/delete">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Poubelle.png" alt="Supprimer"/>
-                                </button>
-                            </a>
-                            <a href="/eleve/{{ eleve.Id_user }}/edit">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Modif.png" alt="Modifier"/>
-                                </button>
-                            </a>
-                            <h3>{{ eleve.Prenom }} {{ eleve.Nom }}</h3>
-                            <p>{{ eleve.Email }}</p>
-                        </div>
-                    {% else %}
-                        <div class="list-item">
-                            <p>Aucun élève trouvé.</p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <div class="auth-container">
-            <a href="/offre/create"><button type="button" class="btn"> + Ajouter une offre</button></a>
-            <div class="auth-box">
-                <h1>Liste offres</h1>
-                <div class="list-scroll-container">
-                    {% for offre in offres %}
-                        <div class="list-item">
-                            <a href="/offre/{{ offre.Id_offre }}/delete">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Poubelle.png" alt="Supprimer"/>
-                                </button>
-                            </a>
-                            <a href="/offre/{{ offre.Id_offre }}/edit">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Modif.png" alt="Modifier"/>
-                                </button>
-                            </a>
-                            <h3>{{ offre.Titre }}</h3>
-                            <p>{{ offre.Description|default('Pas de description')|slice(0, 80) }}...</p>
-                        </div>
-                    {% else %}
-                        <div class="list-item">
-                            <p>Aucune offre trouvée.</p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <div class="auth-container">
-            <a href="/entreprise/create"><button type="button" class="btn"> + Ajouter une entreprise</button></a>
-            <div class="auth-box">
-                <h1>Liste entreprises</h1>
-                <div class="list-scroll-container">
-                    {% for entreprise in entreprises %}
-                        <div class="list-item">
-                            <a href="/entreprise/{{ entreprise.Id_entreprise }}/delete">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Poubelle.png" alt="Supprimer"/>
-                                </button>
-                            </a>
-                            <a href="/entreprise/{{ entreprise.Id_entreprise }}/edit">
-                                <button type="button" class="btn-list">
-                                    <img src="/assets/images/icn-Modif.png" alt="Modifier"/>
-                                </button>
-                            </a>
-                            <h3>{{ entreprise.Nom }}</h3>
-                            <p>{{ entreprise.Ville|default('Ville non renseignée') }}</p>
-                        </div>
-                    {% else %}
-                        <div class="list-item">
-                            <p>Aucune entreprise trouvée.</p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
+    <div class="admin-card">
+        <h2>ENTREPRISES</h2>
+        <p>{{ entreprises|length }} entreprises enregistrés</p>
+        <a href="/enterprise_list"><button class="admin-btn">Modifier</button></a>
+        <a href="/add_entreprise"><button class="admin-btn">Ajouter</button></a>    
     </div>
-</section>
+
+    <div class="admin-card">
+        <h2>STAGES</h2>
+        <p>{{ offres|length }} stages enregistrés</p>
+        <a href="/offer_list"><button class="admin-btn">Modifier</button></a>
+        <a href="/offres_de_stages"><button class="admin-btn">Ajouter</button></a>
+    </div>
+
+</div>
 
 {% include 'partials/_footer.html.twig' %}
 

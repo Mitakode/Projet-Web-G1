@@ -112,4 +112,103 @@ class EntrepriseModel
     }
 
 
+    public function getById(int $id): array|false
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Entreprise WHERE Id_entreprise = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function create(array $data): void
+    {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO Entreprise (Nom, Description, Email_contact, Telephone, Est_actif)
+            VALUES (:nom, :description, :email_contact, :telephone, :est_actif)
+        ");
+        $stmt->execute([
+            ':nom'          => $data['nom'],
+            ':description'  => $data['description'],
+            ':email_contact'=> $data['email_contact'],
+            ':telephone'    => $data['telephone'] ?: null,
+            ':est_actif'    => $data['est_actif'] ?? 1,
+        ]);
+    }
+
+    public function update(int $id, array $data): void
+    {
+        $stmt = $this->pdo->prepare("
+            UPDATE Entreprise SET
+                Nom           = :nom,
+                Description   = :description,
+                Email_contact = :email_contact,
+                Telephone     = :telephone,
+                Est_actif     = :est_actif
+            WHERE Id_entreprise = :id
+        ");
+        $stmt->execute([
+            ':nom'          => $data['nom'],
+            ':description'  => $data['description'],
+            ':email_contact'=> $data['email_contact'],
+            ':telephone'    => $data['telephone'] ?: null,
+            ':est_actif'    => $data['est_actif'] ?? 1,
+            ':id'           => $id,
+        ]);
+    }
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Entreprise WHERE Id_entreprise = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function search(string $search): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT * FROM Entreprise 
+        WHERE Nom LIKE :s 
+        OR Description LIKE :s 
+        OR Email_contact LIKE :s
+    ");
+    $stmt->execute([':s' => '%' . $search . '%']);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getOffresByEntreprise(int $id): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT * FROM Offre WHERE Id_entreprise = :id
+    ");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getStats(int $id): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT COUNT(*) as nb_candidatures
+        FROM Candidater c
+        JOIN Offre o ON c.Id_offre = o.Id_offre
+        WHERE o.Id_entreprise = :id
+    ");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $nb = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt2 = $this->pdo->prepare("
+        SELECT AVG(Note) as moyenne
+        FROM Evaluer
+        WHERE Id_entreprise = :id
+    ");
+    $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt2->execute();
+    $moy = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+    return [
+        'nb_candidatures' => $nb['nb_candidatures'] ?? 0,
+        'moyenne'         => $moy['moyenne'] ? round((float)$moy['moyenne'], 1) : 'N/A'
+    ];
+    }
 }

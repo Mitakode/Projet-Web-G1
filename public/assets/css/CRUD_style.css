@@ -1,0 +1,126 @@
+/* Style CRUD aligne sur la page de connexion */
+
+body {
+	font-family: "Segoe UI", sans-serif;
+	background: #f5f5f5;
+}
+
+h1,
+h2 {
+	text-align: center;
+	color: #1f1f1f;
+	font-family: "Segoe UI", sans-serif;
+}
+
+h1 {
+	margin: 35px 16px 35px;
+	font-size: 30px;
+	font-weight: 700;
+
+}
+
+h2 {
+	margin: 0 16px 18px;
+	font-size: 22px;
+	font-weight: 600;
+}
+
+h1 code {
+	font-family: "Segoe UI", sans-serif;
+	background: #e9e9e9;
+	border-radius: 8px;
+	padding: 2px 8px;
+}
+
+.main-form {
+	width: min(100% - 32px, 640px);
+	margin: 0 auto 90px;
+	background: #ffffff;
+	border: 1px solid #d1d1d1;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.main-form label {
+	margin-top: 6px;
+	margin-bottom: 2px;
+	font-size: 14px;
+	color: #202020;
+	font-weight: 600;
+}
+
+.main-form input,
+.main-form select {
+	background-color: #d9d9d9;
+	border: 2px solid #555;
+	border-radius: 20px;
+	padding: 12px 14px;
+	font-size: 15px;
+	outline: none;
+	color: #111;
+}
+
+.main-form input:focus,
+.main-form select:focus {
+	border-color: #348635;
+}
+
+.main-form .btn {
+	background-color: #348635;
+	border: 2px solid #444;
+	border-radius: 20px;
+	padding: 10px 18px;
+	color: #000;
+	cursor: pointer;
+	width: 190px;
+	font-family: "Segoe UI", sans-serif;
+	font-size: 15px;
+	font-weight: 600;
+	margin: 18px auto 8px;
+	transition: background-color 0.2s ease;
+}
+
+.main-form .btn:hover,
+.main-form .btn:focus {
+	background-color: #2f7a30;
+}
+
+.main-form a {
+	align-self: center;
+	margin-left: 0 !important;
+	color: #2c2c2c;
+	text-decoration: none;
+	font-weight: 600;
+	margin-top: 4px;
+}
+
+.main-form a:hover,
+.main-form a:focus {
+	text-decoration: none;
+}
+
+@media (max-width: 700px) {
+	h1 {
+		margin-top: 24px;
+		font-size: 24px;
+	}
+
+	h2 {
+		font-size: 19px;
+	}
+
+	.main-form {
+		width: calc(100% - 22px);
+		padding: 22px 16px;
+		margin-bottom: 24px;
+	}
+
+	.main-form .btn {
+		width: 100%;
+		max-width: 220px;
+	}
+}

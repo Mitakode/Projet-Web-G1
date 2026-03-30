@@ -18,7 +18,7 @@ class CandidatureController
         $id = isset($_GET['id_offre']) ? (int)$_GET['id_offre'] : 0;
         
         $offreModel = new OffreModel();
-        $offre = $offreModel->getOffreById($id);
+        $offre = $offreModel->getById($id);
 
         // Si l'offre n'existe pas, redirection vers l'accueil
         if (!$offre) {

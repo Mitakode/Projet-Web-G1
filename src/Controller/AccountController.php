@@ -18,7 +18,7 @@ class AccountController
         $user = Auth::user();
         $id   = $user['Id_user'];       
         $role = $user['Role'];          
-
+ 
         switch ($role) {
             case 0: // Eleve normal
                 $pannelModel = new PannelModel();
@@ -36,7 +36,7 @@ class AccountController
 
                 View::render('pannel_pilote.html.twig', [
                     'user'        => $user,
-                    'eleves'      => $utilisateurModel->getByRole(1),
+                    'eleves'      => $utilisateurModel->getByRoleAndEstGerePar(0,$id),
                     'offres'      => $offreModel->getAll(),
                     'entreprises' => $entrepriseModel->getAll(),
                 ]);

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>{{ entreprise.Nom }} — Career Quest</title>
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/company.css" rel="stylesheet"/>
+</head>
+<body>
+{% include 'partials/_header.html.twig' %}
+<main>
+    <a href="/companies" class="btn-back">← Retour</a>
+
+    <h2>{{ entreprise.Nom }}</h2>
+    <p>{{ entreprise.Description }}</p>
+    <p><strong>Email :</strong> {{ entreprise.Email_contact }}</p>
+    <p><strong>Téléphone :</strong> {{ entreprise.Telephone|default('—') }}</p>
+    <p><strong>Active :</strong> {{ entreprise.Est_actif == 1 ? 'Oui' : 'Non' }}</p>
+
+    <hr>
+    <h3>Statistiques</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.nb_candidatures }}</div>
+            <div class="stat-label">Candidatures reçues</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.moyenne }}</div>
+            <div class="stat-label">Note moyenne / 5</div>
+        </div>
+    </div>
+
+    <hr>
+    <h3>Offre(s) de stage ({{ offres|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Rémunération</th>
+                <th>Durée (mois)</th>
+                <th>Places</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in offres %}
+            <tr>
+                <td>{{ o.Titre }}</td>
+                <td>{{ o.Remuneration }}</td>
+                <td>{{ o.Duree_mois }}</td>
+                <td>{{ o.Nombre_place }}</td>
+                <td>{{ o.Date_offre }}</td>
+            </tr>
+            {% else %}
+                <tr><td colspan="5">Aucune offre pour cette entreprise.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% include 'partials/_footer.html.twig' %}
+</body>
+</html>
+
