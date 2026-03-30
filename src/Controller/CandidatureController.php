@@ -45,7 +45,12 @@ class CandidatureController
             }
         }
 
-        $ratingStatus = isset($_GET['rating']) ? (string) $_GET['rating'] : '';
+        $ratingStatus = InputValidator::getEnum(
+            $_GET,
+            'rating',
+            ['invalid', 'forbidden', 'saved'],
+            ''
+        );
 
         View::render('candidature.html.twig', [
             'offre' => $offre,

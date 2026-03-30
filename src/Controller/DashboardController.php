@@ -34,7 +34,7 @@ class DashboardController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Action CRUD restreinte à add/edit/delete.
-                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
+                $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'add') {
                     $model->create($_POST);
@@ -61,9 +61,9 @@ class DashboardController
 
         if (isset($_GET['id'])) {
             // ID d'édition validé avant lecture DB.
-            $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
+            $userId = InputValidator::getInt($_GET, 'id', 0, 1);
+            $editUser = $model->getById($userId);
             $pilotes = $model->getByRole(1); 
-            $userId = (int)$_GET['id'];
 
             $isPilot = ((int)($user['Role'] ?? 0) === 1);
             $isOwnedStudent = $editUser
@@ -118,7 +118,7 @@ class DashboardController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Action CRUD restreinte à add/edit/delete.
-                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
+                $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
                     // ID nettoyé: entier positif uniquement.
@@ -181,7 +181,7 @@ class DashboardController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Action CRUD restreinte à add/edit/delete.
-                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
+                $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
                     // ID nettoyé: entier positif uniquement.
@@ -246,7 +246,7 @@ class DashboardController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Action CRUD restreinte à add/edit/delete.
-                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
+                $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
                     // ID nettoyé: entier positif uniquement.
@@ -301,13 +301,15 @@ class DashboardController
     {
         $statsModel = new StatsModel();
 
-        $offerId = null;
-        if (isset($_GET['id-offre'])) {
-            $offerId = (int) $_GET['id-offre'];
-        } elseif (isset($_GET['id_offre'])) {
-            $offerId = (int) $_GET['id_offre'];
-        } elseif (isset($_GET['id'])) {
-            $offerId = (int) $_GET['id'];
+        $offerId = InputValidator::getInt($_GET, 'id-offre', 0, 1);
+        if ($offerId <= 0) {
+            $offerId = InputValidator::getInt($_GET, 'id_offre', 0, 1);
+        }
+        if ($offerId <= 0) {
+            $offerId = InputValidator::getInt($_GET, 'id', 0, 1);
+        }
+        if ($offerId <= 0) {
+            $offerId = null;
         }
 
         $offerStats = null;
