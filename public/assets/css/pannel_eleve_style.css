@@ -1,3 +1,8 @@
+.panel-content {
+    margin: 25px 0;
+    padding-bottom: 55px;
+}
+
 .statistiques {
     background-color: #d9d9d9;
     padding: 30px;
@@ -22,7 +27,6 @@
 
 .stats-container p {
     flex: 1;
-    margin: 0;
     color: #333;
     font:16px "Segoe UI";
 }
@@ -239,4 +243,10 @@
 
 .rating-form button:hover {
     background: #113b59;
+}
+
+@media (max-width: 600px) {
+    .panel-content {
+        padding-bottom: 15px;
+    }
 }
