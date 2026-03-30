@@ -29,6 +29,8 @@
         
         {% include 'partials/_header.html.twig' %}
 
+        <main class="panel-content">
+
         <section class="statistiques">
             <h2>Statistiques</h2>
             <div class="stats-container">
@@ -102,7 +104,7 @@
                             <h3>{{ favori.Titre }}</h3>
                             <p>{{ favori.entreprise }}</p>
                             <p>{{ favori.Date_offre }}</p>
-                            <a href="/offre/{{ favori.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-offre">Voir l'offre</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -149,7 +151,7 @@
                                 <button type="submit">Enregistrer</button>
                             </form>
 
-                            <a href="/offre/{{ candidature.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-offre">Voir l'offre</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -160,6 +162,8 @@
                 {% endif %}
             </section>
         </div>
+
+        </main>
 
        {% include 'partials/_footer.html.twig' %}
        
