@@ -102,7 +102,7 @@
                     {% for favori in dashboard.favoris %}
                         <div class="annonce-card">
                             <h3>{{ favori.Titre }}</h3>
-                            <p>{{ favori.entreprise }}</p>
+                            <a href="/company?id={{ favori.Id_entreprise }}" class="entreprise-link">{{ favori.entreprise }}</a>
                             <p>{{ favori.Date_offre }}</p>
                             <a href="/candidater?id_offre={{ favori.Id_offre }}">Voir l'annonce</a>
                         </div>
@@ -124,7 +124,7 @@
                         {% set avgRounded = avg|round(0, 'common') %}
                         <div class="annonce-card">
                             <h3>{{ candidature.Titre }}</h3>
-                            <p>{{ candidature.entreprise }}</p>
+                            <a href="/company?id={{ candidature.Id_entreprise }}" class="entreprise-link">{{ candidature.entreprise }}</a>
                             <p>Candidature envoyée le {{ candidature.date_candidature }}</p>
 
                             <div class="rating-summary">
