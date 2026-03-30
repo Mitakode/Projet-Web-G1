@@ -211,3 +211,4 @@ public function getStats(int $id): array
         'moyenne'         => $moy['moyenne'] ? round((float)$moy['moyenne'], 1) : 'N/A'
     ];
     }
+}
