@@ -47,6 +47,37 @@
     display: inline-block;
 }
 
+.home-rating {
+    margin: 8px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.home-rating-label {
+    font-weight: 600;
+    margin-right: 2px;
+}
+
+.home-star {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.home-star.filled {
+    color: #f7c42b;
+}
+
+.home-star.empty {
+    color: #a5b8c7;
+}
+
+.home-rating-meta {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #d9e9f5;
+}
 .btn-action.star {
     position: absolute;
     top: 18px;
