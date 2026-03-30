@@ -88,6 +88,87 @@ h1 code {
 .main-form .btn:focus {
 	background-color: #2f7a30;
 }
+.candidatures-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eaeaea; 
+}
+
+.candidatures-section h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+}
+
+.candidatures-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.candidature-item {
+	position: relative;
+	padding: 22px 0 15px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.candidature-item:last-child {
+    border-bottom: none;
+}
+
+.candidature-titre {
+    display: block;
+    font-size: 1.1em;
+    color: #222;
+    margin-bottom: 12px; 
+}
+
+.btn-annonce {
+	position: absolute;
+	top: 26px;
+	right: 0;
+	text-decoration: none;
+	color: #fff;
+	background: #78af79;
+	border: 1px solid #256726;
+	border-radius: 14px;
+	padding: 6px 12px;
+	font-size: 0.82em;
+	font-weight: 600;
+	line-height: 1;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-annonce:hover,
+.btn-annonce:focus {
+	background: #266627;
+	transform: translateY(-1px);
+}
+
+.candidature-actions {
+    display: flex;
+    gap: 30px; 
+    align-items: center;
+}
+
+.btn-document {
+    text-decoration: none;
+    color: #2f7a30;
+    font-weight: 500;
+    font-size: 0.95em;
+    transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.btn-document:hover {
+    text-decoration: underline;
+    opacity: 0.8; 
+}
+
+.candidatures-empty {
+    color: #777;
+    font-style: italic;
+}
 
 .main-form a {
 	align-self: center;
@@ -122,5 +203,12 @@ h1 code {
 	.main-form .btn {
 		width: 100%;
 		max-width: 220px;
+	}
+
+	.btn-annonce {
+		top: 2px;
+		right: 0;
+		padding: 5px 10px;
+		font-size: 0.78em;
 	}
 }

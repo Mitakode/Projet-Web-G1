@@ -50,14 +50,26 @@ class DashboardController
         }
 
         if (isset($_GET['id'])) {
-            $editUser = $model->getById((int)$_GET['id']);
-            $pilotes = $model->getByRole(1); 
+            $userId = (int)$_GET['id'];
+            $editUser = $model->getById($userId);
+
+            $isPilot = ((int)($user['Role'] ?? 0) === 1);
+            $isOwnedStudent = $editUser
+                && (int)($editUser['Role'] ?? -1) === 0
+                && (int)($editUser['est_gere_par'] ?? 0) === (int)$user['Id_user'];
+
+            if (!$isPilot || !$isOwnedStudent) {
+                header('Location: /forbidden');
+                exit;
+            }
+
+            $stagesEleve = $model->getCandidatures($userId);
 
             View::render('eleve.html.twig', [
                 'editUser'     => $editUser,
                 'pilote_id'    => $user['Id_user'],
                 'session_role' => $user['Role'],
-                'pilotes'      => $pilotes
+                'stagesEleve'  => $stagesEleve
             ]);
             return;
         }
