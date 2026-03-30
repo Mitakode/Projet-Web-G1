@@ -45,17 +45,16 @@ class CandidatureController
             }
         }
 
-        $ratingStatus = (string) ($_GET['rating'] ?? '');
-        // Paramètre de statut: n'accepte que les valeurs prévues de retour UI.
-        if (!InputValidator::regex($ratingStatus, '/^(saved|invalid|forbidden)?$/')) {
-            $ratingStatus = '';
-        }
+        $ratingStatus = isset($_GET['rating']) ? (string) $_GET['rating'] : '';
 
         View::render('candidature.html.twig', [
             'offre' => $offre,
             'canRate' => $canRate,
             'userNote' => $userNote,
             'ratingStatus' => $ratingStatus,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth'       => isset($_SESSION['user']),
+            'alreadyApplied' => $alreadyApplied,
         ]);
     }
 

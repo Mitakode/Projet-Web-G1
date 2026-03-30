@@ -126,6 +126,28 @@ class UtilisateurModel
         ]);
     }
 
+    public function getCandidatures(int $userId): array
+    { 
+        $sql = "
+            SELECT c.*, o.Titre as offre_titre
+            FROM Candidater c 
+            LEFT JOIN Offre o ON c.Id_offre = o.Id_offre
+            WHERE c.Id_user = :id_user
+        ";
+        
+        $stmt = $this->pdo->prepare($sql); 
+        $stmt->execute(['id_user' => $userId]);
+        $stages = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        foreach ($stages as &$stage) {
+            $stage['offre'] = [
+                'titre' => $stage['offre_titre']
+            ];
+        }
+
+        return $stages;
+    }
+
     public function delete(int $id): void
     {
         $stmt = $this->pdo->prepare("DELETE FROM Utilisateur WHERE Id_user = :id");

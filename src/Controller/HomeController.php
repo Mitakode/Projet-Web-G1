@@ -65,6 +65,8 @@ class HomeController
             'searchQuery'  => $searchQuery,
             'searchInputInvalid' => $searchInputInvalid,
             'isStudent'    => $isStudent,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth'       => isset($_SESSION['user']),
         ]);
     }
 

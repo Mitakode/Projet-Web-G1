@@ -218,19 +218,35 @@ label {
     margin: 0;
 }
 
+.admin-card-buttons {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-top: auto;
+}
+
 .admin-btn {
+    flex: 1; 
     background-color: #e0e0e0;
     border: none;
     border-radius: 12px;
-    padding: 10px 40px;
+    padding: 12px 0;
     font-family: "Segoe UI", sans-serif;
     font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     color: #333;
-    width: 100%;
-    max-width: 250px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-sizing: border-box;
 }
 
 .admin-btn:hover {
     background-color: #c8c8c8;
+    color: #333;
+}
+
+.admin-btn:active {
+    transform: scale(0.98);
 }
