@@ -45,6 +45,12 @@ class CandidatureController
         }
 
         $ratingStatus = isset($_GET['rating']) ? (string) $_GET['rating'] : '';
+        $candidatureModel = new CandidatureModel();
+        $alreadyApplied = false;
+
+        if ($user && (int)($user['Role'] ?? -1) === 0) {
+            $alreadyApplied = $candidatureModel->candidatureExists($id, (int)$user['Id_user']);
+}
 
         View::render('candidature.html.twig', [
             'offre' => $offre,
@@ -53,6 +59,7 @@ class CandidatureController
             'ratingStatus' => $ratingStatus,
             'session_role' => $_SESSION['user']['Role'] ?? null,
             'isAuth'       => isset($_SESSION['user']),
+            'alreadyApplied' => $alreadyApplied,
         ]);
     }
 
