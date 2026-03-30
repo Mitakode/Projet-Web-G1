@@ -57,6 +57,8 @@ class HomeController
             'pageActuelle' => $pageActuelle,
             'searchQuery'  => $searchQuery,
             'isStudent'    => $isStudent,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth'       => isset($_SESSION['user']),
         ]);
     }
 

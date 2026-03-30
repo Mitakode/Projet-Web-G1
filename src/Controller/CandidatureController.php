@@ -51,6 +51,8 @@ class CandidatureController
             'canRate' => $canRate,
             'userNote' => $userNote,
             'ratingStatus' => $ratingStatus,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth'       => isset($_SESSION['user']),
         ]);
     }
 

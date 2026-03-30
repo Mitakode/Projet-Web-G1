@@ -58,7 +58,11 @@
                     <p>{{ offre.Nombre_place|default('Nombre de places à définir')|e }}</p><br>
                     <h3>Description du poste : </h3>
                     <p>{{ offre.Description|default('Pas de description')|e }}</p>
-                    <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
+                    {% if isAuth and session_role == 0 %}
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
+                    {% else %}
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Détails</a>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}

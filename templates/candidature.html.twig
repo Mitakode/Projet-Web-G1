@@ -82,26 +82,36 @@
         </div>
     </div>
 
-    <div class="application-form">
-        <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
-        
-        <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
-            </br>
-            <label class="upload-label" for="cv">CV (Curriculum Vitae)</label>
+    {% if isAuth and session_role == 0 %}
+        <div class="application-form">
+            <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
+            
+            <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
+                <br>
+                <label class="upload-label" for="cv">CV (Curriculum Vitae)</label>
                 <div class="file-input-wrapper">
-                <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+                    <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
                 </div>
-            </br>
-            <label class="upload-label" for="lm">Lettre de motivation</label>
+                <br>
+                <label class="upload-label" for="lm">Lettre de motivation</label>
                 <div class="file-input-wrapper">
-                <input type="file" id="lm" name="lm" accept=".pdf,.doc,.docx" required>
+                    <input type="file" id="lm" name="lm" accept=".pdf,.doc,.docx" required>
                 </div>
-            </br></br>
-            <button type="submit" class="submit-btn">Envoyer ma candidature</button>
-            </div>
-        </form>
-    </div>
+                <br><br>
+                <button type="submit" class="submit-btn">Envoyer ma candidature</button>
+            </form>
+        </div>
+
+        {% elseif isAuth and session_role > 0 %}
+            <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
+                Vous n'avez pas les permissions nécessaires pour postuler à cette offre.
+            </p>
+        {% else %}
+            <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
+                Connecte-toi pour postuler à cette offre.
+            </p>
+        {% endif %}
 </main>
 
 {% include 'partials/_footer.html.twig' %}
