@@ -11,6 +11,35 @@ use App\Model\StatsModel;
 
 class DashboardController
 {
+    private const ITEMS_PER_PAGE = 20;
+
+    private function paginateArray(array $items, int $itemsPerPage = self::ITEMS_PER_PAGE): array
+    {
+        $pageActuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        if ($pageActuelle < 1) {
+            $pageActuelle = 1;
+        }
+
+        $totalElements = count($items);
+        $totalPages = (int) ceil($totalElements / $itemsPerPage);
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
+
+        if ($pageActuelle > $totalPages) {
+            $pageActuelle = $totalPages;
+        }
+
+        $offset = ($pageActuelle - 1) * $itemsPerPage;
+
+        return [
+            'items' => array_slice($items, $offset, $itemsPerPage),
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages,
+            'totalElements' => $totalElements,
+        ];
+    }
+
     public function __construct()
     {
         Auth::requireAuth();
@@ -79,8 +108,13 @@ class DashboardController
             ? $model->getByRole(0) 
             : $model->getByRoleAndEstGerePar(0, $user['Id_user']);
 
+        $pagination = $this->paginateArray($users);
+
         View::render('liste_eleves.html.twig', [
-            'users' => $users
+            'users' => $pagination['items'],
+            'pageActuelle' => $pagination['pageActuelle'],
+            'totalPages' => $pagination['totalPages'],
+            'totalElements' => $pagination['totalElements'],
         ]);
     }
 
@@ -148,8 +182,13 @@ class DashboardController
 
         $entreprise = $model->getAll();
 
+        $pagination = $this->paginateArray($entreprise);
+
         View::render('liste_entreprises.html.twig', [
-            'entreprises' => $entreprise
+            'entreprises' => $pagination['items'],
+            'pageActuelle' => $pagination['pageActuelle'],
+            'totalPages' => $pagination['totalPages'],
+            'totalElements' => $pagination['totalElements'],
         ]);
     }
 
@@ -195,8 +234,14 @@ class DashboardController
     {
         $model = new OffreModel();
         $offres = $model->getAll();
+
+        $pagination = $this->paginateArray($offres);
+
         View::render('liste_offres.html.twig', [
-            'offres' => $offres
+            'offres' => $pagination['items'],
+            'pageActuelle' => $pagination['pageActuelle'],
+            'totalPages' => $pagination['totalPages'],
+            'totalElements' => $pagination['totalElements'],
         ]);
     }
 
@@ -204,8 +249,14 @@ class DashboardController
     {
         $model = new UtilisateurModel();
         $pilotes = $model->getByRole(1);
+
+        $pagination = $this->paginateArray($pilotes);
+
         View::render('liste_pilotes.html.twig', [
-            'pilotes' => $pilotes
+            'pilotes' => $pagination['items'],
+            'pageActuelle' => $pagination['pageActuelle'],
+            'totalPages' => $pagination['totalPages'],
+            'totalElements' => $pagination['totalElements'],
         ]);
     }
 

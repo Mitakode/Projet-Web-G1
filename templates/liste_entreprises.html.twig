@@ -16,7 +16,7 @@
     <a href="/account" style="margin-left:10px;">
         <button class="btn-back">Retour</button>
     </a>
-    <h2>Liste des entreprises ({{ entreprises|length }})</h2>
+    <h2>Liste des entreprises ({{ totalElements|default(entreprises|length) }})</h2>
     <table>
         <thead>
             <tr>
@@ -55,6 +55,31 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% if totalPages is defined and totalPages > 1 %}
+        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+            {% if pageActuelle > 1 %}
+                <a href="/enterprise_list?page={{ pageActuelle - 1 }}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Précédent
+                </a>
+            {% endif %}
+
+            {% for i in 1..totalPages %}
+                <a href="/enterprise_list?page={{ i }}"
+                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                    {{ i }}
+                </a>
+            {% endfor %}
+
+            {% if pageActuelle < totalPages %}
+                <a href="/enterprise_list?page={{ pageActuelle + 1 }}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Suivant
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 </main>
 
 {% include 'partials/_footer.html.twig' %}

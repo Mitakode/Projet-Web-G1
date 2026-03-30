@@ -10,12 +10,34 @@ class EntreprisePublicController
     public function index()
     {
         $model = new EntrepriseModel();
-        $search = $_GET['search'] ?? '';
+        $search = trim((string)($_GET['search'] ?? ''));
         $entreprises = $search ? $model->search($search) : $model->getAll();
 
+        $elementsParPage = 20;
+        $pageActuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        if ($pageActuelle < 1) {
+            $pageActuelle = 1;
+        }
+
+        $totalElements = count($entreprises);
+        $totalPages = (int) ceil($totalElements / $elementsParPage);
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
+
+        if ($pageActuelle > $totalPages) {
+            $pageActuelle = $totalPages;
+        }
+
+        $offset = ($pageActuelle - 1) * $elementsParPage;
+        $entreprisesPage = array_slice($entreprises, $offset, $elementsParPage);
+
         View::render('companies.html.twig', [
-            'entreprises' => $entreprises,
-            'search'      => $search
+            'entreprises'   => $entreprisesPage,
+            'search'        => $search,
+            'pageActuelle'  => $pageActuelle,
+            'totalPages'    => $totalPages,
+            'totalElements' => $totalElements,
         ]);
     }
 
