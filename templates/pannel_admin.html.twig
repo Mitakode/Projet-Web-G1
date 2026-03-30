@@ -7,6 +7,7 @@
     <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/pannel_admin_style.css" rel="stylesheet"/>
+    <link href="/assets/css/dashboard.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -44,6 +45,10 @@
     </section>
 </div>
 
+{% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offres', stats: statsOffres } %}
+{% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Entreprises', stats: statsEntreprises } %}
+{% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Élèves', stats: statsEleves } %}
+
 <div class="admin-grid">
 
     <div class="admin-card">
@@ -78,5 +83,6 @@
 
 {% include 'partials/_footer.html.twig' %}
 
+<script src="/assets/js/stats-carousel.js"></script>
 </body>
 </html>

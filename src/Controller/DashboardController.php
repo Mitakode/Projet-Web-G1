@@ -7,6 +7,7 @@ use App\Model\EntrepriseModel;
 use App\Model\OffreModel;
 use App\Core\Auth;
 use App\Core\View;
+use App\Model\StatsModel;
 
 class DashboardController
 {
@@ -243,5 +244,53 @@ class DashboardController
         'pilote_id'    => $user['Id_user'],
         'session_role' => $user['Role']
     ]);
+    }
+
+    public function dashboard(): void
+    {
+        $statsModel = new StatsModel();
+
+        $offerId = null;
+        if (isset($_GET['id-offre'])) {
+            $offerId = (int) $_GET['id-offre'];
+        } elseif (isset($_GET['id_offre'])) {
+            $offerId = (int) $_GET['id_offre'];
+        } elseif (isset($_GET['id'])) {
+            $offerId = (int) $_GET['id'];
+        }
+
+        $offerStats = null;
+        if ($offerId && $offerId > 0) {
+            $offerStats = $statsModel->getOfferStats($offerId) ?: null;
+        }
+
+        $statsOffres = [
+            'total_offres'      => $statsModel->getTotalOffres(),
+            'total_candidatures'=> $statsModel->getTotalCandidatures(),
+            'avg_candidatures'  => $statsModel->getAverageCandidaturesPerOffre(),
+            'duree_repartition' => $statsModel->getOffreDurationBreakdown(),
+            'top_wishlist'      => $statsModel->getTopWishlistOffres(),
+            'top_candidatures'  => $statsModel->getTopCandidatureOffres(),
+        ];
+        $statsEntreprises = [
+            'total_entreprises' => $statsModel->getTotalEntreprises(),
+            'avg_offres'        => $statsModel->getAverageOffresPerEntreprise(),
+            'top_offres'        => $statsModel->getTopEntreprisesByOffres(),
+            'top_candidatures'  => $statsModel->getTopEntreprisesByCandidatures(),
+        ];
+        $statsEleves = [
+            'total_eleves'      => $statsModel->getTotalEleves(),
+            'avg_candidatures'  => $statsModel->getAverageCandidaturesPerEleve(),
+            'top_candidatures'  => $statsModel->getTopElevesByCandidatures(),
+            'top_wishlist'      => $statsModel->getTopElevesByWishlist(),
+        ];
+
+        View::render('dashboard.html.twig', [
+            'statsOffres' => $statsOffres,
+            'statsEntreprises' => $statsEntreprises,
+            'statsEleves' => $statsEleves,
+            'offerStats' => $offerStats,
+            'offerId'    => $offerId,
+        ]);
     }
 }
