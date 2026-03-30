@@ -48,7 +48,16 @@ tr:hover {
     border: none; 
     border-radius: 6px; 
     padding: 5px 12px; 
+    display: inline-block;
+    text-decoration: none;
     cursor: pointer; 
+}
+
+.btn-edit:hover,
+.btn-edit:focus,
+.btn-edit:visited {
+    text-decoration: none;
+    color: white;
 }
 
 
@@ -76,5 +85,14 @@ tr:hover {
     border: none; 
     border-radius: 6px; 
     padding: 5px 12px; 
+    display: inline-block;
+    text-decoration: none;
     cursor: pointer; 
+}
+
+.btn-back:hover,
+.btn-back:focus,
+.btn-back:visited {
+    text-decoration: none;
+    color: white;
 }

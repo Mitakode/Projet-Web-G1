@@ -13,9 +13,7 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" style="margin-left:10px;">
-        <button class="btn-back">Retour</button>
-    </a>
+    <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
     <h2>Liste des entreprises ({{ totalElements|default(entreprises|length) }})</h2>
     <table>
         <thead>
@@ -39,9 +37,7 @@
                 <td>{{ e.Telephone|default('') }}</td>
                 <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="/entreprise?id={{ e.Id_entreprise }}">
-                        <button class="btn-edit">Modifier</button>
-                    </a>
+                    <a href="/entreprise?id={{ e.Id_entreprise }}" class="btn-edit">Modifier</a>
                     <form method="POST" action="/entreprise" style="display:inline"
                         onsubmit="return confirm('Supprimer {{ e.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">  {# ← manquait ça #}

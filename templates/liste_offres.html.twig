@@ -13,9 +13,7 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" style="margin-left:10px;">
-        <button class="btn-back">Retour</button>
-    </a>
+    <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
     <h2>Liste des offres ({{ offres|length }})</h2>
     <table>
         <thead>
@@ -43,12 +41,8 @@
                 <td>{{ o.Nombre_place }}</td>
                 <td>{{ o.Nom_entreprise|default('Inconnue') }}</td>
                 <td>
-                    <a href="/offres_de_stages?id={{ o.Id_offre }}">
-                        <button class="btn-edit">Modifier</button>
-                    </a>
-                    <a href="/dashboard?id-offre={{ o.Id_offre }}">
-                        <button class="btn-edit">Détails</button>
-                    </a>
+                    <a href="/offres_de_stages?id={{ o.Id_offre }}" class="btn-edit">Modifier</a>
+                    <a href="/dashboard?id-offre={{ o.Id_offre }}" class="btn-edit">Détails</a>
                     <form method="POST" action="/offres_de_stages" style="display:inline"
                             onsubmit="return confirm('Supprimer {{ o.Titre }} ?')">
                         <input type="hidden" name="action" value="delete">
