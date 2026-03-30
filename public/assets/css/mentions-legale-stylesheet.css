@@ -53,6 +53,53 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+li{
+    font-size: 16px;
+    line-height: 1.5;
+    font-family :'Segoe UI';
+}
+
+.legal-card p + p {
+  margin-top: 8px;
+}
+
+.legal-card ul {
+  margin: 8px 0 0 18px;
+  padding: 0;
+}
+
+.legal-card code {
+  background: #f1f5fb;
+  border: 1px solid #d7dfeb;
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: #1f4f86;
+}
+
+@media (max-width: 720px) {
+  .legal-page {
+    padding: 18px 14px 10px;
+    gap: 12px;
+  }
+
+  .legal-header,
+  .legal-card {
+    padding: 16px;
+  }
+
+  .legal-header h1 {
+    font-size: 27px;
+  }
+
+  .legal-card h2 {
+    font-size: 18px;
+  }
+
+  .legal-card p,
+  .legal-card li {
+    font-size: 15px;
+  }
+}
 .legal-card p + p {
   margin-top: 8px;
 }

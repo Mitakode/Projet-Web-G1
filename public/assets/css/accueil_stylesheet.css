@@ -87,10 +87,7 @@
     border: 1px solid #2a63a4;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
+    font-size: 15px;
     text-decoration: none;
     display: inline-block;
     margin-top: 14px;
@@ -212,6 +209,63 @@
         gap: 16px;
     }
 
+.list-offer a.entreprise-link {
+    color: #17496e;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.list-offer a.entreprise-link:hover {
+    text-decoration: underline;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    min-width: 38px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid #c9d6e6;
+    background: #f1f5fb;
+    color: #253243;
+    text-align: center;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pagination-btn:hover {
+    border-color: #2a63a4;
+    color: #2a63a4;
+}
+
+.pagination-btn.is-active,
+.pagination-nav {
+    background: #2a63a4;
+    border-color: #2a63a4;
+    color: #ffffff;
+}
+
+.pagination-btn.is-active:hover,
+.pagination-nav:hover {
+    background: #1f4f86;
+    border-color: #1f4f86;
+    color: #ffffff;
+}
+
+@media (max-width: 720px) {
+    .main-container {
+        padding: 18px 14px;
+        gap: 16px;
+    }
+
     .home-intro,
     .list-offer {
         padding: 16px;
@@ -240,4 +294,9 @@
         margin-left: 0;
         width: 100%;
     }
+}
+    .home-intro h1 {
+        font-size: 27px;
+    }
+
 }
