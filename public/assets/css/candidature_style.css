@@ -218,3 +218,13 @@ input[type="file"] {
         text-align: center;
     }
 }
+
+@media (max-width: 600px) {
+    .candidature-container {
+        padding: 0 16px;
+    }
+
+    .application-form {
+        padding: 20px;
+    }
+}

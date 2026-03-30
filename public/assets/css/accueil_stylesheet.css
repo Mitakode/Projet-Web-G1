@@ -98,3 +98,28 @@
 .btn-action.star:focus-visible i {
     color: #ffd700;
 }
+
+@media (max-width: 600px) {
+    .main-container {
+        padding: 20px 16px;
+        gap: 20px;
+    }
+
+    .list-offer {
+        padding: 16px;
+    }
+
+    .btn-candidate {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        text-align: center;
+        right: auto;
+        bottom: auto;
+    }
+
+    .home-rating-meta {
+        margin-left: 0;
+        width: 100%;
+    }
+}
