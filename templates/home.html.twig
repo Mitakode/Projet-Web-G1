@@ -28,10 +28,10 @@
 
         {% if offres is not empty %}
             {% for offre in offres %}
-                <div class="list-offer">
+                <div class="list-offer">          
                     <h2>{{ offre.Titre|default('Titre non défini')|e }}</h2>
                     <h4>Entreprise : </h4>
-                    <p>{{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</p>
+                    <p><a href="/company?id={{ offre.Id_entreprise }}" class="entreprise-link">{{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</a></p>
                     {% set avg = offre.note_moyenne|default(0) %}
                     {% set avgRounded = avg|round(0, 'common') %}
                     <div class="home-rating" aria-label="Note moyenne {{ avg }}/5">
@@ -41,15 +41,6 @@
                         {% endfor %}
                         <span class="home-rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} avis)</span>
                     </div>
-                    {% if isStudent %}
-                        <button class="btn-action star toggle-wishlist {{ offre.is_in_wishlist ? 'active' : '' }}" 
-                                data-id="{{ offre.Id_offre }}" 
-                                data-action="{{ offre.is_in_wishlist ? 'delete' : 'add' }}"
-                                title="Favoris">
-                            <i class="{{ offre.is_in_wishlist ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
-                        </button>
-                    {% endif %}              
-                    <h2>{{ offre.Titre|default('Titre non défini')|e }}</h2>
                     <h4>Durée du stage : </h4>
                     <p>{{ offre.Duree_mois|default('Durée à définir')|e }} Mois</p>
                     <h4>Rémunération : </h4>
@@ -58,7 +49,11 @@
                     <p>{{ offre.Nombre_place|default('Nombre de places à définir')|e }}</p><br>
                     <h3>Description du poste : </h3>
                     <p>{{ offre.Description|default('Pas de description')|e }}</p>
-                    <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
+                    {% if isAuth and session_role == 0 %}
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
+                    {% else %}
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Détails</a>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}
@@ -102,46 +97,8 @@
 </main>
 
 {% include 'partials/_footer.html.twig' %}
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const wishlistButtons = document.querySelectorAll('.toggle-wishlist');
 
-    wishlistButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const offerId = this.getAttribute('data-id');
-            const action = this.getAttribute('data-action'); 
-            
-            const url = action === 'add' ? '/addWishlist?Id_offre=' + offerId : '/deleteWishlist?Id_offre=' + offerId;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const icon = this.querySelector('i');
-
-                        if (action === 'add') {
-                            this.setAttribute('data-action', 'delete');
-                            this.classList.add('active');
-                            icon.classList.remove('fa-regular');
-                            icon.classList.add('fa-solid');
-                        } 
-                        else {
-                            this.setAttribute('data-action', 'add');
-                            this.classList.remove('active');
-                            icon.classList.remove('fa-solid');
-                            icon.classList.add('fa-regular');
-                        }
-                    } else {
-                        console.error("Erreur lors de la modification des favoris.");
-                    }
-                })
-                .catch(error => console.error("Erreur AJAX:", error));
-        });
-    });
-});
-</script>
+<script src="assets/js/Home_style2.js"></script>
 
 </body>
 

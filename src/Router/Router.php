@@ -85,6 +85,7 @@ switch ($uri) {
     case '/pilotes_list':
     case '/pilote':
     case '/add_pilote':
+    case '/dashboard':
         $dashboardController = new DashboardController();
         match ($uri) {
             '/student_list'    => $dashboardController->index(),
@@ -98,6 +99,7 @@ switch ($uri) {
             '/pilotes_list'    => $dashboardController->listPilotes(),
             '/pilote'          => $dashboardController->Pilote(),
             '/add_pilote'      => $dashboardController->addPilote(),
+            '/dashboard'       => $dashboardController->dashboard(),
         };
         break;
         
