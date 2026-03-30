@@ -1,23 +1,96 @@
-label {
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-family :'Segoe UI';
+.legal-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 24px 18px;
+  display: grid;
+  gap: 16px;
 }
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-family :'Segoe UI';
+.legal-header {
+  background: linear-gradient(125deg, #ffffff 0%, #f7fbff 56%, #f3f7ff 100%);
+  border: 1px solid #d7dfeb;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(29, 52, 84, 0.08);
+  padding: 24px;
 }
 
-p {
+.legal-header h1 {
+  margin: 0;
+  color: #1f2732;
+  font-family: "Segoe UI", sans-serif;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.1;
+}
+
+.legal-header p {
+  margin: 10px 0 0;
+  color: #607086;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+}
+
+.legal-card {
+  background: #ffffff;
+  border: 1px solid #d7dfeb;
+  border-radius: 16px;
+  box-shadow: 0 10px 26px rgba(27, 49, 83, 0.08);
+  padding: 18px 20px;
+}
+
+.legal-card h2 {
+  margin: 0 0 10px;
+  color: #1f2732;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 20px;
+}
+
+.legal-card p,
+.legal-card li {
+  margin: 0;
+  color: #334155;
   font-size: 16px;
   line-height: 1.5;
-  font-family :'Segoe UI';
-}   
+  font-family: "Segoe UI", sans-serif;
+}
 
-li{
-    font-size: 16px;
-    line-height: 1.5;
-    font-family :'Segoe UI';
+.legal-card p + p {
+  margin-top: 8px;
+}
+
+.legal-card ul {
+  margin: 8px 0 0 18px;
+  padding: 0;
+}
+
+.legal-card code {
+  background: #f1f5fb;
+  border: 1px solid #d7dfeb;
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: #1f4f86;
+}
+
+@media (max-width: 720px) {
+  .legal-page {
+    padding: 18px 14px 10px;
+    gap: 12px;
+  }
+
+  .legal-header,
+  .legal-card {
+    padding: 16px;
+  }
+
+  .legal-header h1 {
+    font-size: 27px;
+  }
+
+  .legal-card h2 {
+    font-size: 18px;
+  }
+
+  .legal-card p,
+  .legal-card li {
+    font-size: 15px;
+  }
 }
