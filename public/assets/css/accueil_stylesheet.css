@@ -87,7 +87,10 @@
     border: 1px solid #2a63a4;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
     text-decoration: none;
     display: inline-block;
     margin-top: 14px;
@@ -221,5 +224,15 @@
     .btn-candidate {
         width: 100%;
         text-align: center;
+    }
+}
+@media (max-width: 600px) {
+    .btn-candidate {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        text-align: center;
+        right: auto;
+        bottom: auto;
     }
 }

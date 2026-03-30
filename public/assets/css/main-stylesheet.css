@@ -178,6 +178,26 @@ body {
     flex: 1;
 }
 
+.nav-icon {
+    text-decoration: none;
+    color: #17496E;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 600;
+    padding: 8px 14px;
+    margin-left: 12px;
+    border-radius: 999px;
+    border: 1px solid #17496E;
+    background: #f0f7ff;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-icon:hover,
+.nav-icon:focus {
+    background: #17496E;
+    color: #ffffff;
+    border-color: #17496E;
+}
+
 .site-footer {
     position: static;
     width: 100%;
@@ -234,6 +254,9 @@ body {
 @media (max-width: 600px) {
     body {
         padding-bottom: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
     .navbar {
         padding: 10px 16px;
@@ -244,10 +267,14 @@ body {
     }
 
     .nav-panel {
-        display: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
     }
 
     .search-container {
+        display: none;
         max-width: none;
         margin: 0;
         width: 100%;
@@ -259,8 +286,14 @@ body {
     }
 
     .account {
+        display: none;
         flex-direction: row;
         gap: 10px;
+    }
+
+    .nav-icon {
+        padding: 6px 12px;
+        font-size: 14px;
     }
 
     .user-icon {
@@ -272,7 +305,9 @@ body {
     }
 
     .site-footer {
-        margin-top: 16px;
+        margin-top: 10px;
+        position: static;
+        margin-top: auto;
     }
 
     .footer-inner {
