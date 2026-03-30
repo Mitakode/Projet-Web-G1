@@ -9,6 +9,15 @@ body {
     font-family: Arial;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+main {
+    width: 100%;
+}
+
 
 .navbar {
     display: flex;

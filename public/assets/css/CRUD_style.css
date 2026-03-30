@@ -184,7 +184,7 @@ h1 code {
 	text-decoration: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 	h1 {
 		margin-top: 24px;
 		font-size: 24px;

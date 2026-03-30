@@ -79,7 +79,7 @@ tr:hover {
     cursor: pointer; 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     main {
         padding: 20px 16px;
     }
