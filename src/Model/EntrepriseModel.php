@@ -70,4 +70,53 @@ class EntrepriseModel
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    public function search(string $search): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT * FROM Entreprise 
+        WHERE Nom LIKE :s 
+        OR Description LIKE :s 
+        OR Email_contact LIKE :s
+    ");
+    $stmt->execute([':s' => '%' . $search . '%']);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getOffresByEntreprise(int $id): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT * FROM Offre WHERE Id_entreprise = :id
+    ");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getStats(int $id): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT COUNT(*) as nb_candidatures
+        FROM Candidater c
+        JOIN Offre o ON c.Id_offre = o.Id_offre
+        WHERE o.Id_entreprise = :id
+    ");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $nb = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt2 = $this->pdo->prepare("
+        SELECT AVG(Note) as moyenne
+        FROM Evaluer
+        WHERE Id_entreprise = :id
+    ");
+    $stmt2->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt2->execute();
+    $moy = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+    return [
+        'nb_candidatures' => $nb['nb_candidatures'] ?? 0,
+        'moyenne'         => $moy['moyenne'] ? round((float)$moy['moyenne'], 1) : 'N/A'
+    ];
+    }
 }

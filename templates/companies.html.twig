@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Career Quest — Entreprises</title>
+    <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/css/companies.css" rel="stylesheet"/>
+</head>
+<body>
+    {% include 'partials/_header.html.twig' %}
+<main>
+    <h2>Rechercher une entreprise</h2>
+
+    <form class="search-form" method="GET" action="/companies">
+        <input type="text" name="search" value="{{ search }}" placeholder="Nom, description, email...">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Active</th>
+                <th>Fiche</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in entreprises %}
+            <tr>
+                <td>{{ e.Nom }}</td>
+                <td>{{ e.Description }}</td>
+                <td>{{ e.Email_contact }}</td>
+                <td>{{ e.Telephone|default('—') }}</td>
+                <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="/company?id={{ e.Id_entreprise }}">
+                        <button class="btn-edit">Voir la fiche</button>
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+                <tr><td colspan="6">Aucune entreprise trouvée.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% include 'partials/_footer.html.twig' %}
+</body>
+</html>

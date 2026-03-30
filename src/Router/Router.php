@@ -5,6 +5,7 @@ use App\Controller\HomeController;
 use App\Controller\AccountController;
 use App\Controller\DashboardController;
 use App\Controller\CandidatureController;
+use App\Controller\EntreprisePublicController;
 use App\Core\View;
 use App\Core\Auth;
 
@@ -15,6 +16,7 @@ $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
 $candidatureController = new CandidatureController();
+$entreprisePublicController = new EntreprisePublicController();
 
 switch ($uri) {
     case '/':
@@ -55,6 +57,14 @@ switch ($uri) {
         $homeController->deleteWishlist();
         break;
 
+    case '/companies':
+        $entreprisePublicController->index();
+        break;
+
+    case '/company':
+        $entreprisePublicController->fiche();
+        break;
+
     case '/student_list':
     case '/eleve':
     case '/student_creation':
@@ -81,6 +91,7 @@ switch ($uri) {
             '/add_pilote'      => $dashboardController->addPilote(),
         };
         break;
+        
     case '/candidater':
         if ($method === 'POST') {
             $candidatureController->submit();

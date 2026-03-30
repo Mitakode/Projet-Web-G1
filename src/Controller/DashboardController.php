@@ -86,10 +86,14 @@ class DashboardController
     public function addEleve()
     {
         $user = Auth::user();
+        $pilotesModel = new UtilisateurModel();
+        $pilotes = $pilotesModel->getByRole(1);
+
         View::render('eleve.html.twig', [
             'editUser'     => null,
             'pilote_id'    => $user['Id_user'],
-            'session_role' => $user['Role']
+            'session_role' => $user['Role'],
+            'pilotes'      => $pilotes
         ]);
     }
 
@@ -179,8 +183,10 @@ class DashboardController
             $editOffre = $model->getById((int)$_GET['id']);
         }
 
+        $model_entreprise = new EntrepriseModel();
         View::render('offre.html.twig', [
-            'editOffre' => $editOffre,
+            'editOffre'    => $editOffre,
+            'entreprises'  => $model_entreprise->getAll(),
         ]);
     }
 
