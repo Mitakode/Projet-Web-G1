@@ -104,7 +104,7 @@
                             <h3>{{ favori.Titre }}</h3>
                             <p>{{ favori.entreprise }}</p>
                             <p>{{ favori.Date_offre }}</p>
-                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-offre">Voir l'offre</a>
+                            <a href="/candidater?id_offre={{ favori.Id_offre }}">Voir l'annonce</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -151,7 +151,7 @@
                                 <button type="submit">Enregistrer</button>
                             </form>
 
-                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-offre">Voir l'offre</a>
+                            <a href="/candidater?id_offre={{ candidature.Id_offre }}">Voir l'annonce</a>
                         </div>
                     {% endfor %}
                 {% else %}
