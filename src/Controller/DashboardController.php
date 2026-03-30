@@ -6,7 +6,9 @@ use App\Model\UtilisateurModel;
 use App\Model\EntrepriseModel;
 use App\Model\OffreModel;
 use App\Core\Auth;
+use App\Core\InputValidator;
 use App\Core\View;
+use InvalidArgumentException;
 
 class DashboardController
 {
@@ -29,27 +31,32 @@ class DashboardController
         $user  = Auth::user();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $action = $_POST['action'] ?? null;
+            try {
+                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
-            if ($action === 'add') {
-                $model->create($_POST);
-                header('Location: /student_list');
-                exit;
-            }
-            if ($action === 'edit') {
-                $model->update($_POST['id'], $_POST);
-                header('Location: /student_list');
-                exit;
-            }
-            if ($action === 'delete') {
-                $model->delete($_POST['id']);
+                if ($action === 'add') {
+                    $model->create($_POST);
+                    header('Location: /student_list');
+                    exit;
+                }
+                if ($action === 'edit') {
+                    $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
+                    header('Location: /student_list');
+                    exit;
+                }
+                if ($action === 'delete') {
+                    $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
+                    header('Location: /student_list');
+                    exit;
+                }
+            } catch (InvalidArgumentException $e) {
                 header('Location: /student_list');
                 exit;
             }
         }
 
         if (isset($_GET['id'])) {
-            $editUser = $model->getById((int)$_GET['id']);
+            $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
             $pilotes = $model->getByRole(1); 
 
             View::render('eleve.html.twig', [
@@ -91,22 +98,27 @@ class DashboardController
         $model = new EntrepriseModel();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $action = $_POST['action'] ?? null;
+            try {
+                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
-            if ($action === 'edit') {
-                $model->update((int)$_POST['id'], $_POST);
-                header('Location: /enterprise_list');
-                exit;
-            }
+                if ($action === 'edit') {
+                    $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
+                    header('Location: /enterprise_list');
+                    exit;
+                }
 
-            if ($action === 'add') {
-                $model->create($_POST);
-                header('Location: /enterprise_list');
-                exit;
-            }
+                if ($action === 'add') {
+                    $model->create($_POST);
+                    header('Location: /enterprise_list');
+                    exit;
+                }
 
-            if ($action === 'delete') {
-                $model->delete((int)$_POST['id']);
+                if ($action === 'delete') {
+                    $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
+                    header('Location: /enterprise_list');
+                    exit;
+                }
+            } catch (InvalidArgumentException $e) {
                 header('Location: /enterprise_list');
                 exit;
             }
@@ -114,7 +126,7 @@ class DashboardController
 
         $editEntreprise = null;
         if (isset($_GET['id'])) {
-            $editEntreprise = $model->getById((int)$_GET['id']);
+            $editEntreprise = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
         View::render('entreprise.html.twig', [
@@ -145,22 +157,27 @@ class DashboardController
         $model = new OffreModel();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $action = $_POST['action'] ?? null;
+            try {
+                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
-            if ($action === 'edit') {
-                $model->update((int)$_POST['id'], $_POST);
-                header('Location: /offer_list');
-                exit;
-            }
+                if ($action === 'edit') {
+                    $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
+                    header('Location: /offer_list');
+                    exit;
+                }
 
-            if ($action === 'add') {
-                $model->create($_POST);
-                header('Location: /offer_list');
-                exit;
-            }
+                if ($action === 'add') {
+                    $model->create($_POST);
+                    header('Location: /offer_list');
+                    exit;
+                }
 
-            if ($action === 'delete') {
-                $model->delete((int)$_POST['id']);
+                if ($action === 'delete') {
+                    $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
+                    header('Location: /offer_list');
+                    exit;
+                }
+            } catch (InvalidArgumentException $e) {
                 header('Location: /offer_list');
                 exit;
             }
@@ -168,7 +185,7 @@ class DashboardController
 
         $editOffre = null;
         if (isset($_GET['id'])) {
-            $editOffre = $model->getById((int)$_GET['id']);
+            $editOffre = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
         $model_entreprise = new EntrepriseModel();
@@ -201,22 +218,27 @@ class DashboardController
         $model = new UtilisateurModel();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $action = $_POST['action'] ?? null;
+            try {
+                $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
-            if ($action === 'edit') {
-                $model->update((int)$_POST['id'], $_POST);
-                header('Location: /pilotes_list');
-                exit;
-            }
+                if ($action === 'edit') {
+                    $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
+                    header('Location: /pilotes_list');
+                    exit;
+                }
 
-            if ($action === 'add') {
-                $model->create($_POST);
-                header('Location: /pilotes_list');
-                exit;
-            }
+                if ($action === 'add') {
+                    $model->create($_POST);
+                    header('Location: /pilotes_list');
+                    exit;
+                }
 
-            if ($action === 'delete') {
-                $model->delete((int)$_POST['id']);
+                if ($action === 'delete') {
+                    $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
+                    header('Location: /pilotes_list');
+                    exit;
+                }
+            } catch (InvalidArgumentException $e) {
                 header('Location: /pilotes_list');
                 exit;
             }
@@ -224,7 +246,7 @@ class DashboardController
 
         $editUser = null;
         if (isset($_GET['id'])) {
-            $editUser = $model->getById((int)$_GET['id']);
+            $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
         $user = Auth::user();

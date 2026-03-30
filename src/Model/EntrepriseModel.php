@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Core\InputValidator;
+use InvalidArgumentException;
 use PDO;
 
 class EntrepriseModel
@@ -122,21 +124,43 @@ class EntrepriseModel
 
     public function create(array $data): void
     {
+        // Nom d'entreprise: lettres/chiffres et ponctuation métier.
+        $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\p{N}\s\-\'".&()]+$/u', 150);
+        // Description libre contrôlée pour éviter des caractères imprévus.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
+        $emailContact = InputValidator::requireEmail($data, 'email_contact');
+        // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
+        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{6,20}$/', 20, true);
+        $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
+
         $stmt = $this->pdo->prepare("
             INSERT INTO Entreprise (Nom, Description, Email_contact, Telephone, Est_actif)
             VALUES (:nom, :description, :email_contact, :telephone, :est_actif)
         ");
         $stmt->execute([
-            ':nom'          => $data['nom'],
-            ':description'  => $data['description'],
-            ':email_contact'=> $data['email_contact'],
-            ':telephone'    => $data['telephone'] ?: null,
-            ':est_actif'    => $data['est_actif'] ?? 1,
+            ':nom'          => $nom,
+            ':description'  => $description,
+            ':email_contact'=> $emailContact,
+            ':telephone'    => $telephone !== '' ? $telephone : null,
+            ':est_actif'    => $estActif,
         ]);
     }
 
     public function update(int $id, array $data): void
     {
+        if ($id <= 0) {
+            throw new InvalidArgumentException('ID entreprise invalide.');
+        }
+
+        // Nom d'entreprise: lettres/chiffres et ponctuation métier.
+        $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\p{N}\s\-\'".&()]+$/u', 150);
+        // Description libre contrôlée pour éviter des caractères imprévus.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
+        $emailContact = InputValidator::requireEmail($data, 'email_contact');
+        // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
+        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{6,20}$/', 20, true);
+        $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
+
         $stmt = $this->pdo->prepare("
             UPDATE Entreprise SET
                 Nom           = :nom,
@@ -147,11 +171,11 @@ class EntrepriseModel
             WHERE Id_entreprise = :id
         ");
         $stmt->execute([
-            ':nom'          => $data['nom'],
-            ':description'  => $data['description'],
-            ':email_contact'=> $data['email_contact'],
-            ':telephone'    => $data['telephone'] ?: null,
-            ':est_actif'    => $data['est_actif'] ?? 1,
+            ':nom'          => $nom,
+            ':description'  => $description,
+            ':email_contact'=> $emailContact,
+            ':telephone'    => $telephone !== '' ? $telephone : null,
+            ':est_actif'    => $estActif,
             ':id'           => $id,
         ]);
     }

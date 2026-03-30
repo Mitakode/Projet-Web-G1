@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\InputValidator;
 use App\Core\View;
 use App\Core\Auth;
 use App\Model\OffreModel;
@@ -14,7 +15,7 @@ class CandidatureController
     public function index()
     {
         // Récupérer l'ID de l'offre depuis l'URL
-        $id = isset($_GET['id_offre']) ? (int)$_GET['id_offre'] : 0;
+        $id = InputValidator::getInt($_GET, 'id_offre', 0, 1);
         
         $offreModel = new OffreModel();
         $offre = $offreModel->getById($id);
@@ -44,7 +45,11 @@ class CandidatureController
             }
         }
 
-        $ratingStatus = isset($_GET['rating']) ? (string) $_GET['rating'] : '';
+        $ratingStatus = (string) ($_GET['rating'] ?? '');
+        // Paramètre de statut: n'accepte que les valeurs prévues de retour UI.
+        if (!InputValidator::regex($ratingStatus, '/^(saved|invalid|forbidden)?$/')) {
+            $ratingStatus = '';
+        }
 
         View::render('candidature.html.twig', [
             'offre' => $offre,
@@ -78,7 +83,7 @@ class CandidatureController
         }
 
         // 3. Récupération des données du formulaire
-        $idOffre = isset($_POST['id_offre']) ? (int)$_POST['id_offre'] : 0;
+        $idOffre = InputValidator::getInt($_POST, 'id_offre', 0, 1);
 
         if ($idOffre <= 0) {
             die("ID de l'offre invalide.");
@@ -103,9 +108,10 @@ class CandidatureController
 
         // Fonction pour générer un nom unique et sécurisé
         $generateFileName = function($file, $prefix) {
-            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
             $allowedExtensions = ['pdf', 'doc', 'docx'];
-            if (!in_array(strtolower($extension), $allowedExtensions)) {
+            // Extension: alphabet/chiffres courts puis whitelist métier.
+            if (!InputValidator::regex($extension, '/^[a-z0-9]{2,5}$/') || !in_array($extension, $allowedExtensions, true)) {
                 die("Format de fichier non autorisé (PDF, DOC, DOCX acceptés).");
             }
             

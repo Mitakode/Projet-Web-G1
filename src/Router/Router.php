@@ -8,8 +8,14 @@ use App\Controller\CandidatureController;
 use App\Controller\EntreprisePublicController;
 use App\Core\View;
 use App\Core\Auth;
+use App\Core\InputValidator;
 
-$uri    = $_GET['uri'] ?? '/';
+$uri    = (string) ($_GET['uri'] ?? '/');
+$uri = trim($uri);
+// URI de route: autorise uniquement /, lettres, chiffres, _ et -.
+if (!InputValidator::regex($uri, '#^/[A-Za-z0-9_\-/]*$#')) {
+    $uri = '/';
+}
 $method = $_SERVER['REQUEST_METHOD'];
 
 $authController    = new AuthController();
