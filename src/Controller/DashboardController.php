@@ -32,6 +32,7 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                // Action CRUD restreinte à add/edit/delete.
                 $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'add') {
@@ -40,11 +41,13 @@ class DashboardController
                     exit;
                 }
                 if ($action === 'edit') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /student_list');
                     exit;
                 }
                 if ($action === 'delete') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /student_list');
                     exit;
@@ -56,6 +59,7 @@ class DashboardController
         }
 
         if (isset($_GET['id'])) {
+            // ID d'édition validé avant lecture DB.
             $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
             $pilotes = $model->getByRole(1); 
 
@@ -99,9 +103,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                // Action CRUD restreinte à add/edit/delete.
                 $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /enterprise_list');
                     exit;
@@ -114,6 +120,7 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /enterprise_list');
                     exit;
@@ -126,6 +133,7 @@ class DashboardController
 
         $editEntreprise = null;
         if (isset($_GET['id'])) {
+            // ID d'édition validé avant lecture DB.
             $editEntreprise = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
@@ -158,9 +166,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                // Action CRUD restreinte à add/edit/delete.
                 $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /offer_list');
                     exit;
@@ -173,6 +183,7 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /offer_list');
                     exit;
@@ -185,6 +196,7 @@ class DashboardController
 
         $editOffre = null;
         if (isset($_GET['id'])) {
+            // ID d'édition validé avant lecture DB.
             $editOffre = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
@@ -219,9 +231,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                // Action CRUD restreinte à add/edit/delete.
                 $action = InputValidator::getEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /pilotes_list');
                     exit;
@@ -234,6 +248,7 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
+                    // ID nettoyé: entier positif uniquement.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /pilotes_list');
                     exit;
@@ -246,6 +261,7 @@ class DashboardController
 
         $editUser = null;
         if (isset($_GET['id'])) {
+            // ID d'édition validé avant lecture DB.
             $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
