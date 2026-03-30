@@ -240,3 +240,46 @@
 .rating-form button:hover {
     background: #113b59;
 }
+
+@media (max-width: 900px) {
+    .statistiques,
+    .info-cv-container,
+    .favoris-candidatures-container {
+        margin: 0 16px 20px 16px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+    }
+
+    .info-cv-container {
+        flex-direction: column;
+    }
+
+    .favoris-candidatures-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .statistiques,
+    .mes-informations,
+    .mon-cv,
+    .mes-favoris,
+    .mes-candidatures {
+        padding: 20px;
+        border-radius: 24px;
+    }
+
+    .annonce-card {
+        padding: 18px;
+    }
+
+    .rating-form {
+        align-items: stretch;
+    }
+
+    .rating-form button {
+        width: 100%;
+    }
+}

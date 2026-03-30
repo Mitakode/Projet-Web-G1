@@ -80,3 +80,18 @@ input[type="email"], input[type="password"], input[type="text"] {
     font-family: 'Segoe UI';
     margin: 0 auto;
 }
+
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 20px 16px;
+    }
+
+    .auth-box {
+        padding: 24px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 260px;
+    }
+}
