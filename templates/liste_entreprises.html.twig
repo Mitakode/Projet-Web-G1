@@ -40,7 +40,7 @@
                     <a href="/entreprise?id={{ e.Id_entreprise }}" class="btn-edit">Modifier</a>
                     <form method="POST" action="/entreprise" style="display:inline"
                         onsubmit="return confirm('Supprimer {{ e.Nom }} ?')">
-                        <input type="hidden" name="action" value="delete">  {# ← manquait ça #}
+                        <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ e.Id_entreprise }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
                     </form>

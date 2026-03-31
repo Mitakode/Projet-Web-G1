@@ -96,3 +96,11 @@ tr:hover {
     text-decoration: none;
     color: white;
 }
+
+.btn-edit, 
+.btn-delete, 
+.btn-back {
+    font-size: 14px;
+    padding: 8px 16px;
+    line-height: 1;
+}
