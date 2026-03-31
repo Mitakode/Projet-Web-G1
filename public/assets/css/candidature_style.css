@@ -181,6 +181,18 @@ input[type="file"] {
     width: 100%;
 }
 
+/* États invalides pour les champs de fichier */
+input[type="file"]:invalid,
+input[type="file"].invalid {
+    border-color: #c62828;
+}
+
+.file-input-wrapper:has(input[type="file"]:invalid),
+.file-input-wrapper:has(input[type="file"].invalid) {
+    background: #ffebee;
+    border-color: #c62828;
+}
+
 .submit-btn {
     width: 100%;
     padding: 12px;
@@ -197,6 +209,13 @@ input[type="file"] {
     background-color: #0f3550;
 }
 
+/* Styles pour les messages d'erreur des champs */
+.field-error-message {
+    display: block !important;
+    color: #c62828 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: -15px 0 15px 0 !important;
 @media (max-width: 900px) {
     .candidature-container {
         flex-direction: column;

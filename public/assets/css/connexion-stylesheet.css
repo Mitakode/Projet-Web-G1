@@ -49,6 +49,32 @@ input[type="email"], input[type="password"], input[type="text"] {
     padding: 12px;
     margin-bottom: 20px;
     outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+    border-color: #348635;
+}
+
+/* État invalide pour les champs de connexion */
+input[type="email"]:invalid,
+input[type="password"]:invalid,
+input[type="text"]:invalid,
+input[type="email"].invalid,
+input[type="password"].invalid,
+input[type="text"].invalid {
+    border-color: #c62828;
+    background-color: #ffebee;
+}
+
+input[type="email"]:invalid:focus,
+input[type="password"]:invalid:focus,
+input[type="text"]:invalid:focus,
+input[type="email"].invalid:focus,
+input[type="password"].invalid:focus,
+input[type="text"].invalid:focus {
+    border-color: #c62828;
+    box-shadow: 0 0 5px rgba(198, 40, 40, 0.3);
 }
 
 .checkbox-group {
@@ -81,6 +107,14 @@ input[type="email"], input[type="password"], input[type="text"] {
     margin: 0 auto;
 }
 
+/* Styles pour les messages d'erreur des champs */
+.field-error-message {
+    display: block !important;
+    color: #c62828 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: -15px 0 15px 0 !important;
+}
 @media (max-width: 600px) {
     .auth-container {
         padding: 20px 16px;

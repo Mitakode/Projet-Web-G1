@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Core\InputValidator;
+use InvalidArgumentException;
 use PDO;
 
 class AuthModel
@@ -16,6 +18,11 @@ class AuthModel
 
     public function getByEmail(string $email): array|false
     {
+        // Email strict avant requête SQL.
+        if (!InputValidator::regex($email, '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
+            return false;
+        }
+
         $stmt = $this->pdo->prepare("SELECT * FROM Utilisateur WHERE Email = :email LIMIT 1");
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -24,6 +31,11 @@ class AuthModel
 
     public function emailExists(string $email): bool
     {
+        // Email strict avant vérification d'existence.
+        if (!InputValidator::regex($email, '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
+            return false;
+        }
+
         $stmt = $this->pdo->prepare("SELECT 1 FROM Utilisateur WHERE Email = :email LIMIT 1");
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -32,6 +44,11 @@ class AuthModel
 
     public function createUser(array $data): array|false
     {
+        // Email strict avant création d'utilisateur.
+        if (!isset($data['Email']) || !InputValidator::regex((string) $data['Email'], '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
+            throw new InvalidArgumentException('Email invalide.');
+        }
+
         $stmt = $this->pdo->prepare(
             "INSERT INTO Utilisateur (Nom, Prenom, Date_naissance, Formation, Description, Email, Password, Role, est_gere_par)
              VALUES (:nom, :prenom, :date_naissance, :formation, :description, :email, :password, :role, :est_gere_par)"

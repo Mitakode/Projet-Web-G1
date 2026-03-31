@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Core\Auth;
+use App\Core\InputValidator;
 use App\Core\View;
+use InvalidArgumentException;
 
 class AuthController
 {
@@ -19,8 +21,20 @@ class AuthController
 
     public function login()
     {
-        $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
+        try {
+            $email = InputValidator::requireEmail($_POST, 'email');
+            // Mot de passe login: blocage des caractères nuls et taille max raisonnable.
+            $password = InputValidator::requireString(
+                $_POST,
+                'password',
+                '/^[^\x00]{1,255}$/',
+                255
+            );
+        } catch (InvalidArgumentException $e) {
+            $_SESSION['auth_error'] = 'Email et mot de passe requis.';
+            header('Location: /login');
+            exit;
+        }
 
         if ($email === '' || $password === '') {
             $_SESSION['auth_error'] = 'Email et mot de passe requis.';
