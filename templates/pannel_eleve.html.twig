@@ -104,7 +104,7 @@
                             <h3>{{ favori.Titre }}</h3>
                             <a href="/company?id={{ favori.Id_entreprise }}" class="entreprise-link">{{ favori.entreprise }}</a>
                             <p>{{ favori.Date_offre }}</p>
-                            <a href="/candidater?id_offre={{ favori.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -157,7 +157,7 @@
                                 <button type="submit">Enregistrer</button>
                             </form>
 
-                            <a href="/candidater?id_offre={{ candidature.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -172,6 +172,8 @@
         </main>
 
        {% include 'partials/_footer.html.twig' %}
+       
+       <script src="/assets/js/form-validation.js"></script>
        
     </body>
 

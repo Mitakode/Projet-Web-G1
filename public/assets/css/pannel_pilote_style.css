@@ -328,89 +328,27 @@ body {
 }
 
 .admin-btn {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--pilot-primary);
-  border-radius: 12px;
-  padding: 11px 14px;
-  background-color: #ffffff;
-  color: var(--pilot-primary);
-  font-family: "Segoe UI", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-  box-sizing: border-box;
+    flex: 1; 
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 0;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-sizing: border-box;
 }
 
 .admin-btn:hover {
-  background-color: var(--pilot-primary);
-  color: #ffffff;
+    background-color: #c8c8c8;
+    color: #333;
 }
 
-
-@media (max-width: 1024px) {
-  .container {
-    padding: 0 18px;
-  }
-
-  .admin-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .info-item {
-    grid-template-columns: minmax(160px, 210px) 1fr;
-  }
-}
-
-@media (max-width: 720px) {
-  .pilot-hero {
-    margin-top: 20px;
-  }
-
-  .pilot-hero > div {
-    padding: 22px 18px;
-  }
-
-  .pilot-subtitle {
-    font-size: 15px;
-  }
-
-  .mes-informations {
-    padding: 20px;
-  }
-
-  .mes-informations h2 {
-    font-size: 21px;
-  }
-
-  .info-item {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 10px 0;
-  }
-
-  .info-item label,
-  .info-item p {
-    font-size: 14px;
-  }
-
-  .admin-grid {
-    grid-template-columns: 1fr;
-    margin-top: 18px;
-  }
-
-  .admin-card {
-    padding: 20px;
-  }
-
-  .admin-card h2 {
-    font-size: 21px;
-  }
-
-  .admin-btn {
-    font-size: 14px;
-    padding: 10px 12px;
-  }
+.admin-btn:active {
+    transform: scale(0.98);
 }

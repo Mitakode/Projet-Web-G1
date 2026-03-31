@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Core\InputValidator;
+use InvalidArgumentException;
 use PDO;
 
 class OffreModel
@@ -121,23 +123,49 @@ class OffreModel
 
     public function create(array $data): void
     {
+        // Titre d'offre: texte lisible avec ponctuation simple.
+        $titre = InputValidator::requireString($data, 'titre', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]+$/u', 180);
+        // Description libre contrôlée pour rester dans un jeu de caractères sûr.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
+        // Rémunération: nombre décimal positif (jusqu'à 2 décimales).
+        $remunerationRaw = InputValidator::requireString($data, 'remuneration', '/^\d{1,7}(?:\.\d{1,2})?$/', 10);
+        $dateOffre = InputValidator::requireDate($data, 'date_offre');
+        $dureeMois = InputValidator::getInt($data, 'duree_mois', 0, 0, 120);
+        $nombrePlace = InputValidator::getInt($data, 'nombre_place', 0, 0, 10000);
+        $idEntreprise = InputValidator::getInt($data, 'id_entreprise', 0, 0);
+
         $stmt = $this->pdo->prepare("
             INSERT INTO Offre (Titre, Description, Remuneration, Date_offre, Duree_mois, Nombre_place, Id_entreprise)
             VALUES (:titre, :description, :remuneration, :date_offre, :duree_mois, :nombre_place, :id_entreprise)
         ");
         $stmt->execute([
-            ':titre'         => $data['titre'],
-            ':description'   => $data['description'],
-            ':remuneration'  => $data['remuneration'],
-            ':date_offre'    => $data['date_offre'],
-            ':duree_mois'    => $data['duree_mois'],
-            ':nombre_place'  => $data['nombre_place'],
-            ':id_entreprise' => $data['id_entreprise'] ?: null,
+            ':titre'         => $titre,
+            ':description'   => $description,
+            ':remuneration'  => $remunerationRaw,
+            ':date_offre'    => $dateOffre,
+            ':duree_mois'    => $dureeMois,
+            ':nombre_place'  => $nombrePlace,
+            ':id_entreprise' => $idEntreprise > 0 ? $idEntreprise : null,
         ]);
     }
 
     public function update(int $id, array $data): void
     {
+        if ($id <= 0) {
+            throw new InvalidArgumentException('ID offre invalide.');
+        }
+
+        // Titre d'offre: texte lisible avec ponctuation simple.
+        $titre = InputValidator::requireString($data, 'titre', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]+$/u', 180);
+        // Description libre contrôlée pour rester dans un jeu de caractères sûr.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
+        // Rémunération: nombre décimal positif (jusqu'à 2 décimales).
+        $remunerationRaw = InputValidator::requireString($data, 'remuneration', '/^\d{1,7}(?:\.\d{1,2})?$/', 10);
+        $dateOffre = InputValidator::requireDate($data, 'date_offre');
+        $dureeMois = InputValidator::getInt($data, 'duree_mois', 0, 0, 120);
+        $nombrePlace = InputValidator::getInt($data, 'nombre_place', 0, 0, 10000);
+        $idEntreprise = InputValidator::getInt($data, 'id_entreprise', 0, 0);
+
         $stmt = $this->pdo->prepare("
             UPDATE Offre SET
                 Titre         = :titre,
@@ -150,13 +178,13 @@ class OffreModel
             WHERE Id_offre = :id
         ");
         $stmt->execute([
-            ':titre'         => $data['titre'],
-            ':description'   => $data['description'],
-            ':remuneration'  => $data['remuneration'],
-            ':date_offre'    => $data['date_offre'],
-            ':duree_mois'    => $data['duree_mois'],
-            ':nombre_place'  => $data['nombre_place'],
-            ':id_entreprise' => $data['id_entreprise'] ?: null,
+            ':titre'         => $titre,
+            ':description'   => $description,
+            ':remuneration'  => $remunerationRaw,
+            ':date_offre'    => $dateOffre,
+            ':duree_mois'    => $dureeMois,
+            ':nombre_place'  => $nombrePlace,
+            ':id_entreprise' => $idEntreprise > 0 ? $idEntreprise : null,
             ':id'            => $id,
         ]);
     }

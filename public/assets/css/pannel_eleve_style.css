@@ -58,13 +58,9 @@ body {
 }
 
 .stats-container p {
-    margin: 0;
-    padding: 12px 14px;
-    border-radius: 12px;
-    background: var(--student-soft-surface);
-    color: var(--student-text);
-    font: 16px "Segoe UI";
-    line-height: 1.4;
+    flex: 1;
+    color: #333;
+    font:16px "Segoe UI";
 }
 
 .info-cv-container {
@@ -115,7 +111,7 @@ body {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 30px;
 }
 
 .cv-section h3,
@@ -127,39 +123,54 @@ body {
 }
 
 .cv-placeholder {
+    background-color: white;
+    border-radius: 20px;
+    height: 150px;
     width: 100%;
     min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font: 15px "Segoe UI";
+    font: 16px "Segoe UI";
     text-align: center;
     color: var(--student-text);
 }
 
-.cv-placeholder a,
-.btn-offre {
+.cv-placeholder a {
     display: inline-block;
     padding: 10px 16px;
     border-radius: 12px;
-    background-color: var(--student-primary);
-    border: 1px solid var(--student-primary);
+    background-color: #2f7a30;
+    border: 1px solid #256726;
     color: #fff;
     text-decoration: none;
     font-weight: 600;
     font-family: "Segoe UI", sans-serif;
+    transition: background-color 0.2s ease;
 }
 
 .cv-placeholder a:hover,
-.cv-placeholder a:focus,
-.btn-offre:hover,
-.btn-offre:focus {
-    background-color: var(--student-primary-hover);
-    border-color: var(--student-primary-hover);
+.cv-placeholder a:focus {
+    background-color: #266627;
 }
 
 .btn-offre {
+    display: inline-block;
     margin-top: 12px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background-color: #2f7a30;
+    border: 1px solid #256726;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: "Segoe UI", sans-serif;
+    transition: background-color 0.2s ease;
+}
+
+.btn-offre:hover,
+.btn-offre:focus {
+    background-color: #266627;
 }
 
 .competences-numbers {
@@ -291,8 +302,8 @@ body {
 
 .rating-form-label {
     font: 15px "Segoe UI";
-    font-weight: 700;
-    color: var(--student-text);
+    font-weight: 600;
+    color: #333;
     margin: 0;
 }
 
@@ -322,6 +333,7 @@ body {
     color: #b8b8b8;
     cursor: pointer;
     user-select: none;
+    transition: color 0.15s ease;
 }
 
 .rating-input label:hover,
@@ -338,22 +350,29 @@ body {
     color: #fff;
     cursor: pointer;
     font: 14px "Segoe UI";
-    font-family: "Segoe UI", sans-serif;
 }
 
 .rating-form button:hover {
-    background: var(--student-primary-hover);
-    border-color: var(--student-primary-hover);
+    background: #113b59;
+}
+
+@media (max-width: 600px) {
+    .panel-content {
+        padding-bottom: 15px;
+    }
 }
 
 .annonce-card a.entreprise-link {
     color: inherit;
-    font-weight: 700;
+    font-weight: bold;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
 }
 
-.annonce-card a.entreprise-link:hover {
-    text-decoration: underline;
+.btn-voir-annonce:hover {
+    background-color: #0f2e45;
 }
 
 @media (max-width: 1080px) {
