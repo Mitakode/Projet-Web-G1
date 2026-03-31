@@ -62,11 +62,29 @@ h1 code {
 	font-size: 15px;
 	outline: none;
 	color: #111;
+	transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .main-form input:focus,
 .main-form select:focus {
 	border-color: #348635;
+}
+
+/* État invalide pour les champs de formulaire */
+.main-form input:invalid,
+.main-form select:invalid,
+.main-form input.invalid,
+.main-form select.invalid {
+	border-color: #c62828;
+	background-color: #ffebee;
+}
+
+.main-form input:invalid:focus,
+.main-form select:invalid:focus,
+.main-form input.invalid:focus,
+.main-form select.invalid:focus {
+	border-color: #c62828;
+	box-shadow: 0 0 5px rgba(198, 40, 40, 0.3);
 }
 
 .main-form .btn {
@@ -88,6 +106,17 @@ h1 code {
 .main-form .btn:focus {
 	background-color: #2f7a30;
 }
+
+/* Styles pour les messages d'erreur des champs */
+.field-error-message {
+	display: block !important;
+	color: #c62828 !important;
+	font-size: 12px !important;
+	font-weight: 600 !important;
+	margin-top: -15px !important;
+	margin-bottom: 15px !important;
+}
+
 .candidatures-section {
     margin-top: 40px;
     padding-top: 20px;
@@ -184,7 +213,7 @@ h1 code {
 	text-decoration: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 	h1 {
 		margin-top: 24px;
 		font-size: 24px;

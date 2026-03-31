@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Auth;
+use App\Core\InputValidator;
 use App\Core\View;
 use App\Model\PannelModel;
 use App\Model\UtilisateurModel;
@@ -107,9 +108,9 @@ class AccountController
             exit;
         }
 
-        $idOffre = isset($_POST['id_offre']) ? (int) $_POST['id_offre'] : 0;
-        $idEntreprise = isset($_POST['id_entreprise']) ? (int) $_POST['id_entreprise'] : 0;
-        $note = isset($_POST['note']) ? (int) $_POST['note'] : 0;
+        $idOffre = InputValidator::getInt($_POST, 'id_offre', 0, 1);
+        $idEntreprise = InputValidator::getInt($_POST, 'id_entreprise', 0, 1);
+        $note = InputValidator::getInt($_POST, 'note', 0, 1, 5);
 
         // Retour systématique vers la fiche de l'offre concernée.
         $redirectUrl = '/candidater?id_offre=' . max(0, $idOffre);

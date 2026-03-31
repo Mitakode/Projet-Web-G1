@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Core\InputValidator;
+use InvalidArgumentException;
 use PDO;
 
 class UtilisateurModel
@@ -48,26 +50,56 @@ class UtilisateurModel
 
     public function create(array $data): void
     {
+        // Nom/prenom: lettres, espaces, tirets et apostrophes.
+        $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\s\-\']+$/u', 100);
+        $prenom = InputValidator::requireString($data, 'prenom', '/^[\p{L}\s\-\']+$/u', 100);
+        $dateNaissance = InputValidator::requireDate($data, 'date_naissance');
+        // Formation: texte académique avec ponctuation simple.
+        $formation = InputValidator::requireString($data, 'formation', '/^[\p{L}\p{N}\s\-\'".,()\/]+$/u', 150);
+        // Description: texte libre encadré pour éviter les caractères indésirables.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 2000, true);
+        $email = InputValidator::requireEmail($data, 'email');
+        // Mot de passe: 8 à 255 caractères, sans caractère nul binaire.
+        $passwordRaw = InputValidator::requireString($data, 'Password', '/^[^\x00]{8,255}$/', 255);
+        $role = InputValidator::getInt($data, 'role', 0, 0, 2);
+        $estGerePar = InputValidator::getInt($data, 'est_gere_par', 0, 0);
+
         $stmt = $this->pdo->prepare(
             "INSERT INTO Utilisateur (Nom, Prenom, Date_naissance, Formation, Description, Email, Password, Role, est_gere_par)
             VALUES (:nom, :prenom, :date_naissance, :formation, :description, :email, :password, :role, :est_gere_par)"
         );
 
         $stmt->execute([
-            'nom'            => $data['nom'],
-            'prenom'         => $data['prenom'],
-            'date_naissance' => $data['date_naissance'],
-            'formation'      => $data['formation'],
-            'description'    => $data['description'],
-            'email'          => $data['email'],
-            'password'       => password_hash($data['Password'], PASSWORD_DEFAULT),
-            'role'           => $data['role'] ?? 0,
-            'est_gere_par'   => $data['est_gere_par'] ?: null,
+            'nom'            => $nom,
+            'prenom'         => $prenom,
+            'date_naissance' => $dateNaissance,
+            'formation'      => $formation,
+            'description'    => $description,
+            'email'          => $email,
+            'password'       => password_hash($passwordRaw, PASSWORD_DEFAULT),
+            'role'           => $role,
+            'est_gere_par'   => $estGerePar > 0 ? $estGerePar : null,
         ]);
     }
 
     public function update(int $id, array $data): void
     {
+        if ($id <= 0) {
+            throw new InvalidArgumentException('ID utilisateur invalide.');
+        }
+
+        // Nom/prenom: lettres, espaces, tirets et apostrophes.
+        $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\s\-\']+$/u', 100);
+        $prenom = InputValidator::requireString($data, 'prenom', '/^[\p{L}\s\-\']+$/u', 100);
+        $email = InputValidator::requireEmail($data, 'email');
+        $dateNaissance = InputValidator::requireDate($data, 'date_naissance');
+        // Formation: texte académique avec ponctuation simple.
+        $formation = InputValidator::requireString($data, 'formation', '/^[\p{L}\p{N}\s\-\'".,()\/]+$/u', 150);
+        // Description: texte libre encadré pour éviter les caractères indésirables.
+        $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 2000, true);
+        $role = InputValidator::getInt($data, 'role', 0, 0, 2);
+        $estGerePar = InputValidator::getInt($data, 'est_gere_par', 0, 0);
+
         $stmt = $this->pdo->prepare("
             UPDATE Utilisateur SET
                 Nom = :nom,
@@ -82,14 +114,14 @@ class UtilisateurModel
         ");
 
         $stmt->execute([
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':date_naissance' => $data['date_naissance'],
-            ':formation' => $data['formation'],
-            ':description' => $data['description'],
-            ':est_gere_par' => !empty($data['est_gere_par']) ? (int)$data['est_gere_par'] : null,
-            ':role' => $data['role'] ?? 0,
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':email' => $email,
+            ':date_naissance' => $dateNaissance,
+            ':formation' => $formation,
+            ':description' => $description,
+            ':est_gere_par' => $estGerePar > 0 ? $estGerePar : null,
+            ':role' => $role,
             ':id' => $id,
         ]);
     }
