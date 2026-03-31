@@ -102,9 +102,9 @@
                     {% for favori in dashboard.favoris %}
                         <div class="annonce-card">
                             <h3>{{ favori.Titre }}</h3>
-                            <p>{{ favori.entreprise }}</p>
+                            <a href="/company?id={{ favori.Id_entreprise }}" class="entreprise-link">{{ favori.entreprise }}</a>
                             <p>{{ favori.Date_offre }}</p>
-                            <a href="/candidater?id_offre={{ favori.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -124,7 +124,7 @@
                         {% set avgRounded = avg|round(0, 'common') %}
                         <div class="annonce-card">
                             <h3>{{ candidature.Titre }}</h3>
-                            <p>{{ candidature.entreprise }}</p>
+                            <a href="/company?id={{ candidature.Id_entreprise }}" class="entreprise-link">{{ candidature.entreprise }}</a>
                             <p>Candidature envoyée le {{ candidature.date_candidature }}</p>
 
                             <div class="rating-summary">
@@ -138,20 +138,26 @@
                             </div>
 
                             <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
+                                <input type="hidden" name="id_offre" value="{{ candidature.Id_offre }}">
                                 <input type="hidden" name="id_entreprise" value="{{ candidature.Id_entreprise }}">
-                                <label class="rating-form-label" for="note-{{ candidature.Id_offre }}">Ta note</label>
-                                <select id="note-{{ candidature.Id_offre }}" name="note" required>
-                                    <option value="">Choisir</option>
-                                    {% for i in 1..5 %}
-                                        <option value="{{ i }}" {{ candidature.note_utilisateur is not null and candidature.note_utilisateur == i ? 'selected' : '' }}>
-                                            {{ i }} étoile{{ i > 1 ? 's' : '' }}
-                                        </option>
+                                <p class="rating-form-label">Ta note</p>
+                                <div class="rating-input" role="radiogroup" aria-label="Noter cette entreprise">
+                                    {% for i in 5..1 %}
+                                        <input
+                                            type="radio"
+                                            id="note-{{ candidature.Id_offre }}-{{ i }}"
+                                            name="note"
+                                            value="{{ i }}"
+                                            {{ candidature.note_utilisateur is not null and candidature.note_utilisateur == i ? 'checked' : '' }}
+                                            required
+                                        >
+                                        <label for="note-{{ candidature.Id_offre }}-{{ i }}" title="{{ i }} étoile{{ i > 1 ? 's' : '' }}">★</label>
                                     {% endfor %}
-                                </select>
+                                </div>
                                 <button type="submit">Enregistrer</button>
                             </form>
 
-                            <a href="/candidater?id_offre={{ candidature.Id_offre }}">Voir l'annonce</a>
+                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
                         </div>
                     {% endfor %}
                 {% else %}

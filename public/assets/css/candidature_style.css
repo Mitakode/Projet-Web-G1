@@ -216,4 +216,34 @@ input[type="file"].invalid {
     font-size: 12px !important;
     font-weight: 600 !important;
     margin: -15px 0 15px 0 !important;
+@media (max-width: 900px) {
+    .candidature-container {
+        flex-direction: column;
+        align-items: stretch;
+        margin: 20px auto;
+    }
+
+    .offer-details,
+    .application-form {
+        width: 100%;
+    }
+
+    .application-form {
+        padding: 20px;
+    }
+
+    .rate-submit {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .candidature-container {
+        padding: 0 16px;
+    }
+
+    .application-form {
+        padding: 20px;
+    }
 }

@@ -21,7 +21,7 @@ class DashboardController
         $role = (int)($user['Role'] ?? 0);
         
         if ($role < 1) {
-            header('Location: /account');
+            header('Location: /forbidden');
             exit;
         }
     }

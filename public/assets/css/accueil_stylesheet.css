@@ -40,9 +40,8 @@
     cursor: pointer;
     font-size: 16px;
     position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 20px;
+    bottom: 20px;
     text-decoration: none;
     display: inline-block;
 }
@@ -100,55 +99,27 @@
     color: #ffd700;
 }
 
-.home-rating {
-    margin: 8px 0 12px 0;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-}
+@media (max-width: 600px) {
+    .main-container {
+        padding: 20px 16px;
+        gap: 20px;
+    }
 
-.home-rating-label {
-    font-weight: 600;
-    margin-right: 2px;
-}
+    .list-offer {
+        padding: 16px;
+    }
 
-.home-star {
-    font-size: 18px;
-    line-height: 1;
-}
+    .btn-candidate {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        text-align: center;
+        right: auto;
+        bottom: auto;
+    }
 
-.home-star.filled {
-    color: #f7c42b;
-}
-
-.home-star.empty {
-    color: #a5b8c7;
-}
-
-.home-rating-meta {
-    margin-left: 8px;
-    font-size: 14px;
-    color: #d9e9f5;
-}
-    .btn-action.star {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 24px;
-    color: #ffd700;
-}
-
-.btn-action.star i {
-    transition: color 0.2s ease;
-}
-
-.btn-action.star.active i,
-.btn-action.star:hover i,
-.btn-action.star:focus-visible i {
-    color: #ffd700;
+    .home-rating-meta {
+        margin-left: 0;
+        width: 100%;
+    }
 }
