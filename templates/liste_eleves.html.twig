@@ -14,8 +14,19 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
-    <h2>Liste des eleves ({{ totalElements|default(users|length) }})</h2>
+    <a href="/account" class="btn-back">Retour</a>
+    <form method="GET" action="/student_list" style="display:flex; gap:10px; align-items:center; margin: 16px 0;">
+        <input type="text" name="search" value="{{ search|default('') }}"
+               placeholder="Rechercher un élève..." class="search-bar">
+        <button type="submit" class="btn">Rechercher</button>
+    </form>
+    
+    {% if users|length == 1%}
+        <h2>Élève trouvé</h2>
+    {% else %}
+        <h2>Liste des élèves ({{ (users|length) }})</h2>
+    {% endif %}
+
     <table>
         <thead>
             <tr>
@@ -49,7 +60,7 @@
                 <td>
                     <a href="/eleve?id={{ u.Id_user }}" class="btn-edit">Modifier</a>
                     <form method="POST" action="/eleve" style="display:inline"
-                        onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
+                          onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
@@ -63,24 +74,22 @@
     </table>
 
     {% if totalPages is defined and totalPages > 1 %}
-        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+        <div class="pagination-container">
             {% if pageActuelle > 1 %}
-                <a href="/student_list?page={{ pageActuelle - 1 }}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                <a href="/student_list?page={{ pageActuelle - 1 }}&search={{ search|default('')|url_encode }}" class="btn">
                     Précédent
                 </a>
             {% endif %}
 
             {% for i in 1..totalPages %}
-                <a href="/student_list?page={{ i }}"
-                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                <a href="/student_list?page={{ i }}&search={{ search|default('')|url_encode }}"
+                   class="btn" style="{{ i == pageActuelle ? 'background:#17496E;' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}
 
             {% if pageActuelle < totalPages %}
-                <a href="/student_list?page={{ pageActuelle + 1 }}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                <a href="/student_list?page={{ pageActuelle + 1 }}&search={{ search|default('')|url_encode }}" class="btn">
                     Suivant
                 </a>
             {% endif %}

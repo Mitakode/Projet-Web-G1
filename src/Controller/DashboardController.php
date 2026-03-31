@@ -62,7 +62,6 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                // Action CRUD restreinte à add/edit/delete.
                 $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'add') {
@@ -71,13 +70,11 @@ class DashboardController
                     exit;
                 }
                 if ($action === 'edit') {
-                    // ID nettoyé: entier positif uniquement.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /student_list');
                     exit;
                 }
                 if ($action === 'delete') {
-                    // ID nettoyé: entier positif uniquement.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /student_list');
                     exit;
@@ -89,10 +86,9 @@ class DashboardController
         }
 
         if (isset($_GET['id'])) {
-            // ID d'édition validé avant lecture DB.
             $userId = InputValidator::getInt($_GET, 'id', 0, 1);
             $editUser = $model->getById($userId);
-            $pilotes = $model->getByRole(1); 
+            $pilotes = $model->getByRole(1);
 
             $currentRole = (int)($user['Role'] ?? 0);
             $isAdmin = ($currentRole === 2);
@@ -101,7 +97,6 @@ class DashboardController
                 && (int)($editUser['Role'] ?? -1) === 0
                 && (int)($editUser['est_gere_par'] ?? 0) === (int)$user['Id_user'];
 
-            // Admin: accès à tous les élèves. Pilote: seulement ses élèves.
             $canEditStudent = $isAdmin || ($isPilot && $isOwnedStudent);
 
             if (!$canEditStudent) {
@@ -122,17 +117,29 @@ class DashboardController
         }
 
         $role = (int)($user['Role'] ?? 0);
-        $users = ($role === 2) 
-            ? $model->getByRole(0) 
+        $users = ($role === 2)
+            ? $model->getByRole(0)
             : $model->getByRoleAndEstGerePar(0, $user['Id_user']);
+
+        // Filtre recherche
+        $search = trim((string)($_GET['search'] ?? ''));
+        if ($search !== '') {
+            $users = array_filter($users, function($u) use ($search) {
+                return stripos($u['Nom'], $search) !== false
+                    || stripos($u['Prenom'], $search) !== false
+                    || stripos($u['Email'], $search) !== false;
+            });
+            $users = array_values($users);
+        }
 
         $pagination = $this->paginateArray($users);
 
         View::render('liste_eleves.html.twig', [
-            'users' => $pagination['items'],
-            'pageActuelle' => $pagination['pageActuelle'],
-            'totalPages' => $pagination['totalPages'],
+            'users'         => $pagination['items'],
+            'pageActuelle'  => $pagination['pageActuelle'],
+            'totalPages'    => $pagination['totalPages'],
             'totalElements' => $pagination['totalElements'],
+            'search'        => $search,
         ]);
     }
 
