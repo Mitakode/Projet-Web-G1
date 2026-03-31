@@ -12,6 +12,12 @@
 
 <h1>{{ editEntreprise ? 'Modifier l\'entreprise' : 'Ajouter une entreprise' }}</h1>
 
+{% if error %}
+    <div style="background-color: #ffebee; border: 2px solid #c62828; color: #c62828; padding: 12px; margin-bottom: 20px; border-radius: 8px; font-weight: 600;">
+        {{ error }}
+    </div>
+{% endif %}
+
 <form method="POST" action="/entreprise" class="main-form">
     <input type="hidden" name="action" value="{{ editEntreprise ? 'edit' : 'add' }}">
     {% if editEntreprise %}
@@ -47,6 +53,8 @@
 </form>
 
 {% include 'partials/_footer.html.twig' %}
+
+<script src="/assets/js/form-validation.js"></script>
 
 </body>
 </html>

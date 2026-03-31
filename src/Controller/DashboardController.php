@@ -114,6 +114,7 @@ class DashboardController
     public function Entreprise()
     {
         $model = new EntrepriseModel();
+        $error = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -140,8 +141,7 @@ class DashboardController
                     exit;
                 }
             } catch (InvalidArgumentException $e) {
-                header('Location: /enterprise_list');
-                exit;
+                $error = $e->getMessage();
             }
         }
 
@@ -153,6 +153,7 @@ class DashboardController
 
         View::render('entreprise.html.twig', [
             'editEntreprise' => $editEntreprise,
+            'error' => $error,
         ]);
     }
 

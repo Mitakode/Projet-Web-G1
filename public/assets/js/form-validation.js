@@ -6,20 +6,20 @@
         query: /^[\p{L}\p{N}\s\-'".,()@]{0,100}$/u,
         // Recherche entreprises.
         search: /^[\p{L}\p{N}\s\-'".,()@]{0,100}$/u,
-        // Nom utilisateur/entreprise.
-        nom: /^[\p{L}\p{N}\s\-'".&()]{1,150}$/u,
+        // Nom utilisateur/entreprise. Synchronisé avec backend.
+        nom: /^[\p{L}\p{N}\s\-'".&()]+$/u,
         // Prénom personne.
         prenom: /^[\p{L}\s\-']{1,100}$/u,
         // Intitulé de formation.
         formation: /^[\p{L}\p{N}\s\-'".,()\/]{1,150}$/u,
-        // Description texte contrôlée.
-        description: /^[\p{L}\p{N}\s\-'".,()!?@:\/]{0,3000}$/u,
+        // Description texte contrôlée. Synchronisé avec backend.
+        description: /^[\p{L}\p{N}\s\-'".,()!?@:\/]*$/u,
         // Email standard.
         email: /^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/,
         // Email de contact entreprise.
         email_contact: /^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/,
-        // Numéro de téléphone FR/intl simple.
-        telephone: /^\+?[0-9\s().-]{6,20}$/,
+        // Numéro de téléphone FR/intl simple. Doit être vide OU exactement 10 caractères.
+        telephone: /^$|^\+?[0-9\s().-]{10}$/,
         // Date ISO (vérifiée ensuite avec un vrai objet Date).
         date_naissance: /^\d{4}-\d{2}-\d{2}$/,
         // Date ISO pour l'offre.
@@ -70,12 +70,40 @@
 
         var fields = form.querySelectorAll('input, textarea, select');
         fields.forEach(function (field) {
-            field.style.borderColor = '';
+            field.classList.remove('invalid');
+            // Supprimer le message d'erreur associé au champ
+            var errorMsg = field.nextElementSibling;
+            if (errorMsg && errorMsg.classList.contains('field-error-message')) {
+                errorMsg.remove();
+            }
         });
     }
 
     function markFieldInvalid(field) {
-        field.style.borderColor = '#c62828';
+        field.classList.add('invalid');
+        
+        // Vérifier si un message d'erreur existe déjà
+        if (field.nextElementSibling && field.nextElementSibling.classList && field.nextElementSibling.classList.contains('field-error-message')) {
+            return; // Le message existe déjà
+        }
+        
+        // Ajouter un message d'erreur sous le champ
+        var errorMsg = document.createElement('span');
+        errorMsg.className = 'field-error-message';
+        errorMsg.textContent = 'Ce champ est invalide';
+        errorMsg.style.display = 'block';
+        errorMsg.style.color = '#c62828';
+        errorMsg.style.fontSize = '12px';
+        errorMsg.style.fontWeight = '600';
+        errorMsg.style.marginTop = '5px';
+        errorMsg.style.marginBottom = '5px';
+        
+        // Insérer le message d'erreur après le champ
+        if (field.nextSibling) {
+            field.parentNode.insertBefore(errorMsg, field.nextSibling);
+        } else {
+            field.parentNode.appendChild(errorMsg);
+        }
     }
 
     function isValidDate(value) {
@@ -169,7 +197,7 @@
                 if (!validateForm(form)) {
                     event.preventDefault();
                     var errorNode = getOrCreateErrorNode(form);
-                    errorNode.textContent = 'Incorrect';
+                    errorNode.textContent = 'Veuillez corriger les erreurs dans le formulaire.';
                 }
             });
         });

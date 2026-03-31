@@ -130,7 +130,7 @@ class EntrepriseModel
         $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
         $emailContact = InputValidator::requireEmail($data, 'email_contact');
         // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
-        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{6,20}$/', 20, true);
+        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{10}$/', 20, true);
         $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
 
         $stmt = $this->pdo->prepare("
@@ -158,7 +158,7 @@ class EntrepriseModel
         $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
         $emailContact = InputValidator::requireEmail($data, 'email_contact');
         // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
-        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{6,20}$/', 20, true);
+        $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{10}$/', 20, true);
         $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
 
         $stmt = $this->pdo->prepare("
