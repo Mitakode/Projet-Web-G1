@@ -285,15 +285,28 @@ class DashboardController
     public function listPilotes()
     {
         $model = new UtilisateurModel();
+        $search = trim((string)($_GET['search'] ?? ''));
+        
         $pilotes = $model->getByRole(1);
+        
+        // Filtre en PHP si recherche
+        if ($search !== '') {
+            $pilotes = array_filter($pilotes, function($p) use ($search) {
+                return stripos($p['Nom'], $search) !== false
+                    || stripos($p['Prenom'], $search) !== false
+                    || stripos($p['Email'], $search) !== false;
+            });
+            $pilotes = array_values($pilotes);
+        }
 
         $pagination = $this->paginateArray($pilotes);
 
         View::render('liste_pilotes.html.twig', [
-            'pilotes' => $pagination['items'],
-            'pageActuelle' => $pagination['pageActuelle'],
-            'totalPages' => $pagination['totalPages'],
+            'pilotes'       => $pagination['items'],
+            'pageActuelle'  => $pagination['pageActuelle'],
+            'totalPages'    => $pagination['totalPages'],
             'totalElements' => $pagination['totalElements'],
+            'search'        => $search,
         ]);
     }
 

@@ -15,6 +15,12 @@
 
 <main>
     <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
+    <form method="GET" action="/pilotes_list" style="margin: 16px 0;">
+        <input type="text" name="search" value="{{ search|default('') }}" 
+        placeholder="Rechercher un pilote..." class="search-bar"
+        style="width: 300px;">
+        <button type="submit" class="btn-edit">Rechercher</button>
+    </form>
     <h2>Liste des pilotes ({{ totalElements|default(pilotes|length) }})</h2>
     <table>
         <thead>
@@ -65,21 +71,21 @@
     {% if totalPages is defined and totalPages > 1 %}
         <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
             {% if pageActuelle > 1 %}
-                <a href="/pilotes_list?page={{ pageActuelle - 1 }}"
+                <a href="/pilotes_list?page={{ pageActuelle - 1 }}&search={{ search|default('')|url_encode }}"
                    style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                     Précédent
                 </a>
             {% endif %}
 
             {% for i in 1..totalPages %}
-                <a href="/pilotes_list?page={{ i }}"
+                 <a href="/pilotes_list?page={{ i }}&search={{ search|default('')|url_encode }}"
                    style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
                     {{ i }}
                 </a>
             {% endfor %}
 
             {% if pageActuelle < totalPages %}
-                <a href="/pilotes_list?page={{ pageActuelle + 1 }}"
+                <a href="/pilotes_list?page={{ pageActuelle + 1 }}&search={{ search|default('')|url_encode }}" ...>
                    style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
                     Suivant
                 </a>
