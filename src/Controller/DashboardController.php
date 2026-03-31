@@ -115,7 +115,8 @@ class DashboardController
                 'editUser'     => $editUser,
                 'pilote_id'    => $user['Id_user'],
                 'session_role' => $user['Role'],
-                'stagesEleve'  => $stagesEleve
+                'stagesEleve'  => $stagesEleve,
+                'pilotes'      => $pilotes
             ]);
             return;
         }
