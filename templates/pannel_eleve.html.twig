@@ -67,18 +67,6 @@
             </section>
 
             <aside class="mon-cv">
-                <div class="cv-section">
-                    <h3>Mon CV</h3>
-                    <div class="cv-placeholder">
-                        {% if dashboard.cv %}
-                            {% set cvPath = dashboard.cv starts with 'http' ? dashboard.cv : '/uploads/' ~ dashboard.cv %}
-                            <a href="{{ cvPath }}" target="_blank" rel="noopener noreferrer">Voir mon CV</a>
-                        {% else %}
-                            <p>Aucun CV ajouté</p>
-                        {% endif %}
-                    </div>
-                </div>
-
                 <div class="competences-section">
                     <h3>Mes compétences</h3>
                     <div class="competences-numbers">

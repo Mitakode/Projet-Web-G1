@@ -38,7 +38,13 @@
                 <td>{{ o.Date_offre }}</td>
                 <td>{{ o.Duree_mois }}</td>
                 <td>{{ o.Nombre_place }}</td>
-                <td>{{ o.Nom_entreprise|default('Inconnue') }}</td>
+                <td>
+                    {% if o.Id_entreprise is defined and o.Id_entreprise %}
+                        <a class="entreprise-link" href="/company?id={{ o.Id_entreprise }}">{{ o.Nom_entreprise|default('Entreprise') }}</a>
+                    {% else %}
+                        {{ o.Nom_entreprise|default('Inconnue') }}
+                    {% endif %}
+                </td>
                 <td>
                     <a href="/offres_de_stages?id={{ o.Id_offre }}" class="btn-edit">Modifier</a>
                     <a href="/dashboard?id-offre={{ o.Id_offre }}" class="btn-edit">Détails</a>
@@ -56,25 +62,22 @@
         </tbody>
     </table>
     {% if totalPages is defined and totalPages > 1 %}
-        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+        <div class="pagination-container">
 
             {% if pageActuelle > 1 %}
-                <a href="/offer_list?page={{ pageActuelle - 1 }}"
-                style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                <a href="/offer_list?page={{ pageActuelle - 1 }}" class="pagination-btn pagination-nav">
                     Précédent
                 </a>
             {% endif %}
 
             {% for i in 1..totalPages %}
-                <a href="/offer_list?page={{ i }}"
-                style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                <a href="/offer_list?page={{ i }}" class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}
 
             {% if pageActuelle < totalPages %}
-                <a href="/offer_list?page={{ pageActuelle + 1 }}"
-                style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                <a href="/offer_list?page={{ pageActuelle + 1 }}" class="pagination-btn pagination-nav">
                     Suivant
                 </a>
             {% endif %}

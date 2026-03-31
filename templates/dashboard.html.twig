@@ -30,7 +30,13 @@
             <div class="offer-stats-title">
                 <p class="offer-stats-name">{{ offerStats.Titre }}</p>
                 <p class="offer-stats-meta">
-                    {% if offerStats.Nom_entreprise %}{{ offerStats.Nom_entreprise }}{% endif %}
+                    {% if offerStats.Nom_entreprise %}
+                        {% if offerStats.Id_entreprise is defined and offerStats.Id_entreprise %}
+                            <a class="entreprise-link" href="/company?id={{ offerStats.Id_entreprise }}">{{ offerStats.Nom_entreprise }}</a>
+                        {% else %}
+                            {{ offerStats.Nom_entreprise }}
+                        {% endif %}
+                    {% endif %}
                     {% if offerStats.Duree_mois %} • {{ offerStats.Duree_mois }} mois{% endif %}
                     {% if offerStats.Nombre_place %} • {{ offerStats.Nombre_place }} place(s){% endif %}
                 </p>
