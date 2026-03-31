@@ -21,3 +21,20 @@ li{
     line-height: 1.5;
     font-family :'Segoe UI';
 }
+
+section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 600px) {
+  h2 {
+    font-size: 20px;
+  }
+
+  p,
+  li {
+    font-size: 15px;
+  }
+}
