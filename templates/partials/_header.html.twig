@@ -18,12 +18,13 @@
 
             <div class="account">
             {% if isAuth %}
+                    {% set headerUser = user|default(authUser|default({})) %}
                     <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
                     <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
                         <div class="user-icon">
                             <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
                         </div>
-                        <span class="account-name">{{ user.Prenom|default('Mon compte') }}</span>
+                        <span class="account-name">{{ headerUser.Prenom|default('Mon compte') }}</span>
                         <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
                     </label>
                 <div class="account-menu">

@@ -4,9 +4,16 @@
     padding: 0;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     padding-bottom: 0;
     font-family: Arial;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 img {
@@ -265,7 +272,7 @@ main {
 .site-footer {
     position: static;
     width: 100%;
-    margin-top: 28px;
+    margin-top: auto;
     border-top: 1px solid #d9e2ee;
     background: linear-gradient(180deg, #f8fafd 0%, #f3f7fb 100%);
 }
@@ -306,6 +313,99 @@ main {
     color: #1f4f86;
 }
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d7dfeb;
+    background: #ffffff;
+    color: #17496E;
+    text-decoration: none;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination-btn:hover,
+.pagination-btn:focus {
+    background: #f0f7ff;
+    border-color: #17496E;
+    color: #17496E;
+}
+
+.pagination-btn.is-active {
+    background: #17496E;
+    border-color: #17496E;
+    color: #ffffff;
+}
+
+.pagination-btn.pagination-nav {
+    padding: 10px 14px;
+}
+
+.entreprise-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #17496E;
+    border: 1px solid #17496E;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.entreprise-link:hover,
+.entreprise-link:focus {
+    background: #0f2f47;
+    border-color: #0f2f47;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.stars-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.star {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.star.filled {
+    color: #f4b400;
+}
+
+.star.empty {
+    color: #bcc6cf;
+}
+
+.rating-meta {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #4f5e6b;
+    font-family: "Segoe UI", sans-serif;
+}
+
 /* Defensive reset in case legacy paragraph footer styles are still loaded. */
 .site-footer p {
     margin: 0;
@@ -316,12 +416,6 @@ main {
 }
 
 @media (max-width: 600px) {
-    body {
-        padding-bottom: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
     .navbar {
         padding: 10px 16px;
     }
@@ -369,7 +463,6 @@ main {
     }
 
     .site-footer {
-        margin-top: 10px;
         position: static;
         margin-top: auto;
     }

@@ -17,7 +17,12 @@
         <h1>{{ offre.Titre }}</h1>
 
         <div class="entreprise-meta">
-            <strong>Entreprise :</strong> {{ offre.Nom_entreprise|default('Entreprise inconnue') }}
+            <strong>Entreprise :</strong>
+            {% if offre.Id_entreprise is defined and offre.Id_entreprise %}
+                <a class="entreprise-link" href="/company?id={{ offre.Id_entreprise }}">{{ offre.Nom_entreprise|default('Entreprise inconnue') }}</a>
+            {% else %}
+                {{ offre.Nom_entreprise|default('Entreprise inconnue') }}
+            {% endif %}
         </div>
 
         {# Note moyenne calculée côté backend + version arrondie pour le rendu des étoiles #}

@@ -26,7 +26,14 @@
             <div class="stat-label">Candidatures reçues</div>
         </div>
         <div class="stat-card">
-            <div class="stat-number">{{ stats.moyenne }}</div>
+            {% set avg = stats.moyenne|default(0) %}
+            {% set avgRounded = avg|round(0, 'common') %}
+            <div class="stat-number">{{ avg }}</div>
+            <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+                {% for i in 1..5 %}
+                    <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
+                {% endfor %}
+            </div>
             <div class="stat-label">Note moyenne / 5</div>
         </div>
     </div>

@@ -84,6 +84,7 @@
             {% for i in 1..totalPages %}
                 <a href="/student_list?page={{ i }}&search={{ search|default('')|url_encode }}"
                    class="btn" style="{{ i == pageActuelle ? 'background:#17496E;' : '' }}">
+                <a href="/student_list?page={{ i }}" class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}
