@@ -112,7 +112,7 @@ class UtilisateurModel
     public function update(int $id, array $data): void
     {
         if ($id <= 0) {
-            throw new InvalidArgumentException('ID utilisateur invalide.');
+            throw new InvalidArgumentException('Invalid user ID.');
         }
 
         // Last/first name: letters, spaces, dashes and apostrophes.

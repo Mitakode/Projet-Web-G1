@@ -75,16 +75,16 @@ final class InputValidator
         $len = mb_strlen($value);
 
         if (!$allowEmpty && $value === '') {
-            throw new InvalidArgumentException("Le champ {$key} est requis.");
+            throw new InvalidArgumentException("The {$key} field is required.");
         }
 
         if ($len > $maxLen) {
-            throw new InvalidArgumentException("Le champ {$key} est trop long.");
+            throw new InvalidArgumentException("The {$key} field is too long.");
         }
 
         // Validate the field format according to the expected pattern.
         if ($value !== '' && !self::regex($value, $pattern)) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         return $value;
@@ -99,12 +99,12 @@ final class InputValidator
     {
         $email = trim((string) ($input[$key] ?? ''));
         if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         // Strict email format: local@domain.tld without spaces.
         if (!self::regex($email, '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         return $email;
@@ -120,12 +120,12 @@ final class InputValidator
         $date = trim((string) ($input[$key] ?? ''));
         // ISO date format: YYYY-MM-DD.
         if (!self::regex($date, '/^\d{4}-\d{2}-\d{2}$/')) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         [$year, $month, $day] = array_map('intval', explode('-', $date));
         if (!checkdate($month, $day, $year)) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         return $date;
@@ -140,7 +140,7 @@ final class InputValidator
     {
         $value = (string) ($input[$key] ?? '');
         if (!in_array($value, $allowedValues, true)) {
-            throw new InvalidArgumentException("Le champ {$key} est invalide.");
+            throw new InvalidArgumentException("The {$key} field is invalid.");
         }
 
         return $value;

@@ -175,7 +175,7 @@ class OffreModel
     public function update(int $id, array $data): void
     {
         if ($id <= 0) {
-            throw new InvalidArgumentException('ID offre invalide.');
+            throw new InvalidArgumentException('Invalid offer ID.');
         }
 
         // Offer title: readable text with limited punctuation.

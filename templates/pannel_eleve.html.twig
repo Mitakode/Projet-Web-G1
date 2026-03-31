@@ -4,12 +4,12 @@
     Data: Provided by AccountController::index for Role=0.
 #}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-	<meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+	<meta name="description" content="Student dashboard.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/pannel_eleve_style.css" rel="stylesheet"/>
     </head>
@@ -37,62 +37,62 @@
         <main class="panel-content">
 
         <section class="statistiques">
-            <h2>Statistiques</h2>
+            <h2>Statistics</h2>
             <div class="stats-container">
-                <p>Nombre de candidature : {{ total }}</p>
-                <p>Candidatures en cours : {{ enCours }} ({{ pctEnCours }}%)</p>
-                <p>Candidature refusée : {{ refusees }} ({{ pctRefusees }}%)</p>
+                <p>Total applications: {{ total }}</p>
+                <p>Applications in progress: {{ enCours }} ({{ pctEnCours }}%)</p>
+                <p>Rejected applications: {{ refusees }} ({{ pctRefusees }}%)</p>
             </div>
         </section>
 
         <div class="info-cv-container">
             <section class="mes-informations">
-                <h2>Mes Informations</h2>
+                <h2>My information</h2>
 
                 <div class="info-item">
-                    <label>Nom Prénom : {{ dashboard.user.Nom|default('') }} {{ dashboard.user.Prenom|default('') }}</label>
+                    <label>Full name: {{ dashboard.user.Nom|default('') }} {{ dashboard.user.Prenom|default('') }}</label>
                 </div>
 
                 <div class="info-item">
-                    <label>Date de naissance : {{ dashboard.profil.date_naissance|default('Non renseigné') }}</label>
+                    <label>Birth date: {{ dashboard.profil.date_naissance|default('Not provided') }}</label>
                 </div>
 
                 <div class="info-item">
-                    <label>Formation : {{ dashboard.profil.formation|default('Non renseigné') }}</label>
+                    <label>Program: {{ dashboard.profil.formation|default('Not provided') }}</label>
                 </div>
 
                 <div class="info-item">
-                    <label>Mon niveau d'étude : {{ dashboard.profil.niveau_etude|default('Non renseigné') }}</label>
+                    <label>Education level: {{ dashboard.profil.niveau_etude|default('Not provided') }}</label>
                 </div>
 
                 <div class="info-item">
-                    <label>Description sur mon profil :</label>
-                    <p>{{ dashboard.profil.description|default('Aucune description') }}</p>
+                    <label>Profile description:</label>
+                    <p>{{ dashboard.profil.description|default('No description') }}</p>
                 </div>
             </section>
 
             <aside class="mon-cv">
                 <div class="cv-section">
-                    <h3>Mon CV</h3>
+                    <h3>My CV</h3>
                     <div class="cv-placeholder">
                         {% if dashboard.cv %}
                             {% set cvPath = dashboard.cv starts with 'http' ? dashboard.cv : '/uploads/' ~ dashboard.cv %}
-                            <a href="{{ cvPath }}" target="_blank" rel="noopener noreferrer">Voir mon CV</a>
+                            <a href="{{ cvPath }}" target="_blank" rel="noopener noreferrer">View my CV</a>
                         {% else %}
-                            <p>Aucun CV ajouté</p>
+                            <p>No CV uploaded</p>
                         {% endif %}
                     </div>
                 </div>
 
                 <div class="competences-section">
-                    <h3>Mes compétences</h3>
+                    <h3>My skills</h3>
                     <div class="competences-numbers">
                         {% if dashboard.competences is not empty %}
                             {% for competence in dashboard.competences %}
                                 <p>{{ competence }}</p>
                             {% endfor %}
                         {% else %}
-                            <p>Aucune compétence trouvée</p>
+                            <p>No skills found</p>
                         {% endif %}
                     </div>
                 </div>
@@ -101,7 +101,7 @@
 
         <div class="favoris-candidatures-container">
             <section class="mes-favoris">
-                <h2>Mes favoris</h2>
+                <h2>My favorites</h2>
 
                 {% if dashboard.favoris is not empty %}
                     {% for favori in dashboard.favoris %}
@@ -109,19 +109,19 @@
                             <h3>{{ favori.Titre }}</h3>
                             <a href="/company?id={{ favori.Id_entreprise }}" class="entreprise-link">{{ favori.entreprise }}</a>
                             <p>{{ favori.Date_offre }}</p>
-                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
+                            <a href="/candidater?id_offre={{ favori.Id_offre }}" class="btn-voir-annonce">View listing →</a>
                         </div>
                     {% endfor %}
                 {% else %}
                     <div class="annonce-card">
-                        <h3>Aucun favori</h3>
-                        <p>Ajoute des offres a ta wishlist pour les retrouver ici.</p>
+                        <h3>No favorites</h3>
+                        <p>Add offers to your wishlist to find them here.</p>
                     </div>
                 {% endif %}
             </section>
 
             <section class="mes-candidatures">
-                <h2>Mes dernières candidatures</h2>
+                <h2>My latest applications</h2>
 
                 {% if dashboard.dernieres_candidatures is not empty %}
                     {% for candidature in dashboard.dernieres_candidatures %}
@@ -130,23 +130,23 @@
                         <div class="annonce-card">
                             <h3>{{ candidature.Titre }}</h3>
                             <a href="/company?id={{ candidature.Id_entreprise }}" class="entreprise-link">{{ candidature.entreprise }}</a>
-                            <p>Candidature envoyée le {{ candidature.date_candidature }}</p>
+                            <p>Application sent on {{ candidature.date_candidature }}</p>
 
                             <div class="rating-summary">
-                                <p class="rating-title">Note moyenne de l'entreprise</p>
-                                <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+                                <p class="rating-title">Average company rating</p>
+                                <div class="stars-display" aria-label="Average rating {{ avg }}/5">
                                     {% for i in 1..5 %}
                                         <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
                                     {% endfor %}
-                                    <span class="rating-meta">{{ avg }}/5 ({{ candidature.total_votes|default(0) }} avis)</span>
+                                    <span class="rating-meta">{{ avg }}/5 ({{ candidature.total_votes|default(0) }} reviews)</span>
                                 </div>
                             </div>
 
                             <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
                                 <input type="hidden" name="id_offre" value="{{ candidature.Id_offre }}">
                                 <input type="hidden" name="id_entreprise" value="{{ candidature.Id_entreprise }}">
-                                <p class="rating-form-label">Ta note</p>
-                                <div class="rating-input" role="radiogroup" aria-label="Noter cette entreprise">
+                                <p class="rating-form-label">Your rating</p>
+                                <div class="rating-input" role="radiogroup" aria-label="Rate this company">
                                     {% for i in 5..1 %}
                                         <input
                                             type="radio"
@@ -156,19 +156,19 @@
                                             {{ candidature.note_utilisateur is not null and candidature.note_utilisateur == i ? 'checked' : '' }}
                                             required
                                         >
-                                        <label for="note-{{ candidature.Id_offre }}-{{ i }}" title="{{ i }} étoile{{ i > 1 ? 's' : '' }}">★</label>
+                                        <label for="note-{{ candidature.Id_offre }}-{{ i }}" title="{{ i }} star{{ i > 1 ? 's' : '' }}">★</label>
                                     {% endfor %}
                                 </div>
-                                <button type="submit">Enregistrer</button>
+                                <button type="submit">Save</button>
                             </form>
 
-                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-voir-annonce">Voir l'annonce →</a>
+                            <a href="/candidater?id_offre={{ candidature.Id_offre }}" class="btn-voir-annonce">View listing →</a>
                         </div>
                     {% endfor %}
                 {% else %}
                     <div class="annonce-card">
-                        <h3>Aucune candidature</h3>
-                        <p>Tu n'as pas encore postulé à une offre.</p>
+                        <h3>No applications</h3>
+                        <p>You have not applied to an offer yet.</p>
                     </div>
                 {% endif %}
             </section>

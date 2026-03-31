@@ -4,12 +4,12 @@
     Data: Provided by AccountController::index for Role=1.
 #}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <meta name="description" content="Pilot dashboard.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/pannel_pilote_style.css" rel="stylesheet"/>
 </head>
@@ -21,39 +21,39 @@
 <main class="pilot-page">
     <section class="pilot-hero container">
         <div>
-            <p class="pilot-kicker">Espace Pilote</p>
-            <h1>Tableau de bord</h1>
-            <p class="pilot-subtitle">Pilotez les étudiants, les entreprises et les stages depuis un seul espace.</p>
+            <p class="pilot-kicker">Pilot area</p>
+            <h1>Dashboard</h1>
+            <p class="pilot-subtitle">Manage students, companies and internships from one place.</p>
         </div>
     </section>
 
     <div class="container">
         <section class="mes-informations">
-            <h2>Mes Informations</h2>
+            <h2>My information</h2>
 
             <div class="info-item">
-                <label>Nom Prénom :</label>
+                <label>Full name:</label>
                 <p>{{ user.Nom }} {{ user.Prenom }}</p>
             </div>
 
             <div class="info-item">
-                <label>Date de naissance :</label>
-                <p>{{ user.Date_naissance|default('Non renseigné') }}</p>
+                <label>Birth date:</label>
+                <p>{{ user.Date_naissance|default('Not provided') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Formation :</label>
-                <p>{{ user.Formation|default('Non renseigné') }}</p>
+                <label>Program:</label>
+                <p>{{ user.Formation|default('Not provided') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Mon niveau d'étude :</label>
-                <p>{{ user.Formation|default('Non renseigné') }}</p>
+                <label>Education level:</label>
+                <p>{{ user.Formation|default('Not provided') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Description sur mon profil :</label>
-                <p>{{ user.Description|default('Aucune description') }}</p>
+                <label>Profile description:</label>
+                <p>{{ user.Description|default('No description') }}</p>
             </div>
         </section>
     </div>
@@ -61,29 +61,29 @@
     <section class="admin-grid container">
 
         <div class="admin-card">
-            <h2>ELEVES</h2>
-            <p>{{ eleves|length }} élève{% if eleves|length != 1 %}s{% endif %} enregistré{% if eleves|length != 1 %}s{% endif %}</p>
+            <h2>STUDENTS</h2>
+            <p>{{ eleves|length }} student{% if eleves|length != 1 %}s{% endif %} registered</p>
             <div class="admin-card-buttons">
-                <a href="/student_list" class="admin-btn">Modifier</a>
-                <a href="/student_creation" class="admin-btn">Ajouter</a>
+                <a href="/student_list" class="admin-btn">Edit</a>
+                <a href="/student_creation" class="admin-btn">Add</a>
             </div>
         </div>
 
         <div class="admin-card">
-            <h2>ENTREPRISES</h2>
-            <p>{{ entreprises|length }} entreprise{% if entreprises|length != 1 %}s{% endif %} enregistrée{% if entreprises|length != 1 %}s{% endif %}</p>
+            <h2>COMPANIES</h2>
+            <p>{{ entreprises|length }} compan{% if entreprises|length != 1 %}ies{% else %}y{% endif %} registered</p>
             <div class="admin-card-buttons">
-                <a href="/enterprise_list" class="admin-btn">Modifier</a>
-                <a href="/add_entreprise" class="admin-btn">Ajouter</a>
+                <a href="/enterprise_list" class="admin-btn">Edit</a>
+                <a href="/add_entreprise" class="admin-btn">Add</a>
             </div>
         </div>
 
         <div class="admin-card">
-            <h2>STAGES</h2>
-            <p>{{ offres|length }} stage{% if offres|length != 1 %}s{% endif %} enregistré{% if offres|length != 1 %}s{% endif %}</p>
+            <h2>INTERNSHIPS</h2>
+            <p>{{ offres|length }} internship{% if offres|length != 1 %}s{% endif %} registered</p>
             <div class="admin-card-buttons">
-                <a href="/offer_list" class="admin-btn">Modifier</a>
-                <a href="/offres_de_stages" class="admin-btn">Ajouter</a>
+                <a href="/offer_list" class="admin-btn">Edit</a>
+                <a href="/offres_de_stages" class="admin-btn">Add</a>
             </div>
         </div>
     </section>

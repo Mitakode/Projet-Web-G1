@@ -1,4 +1,4 @@
-/* Styles pour la page d'authentification */
+/* Styles for the authentication page */
 
 .auth-container {
     display: flex;
@@ -56,7 +56,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     border-color: #348635;
 }
 
-/* État invalide pour les champs de connexion */
+/* Invalid state for login fields */
 input[type="email"]:invalid,
 input[type="password"]:invalid,
 input[type="text"]:invalid,
@@ -94,7 +94,7 @@ input[type="text"].invalid:focus {
     text-align: center;
 }
 
-/* Boutons Verts */
+/* Green buttons */
 .btn {
     background-color: #348635;
     border: 2px solid #444;
@@ -107,7 +107,7 @@ input[type="text"].invalid:focus {
     margin: 0 auto;
 }
 
-/* Styles pour les messages d'erreur des champs */
+/* Styles for field error messages */
 .field-error-message {
     display: block !important;
     color: #c62828 !important;

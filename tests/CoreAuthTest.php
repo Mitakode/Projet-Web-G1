@@ -19,7 +19,7 @@ final class CoreAuthTest extends TestCase
 
     /**
      * Auth::login() should create the session user, set auth_at,
-     * drop the password, and normalize the role label.
+        * drop the password, and normalize the role key.
      */
     public function testLoginSetsSession(): void
     {
@@ -37,7 +37,6 @@ final class CoreAuthTest extends TestCase
         $sessionUser = Auth::user();
         $this->assertSame(123, $sessionUser['Id_user']);
         $this->assertSame(1, $sessionUser['Role']);
-        $this->assertSame(1, $sessionUser['Rôle']);
         $this->assertArrayNotHasKey('Password', $sessionUser);
         $this->assertArrayHasKey('auth_at', $_SESSION);
     }
@@ -63,20 +62,20 @@ final class CoreAuthTest extends TestCase
     }
 
     /**
-     * If the session already contains the French role label, Auth::login()
-     * must not override it.
+     * If the user record contains a legacy role key, Auth::login() should still
+     * store a normalized `Role` value in session.
      */
-    public function testLoginDoesNotOverrideExistingRoleLabel(): void
+    public function testLoginNormalizesLegacyRoleKey(): void
     {
         $user = [
             'Id_user' => 456,
-            'Role' => 2,
             'Rôle' => 99,
         ];
 
         Auth::login($user);
 
         $sessionUser = Auth::user();
-        $this->assertSame(99, $sessionUser['Rôle']);
+        $this->assertSame(99, $sessionUser['Role']);
+        $this->assertArrayNotHasKey('Rôle', $sessionUser);
     }
 }

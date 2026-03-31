@@ -21,8 +21,8 @@ main {
 
 .navbar {
     display: flex;
-    align-items: center; /* Aligne verticalement au centre */
-    justify-content: space-between; /* Espace les 3 blocs */
+    align-items: center; /* Vertically center items */
+    justify-content: space-between; /* Space the 3 blocks */
     padding: 10px 40px;
     background-color: white;
     border-bottom: 1px solid #ddd;

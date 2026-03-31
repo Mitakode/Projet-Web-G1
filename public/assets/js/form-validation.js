@@ -87,13 +87,13 @@
         
         // If an error message already exists, do not duplicate it.
         if (field.nextElementSibling && field.nextElementSibling.classList && field.nextElementSibling.classList.contains('field-error-message')) {
-            return; // Le message existe déjà
+            return; // The message already exists
         }
         
         // Add an error message right under the field.
         var errorMsg = document.createElement('span');
         errorMsg.className = 'field-error-message';
-        errorMsg.textContent = 'Ce champ est invalide';
+        errorMsg.textContent = 'This field is invalid';
         errorMsg.style.display = 'block';
         errorMsg.style.color = '#c62828';
         errorMsg.style.fontSize = '12px';
@@ -204,7 +204,7 @@
                 if (!validateForm(form)) {
                     event.preventDefault();
                     var errorNode = getOrCreateErrorNode(form);
-                    errorNode.textContent = 'Veuillez corriger les erreurs dans le formulaire.';
+                    errorNode.textContent = 'Please fix the errors in the form.';
                 }
             });
         });

@@ -4,7 +4,7 @@
     Data: Provided by EntreprisePublicController::fiche.
 #}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>{{ entreprise.Nom }} — Career Quest</title>
@@ -15,36 +15,36 @@
 <body>
 {% include 'partials/_header.html.twig' %}
 <main>
-    <a href="/companies" class="btn-back">← Retour</a>
+    <a href="/companies" class="btn-back">← Back</a>
 
     <h2>{{ entreprise.Nom }}</h2>
     <p>{{ entreprise.Description }}</p>
-    <p><strong>Email :</strong> {{ entreprise.Email_contact }}</p>
-    <p><strong>Téléphone :</strong> {{ entreprise.Telephone|default('—') }}</p>
-    <p><strong>Active :</strong> {{ entreprise.Est_actif == 1 ? 'Oui' : 'Non' }}</p>
+    <p><strong>Email:</strong> {{ entreprise.Email_contact }}</p>
+    <p><strong>Phone:</strong> {{ entreprise.Telephone|default('—') }}</p>
+    <p><strong>Active:</strong> {{ entreprise.Est_actif == 1 ? 'Yes' : 'No' }}</p>
 
     <hr>
-    <h3>Statistiques</h3>
+    <h3>Statistics</h3>
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-number">{{ stats.nb_candidatures }}</div>
-            <div class="stat-label">Candidatures reçues</div>
+            <div class="stat-label">Applications received</div>
         </div>
         <div class="stat-card">
             <div class="stat-number">{{ stats.moyenne }}</div>
-            <div class="stat-label">Note moyenne / 5</div>
+            <div class="stat-label">Average rating / 5</div>
         </div>
     </div>
 
     <hr>
-    <h3>Offre(s) de stage ({{ offres|length }})</h3>
+    <h3>Internship offer(s) ({{ offres|length }})</h3>
     <table>
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Rémunération</th>
-                <th>Durée (mois)</th>
-                <th>Places</th>
+                <th>Title</th>
+                <th>Compensation</th>
+                <th>Duration (months)</th>
+                <th>Open positions</th>
                 <th>Date</th>
             </tr>
         </thead>
@@ -58,7 +58,7 @@
                 <td>{{ o.Date_offre }}</td>
             </tr>
             {% else %}
-                <tr><td colspan="5">Aucune offre pour cette entreprise.</td></tr>
+                <tr><td colspan="5">No offers for this company.</td></tr>
             {% endfor %}
         </tbody>
     </table>

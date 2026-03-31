@@ -191,7 +191,7 @@ class EntrepriseModel
     public function update(int $id, array $data): void
     {
         if ($id <= 0) {
-            throw new InvalidArgumentException('ID entreprise invalide.');
+            throw new InvalidArgumentException('Invalid company ID.');
         }
 
         // Company name: letters/digits and limited punctuation.

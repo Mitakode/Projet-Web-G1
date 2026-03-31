@@ -106,7 +106,7 @@ class CandidatureController
         $idOffre = InputValidator::getInt($_POST, 'id_offre', 0, 1);
 
         if ($idOffre <= 0) {
-            die("ID de l'offre invalide.");
+            die("Invalid offer ID.");
         }
 
         // `__DIR__` is src/Controller; go up to the project root.
@@ -114,16 +114,16 @@ class CandidatureController
 
         // Ensure upload directory exists and is writable.
         if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
-            die("Impossible de créer le dossier d'upload.");
+            die("Unable to create the upload directory.");
         }
 
         if (!is_writable($uploadDir)) {
-            die("Le dossier d'upload n'est pas accessible en écriture.");
+            die("The upload directory is not writable.");
         }
 
         $candidatureModel = new CandidatureModel();
         if ($candidatureModel->candidatureExists($idOffre, $idUser)) {
-            die("Vous avez déjà candidaté à cette offre.");
+            die("You have already applied to this offer.");
         }
       
 
@@ -133,7 +133,7 @@ class CandidatureController
             $allowedExtensions = ['pdf', 'doc', 'docx'];
             // Extension: small alphanumeric value + business whitelist.
             if (!InputValidator::regex($extension, '/^[a-z0-9]{2,5}$/') || !in_array($extension, $allowedExtensions, true)) {
-                die("Format de fichier non autorisé (PDF, DOC, DOCX acceptés).");
+                die("Unsupported file format (PDF, DOC, DOCX allowed).");
             }
             
             // Generate a random UUID v4 for collision-resistant names.
@@ -150,10 +150,10 @@ class CandidatureController
         if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
             $cvName = $generateFileName($_FILES['cv'], 'cv');
             if (!move_uploaded_file($_FILES['cv']['tmp_name'], $uploadDir . $cvName)) {
-                die("Erreur lors de l'upload du CV.");
+                die("Error while uploading the CV.");
             }
         } else {
-            die("Erreur sur le fichier CV");
+            die("Error with the CV file.");
         }
 
         if (isset($_FILES['lm']) && $_FILES['lm']['error'] === UPLOAD_ERR_OK) {
@@ -161,11 +161,11 @@ class CandidatureController
             if (!move_uploaded_file($_FILES['lm']['tmp_name'], $uploadDir . $lmName)) {
                 // Best-effort cleanup when the second upload fails.
                 @unlink($uploadDir . $cvName);
-                die("Erreur lors de l'upload de la lettre de motivation.");
+                die("Error while uploading the cover letter.");
             }
         } else {
             @unlink($uploadDir . $cvName);
-            die("Erreur sur le fichier Lettre de Motivation");
+            die("Error with the cover letter file.");
         }
 
         try {
@@ -175,7 +175,7 @@ class CandidatureController
             // If DB write fails, remove uploaded files to avoid orphan data.
             @unlink($uploadDir . $cvName);
             @unlink($uploadDir . $lmName);
-            die("Impossible d'enregistrer la candidature.");
+            die("Unable to save the application.");
         }
 
         // Success: a redirect could be added here (currently just exits).

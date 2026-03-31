@@ -4,11 +4,11 @@
     Data: Provided by DashboardController::index.
 #}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Career Quest</title>
-    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <meta name="description" content="Back-office student list.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/liste_eleve.css" rel="stylesheet"/>
@@ -19,17 +19,17 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
-    <h2>Liste des eleves ({{ totalElements|default(users|length) }})</h2>
+    <a href="/account" class="btn-back" style="margin-left:10px;">Back</a>
+    <h2>Student list ({{ totalElements|default(users|length) }})</h2>
     <table>
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
+                <th>Last name</th>
+                <th>First name</th>
                 <th>Email</th>
-                <th>Rôle</th>
-                <th>Date naissance</th>
-                <th>Formation</th>
+                <th>Role</th>
+                <th>Birth date</th>
+                <th>Program</th>
                 <th>Description</th>
                 <th>Actions</th>
             </tr>
@@ -42,27 +42,27 @@
                 <td>{{ u.Email }}</td>
                 <td>
                     <span class="badge">
-                        {% if u.Role == 0 %}Élève
-                        {% elseif u.Role == 1 %}Pilote
+                        {% if u.Role == 0 %}Student
+                        {% elseif u.Role == 1 %}Pilot
                         {% elseif u.Role == 2 %}Admin
-                        {% else %}Inconnu{% endif %}
+                        {% else %}Unknown{% endif %}
                     </span>
                 </td>
                 <td>{{ u.Date_naissance|default('') }}</td>
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
                 <td>
-                    <a href="/eleve?id={{ u.Id_user }}" class="btn-edit">Modifier</a>
+                    <a href="/eleve?id={{ u.Id_user }}" class="btn-edit">Edit</a>
                     <form method="POST" action="/eleve" style="display:inline"
-                        onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
+                        onsubmit="return confirm('Delete {{ u.Nom }}?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">
-                        <button type="submit" class="btn-delete">Supprimer</button>
+                        <button type="submit" class="btn-delete">Delete</button>
                     </form>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="9">Aucun utilisateur trouvé.</td></tr>
+                <tr><td colspan="9">No users found.</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -72,7 +72,7 @@
             {% if pageActuelle > 1 %}
                 <a href="/student_list?page={{ pageActuelle - 1 }}"
                    style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Précédent
+                    Previous
                 </a>
             {% endif %}
 
@@ -86,7 +86,7 @@
             {% if pageActuelle < totalPages %}
                 <a href="/student_list?page={{ pageActuelle + 1 }}"
                    style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Suivant
+                    Next
                 </a>
             {% endif %}
         </div>

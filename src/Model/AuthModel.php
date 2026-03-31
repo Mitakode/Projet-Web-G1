@@ -67,7 +67,7 @@ class AuthModel
     {
         // Validate email before inserting.
         if (!isset($data['Email']) || !InputValidator::regex((string) $data['Email'], '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
-            throw new InvalidArgumentException('Email invalide.');
+            throw new InvalidArgumentException('Invalid email.');
         }
 
         $stmt = $this->pdo->prepare(

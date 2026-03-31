@@ -22,7 +22,7 @@ final class AuthControllerTest extends TestCase
      */
     public function testShowLoginRendersError(): void
     {
-        $_SESSION['auth_error'] = 'Identifiants invalides.';
+        $_SESSION['auth_error'] = 'Invalid credentials.';
 
         $controller = new AuthController();
 
@@ -31,7 +31,7 @@ final class AuthControllerTest extends TestCase
         $html = ob_get_clean();
 
         $this->assertStringContainsString('auth-error', $html);
-        $this->assertStringContainsString('Identifiants invalides.', $html);
+        $this->assertStringContainsString('Invalid credentials.', $html);
         $this->assertArrayNotHasKey('auth_error', $_SESSION);
     }
 
@@ -47,6 +47,6 @@ final class AuthControllerTest extends TestCase
         $html = ob_get_clean();
 
         $this->assertStringNotContainsString('auth-error', $html);
-        $this->assertStringContainsString('<h1>Connexion</h1>', $html);
+        $this->assertStringContainsString('<h1>Log in</h1>', $html);
     }
 }

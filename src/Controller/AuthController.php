@@ -48,13 +48,13 @@ class AuthController
             );
         } catch (InvalidArgumentException $e) {
             // Keep the error generic on purpose (avoid leaking which field failed).
-            $_SESSION['auth_error'] = 'Email et mot de passe requis.';
+            $_SESSION['auth_error'] = 'Email and password are required.';
             header('Location: /login');
             exit;
         }
 
         if ($email === '' || $password === '') {
-            $_SESSION['auth_error'] = 'Email et mot de passe requis.';
+            $_SESSION['auth_error'] = 'Email and password are required.';
             header('Location: /login');
             exit;
         }
@@ -66,7 +66,7 @@ class AuthController
         }
 
         // Failure: return to login with a generic message.
-        $_SESSION['auth_error'] = 'Identifiants invalides.';
+        $_SESSION['auth_error'] = 'Invalid credentials.';
         header('Location: /login');
         exit;
     }

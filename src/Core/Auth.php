@@ -75,10 +75,12 @@ class Auth
         // Never store password hashes in session.
         unset($user['Password']);
 
-        // Normalize the role key for templates/controllers expecting a French label.
-        if (isset($user['Role']) && !isset($user['Rôle'])) {
-            $user['Rôle'] = $user['Role'];
+        // Normalize the role key to a single, consistent name.
+        if (!isset($user['Role']) && isset($user['Rôle'])) {
+            $user['Role'] = $user['Rôle'];
         }
+
+        unset($user['Rôle']);
 
         $_SESSION['user'] = $user;
         // Timestamp can be used for inactivity expiration or audit.
