@@ -471,3 +471,20 @@ main {
         display: block;
     }
 }
+
+.nav-icon {
+    font-size: 14px;
+    font-weight: 600;
+    color: #17496E;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid #17496E;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-icon:hover {
+    background: #17496E;
+    color: white;
+}
