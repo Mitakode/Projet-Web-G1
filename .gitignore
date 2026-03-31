@@ -1,3 +1,5 @@
 .idea
 vendor/
 /uploads
+.phpunit.result.cache
+phpunit.xml
