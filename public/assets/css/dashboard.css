@@ -39,6 +39,8 @@
     margin: 24px auto;
     max-width: 1200px;
     padding: 0 16px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .stats-header {
@@ -259,5 +261,36 @@
 
     .stat-card {
         flex-basis: 260px;
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-section {
+        padding: 0 16px;
+    }
+
+    .stats-controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .stats-carousel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    .stats-track {
+        gap: 12px;
+        padding-right: 0;
+    }
+
+    .stat-card {
+        flex: 0 0 85%;
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 26px;
     }
 }
