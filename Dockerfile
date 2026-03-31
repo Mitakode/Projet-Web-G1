@@ -18,8 +18,7 @@ COPY . /var/www/html
 
 RUN composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader
 
-RUN sed -ri "s!/var/www/html!/var/www/html/public!g" /etc/apache2/sites-available/000-default.conf \
-    && ln -sfn /var/www/html/public/uploads /var/www/html/uploads
+RUN sed -ri "s!/var/www/html!/var/www/html/public!g" /etc/apache2/sites-available/000-default.conf
 
 RUN mkdir -p /var/www/html/public/uploads \
     && chown -R www-data:www-data /var/www/html/public/uploads

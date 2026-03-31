@@ -94,8 +94,10 @@ class CandidatureController
             die("ID de l'offre invalide.");
         }
 
-        // `__DIR__` = src/Controller, on remonte à la racine du projet.
-        $uploadDir = dirname(__DIR__, 2) . '/uploads/';
+        $resolvedUploadPath = defined('UPLOADS_PATH')
+            ? UPLOADS_PATH
+            : dirname(__DIR__, 2) . '/public/uploads';
+        $uploadDir = rtrim($resolvedUploadPath, '/') . '/';
 
         if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
             die("Impossible de créer le dossier d'upload.");
