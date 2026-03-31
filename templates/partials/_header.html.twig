@@ -11,26 +11,31 @@
                 <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
             </form> 
         </div>
-    
-    <a href="/companies" class="nav-icon">Entreprises</a>
-        <div class="account">
+        <div class="nav-actions">
+            <a href="/companies" class="nav-cta company-btn" aria-label="Voir les entreprises">
+                <span class="label">Entreprises</span>
+            </a>
+
+            <div class="account">
             {% if isAuth %}
-                <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
-                <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
-                    <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
-                    <div class="user-icon">
-                        <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
-                    </div>
-                </label>
+                    <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
+                    <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
+                        <div class="user-icon">
+                            <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
+                        </div>
+                        <span class="account-name">{{ user.Prenom|default('Mon compte') }}</span>
+                        <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
+                    </label>
                 <div class="account-menu">
                     <a href="/account" class="account-menu-item">Mon compte</a>
                     <a href="/logout" class="account-menu-item">Déconnexion</a>
                 </div>
             {% else %}
-                <a href="/login" class="account-button">
-                    <span class="account-text">Connexion</span>
-                </a>
+                    <a href="/login" class="account-button">
+                        <span class="account-text">Connexion</span>
+                    </a>
             {% endif %}
+            </div>
         </div>
     </div>
 

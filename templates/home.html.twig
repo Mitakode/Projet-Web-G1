@@ -16,12 +16,17 @@
 
 {% include 'partials/_header.html.twig' %}
 
-<main class="main-container">
+<main class="main-container home-page">
+    <section class="home-intro">
+        <h1>Offres de stage</h1>
+        <p>Trouvez des opportunites adaptees a votre profil et candidatez rapidement.</p>
+    </section>
+
     <aside class="sidebar">
 
         {# AFFICHAGE DES OFFRES #}
         {% if searchQuery is defined and searchQuery is not empty %}
-            <p style="margin-bottom: 16px; font-family: 'Segoe UI', sans-serif; color: #17496E;">
+            <p class="search-result-text">
                 Résultats pour: <strong>{{ searchQuery|e }}</strong>
             </p>
         {% endif %}
@@ -64,12 +69,12 @@
 
         {# PAGINATION #}
         {% if totalPages is defined and totalPages > 1 %}
-            <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+            <div class="pagination-container">
 
                 {# Bouton Précédent #}
                 {% if pageActuelle > 1 %}
                     <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
-                       style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                       class="pagination-btn pagination-nav">
                         Précédent
                     </a>
                 {% endif %}
@@ -77,7 +82,7 @@
                 {# Numéros #}
                 {% for i in 1..totalPages %}
                     <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
-                       style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                       class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                         {{ i }}
                     </a>
                 {% endfor %}
@@ -85,7 +90,7 @@
                 {# Bouton Suivant #}
                 {% if pageActuelle < totalPages %}
                     <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
-                       style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                       class="pagination-btn pagination-nav">
                         Suivant
                     </a>
                 {% endif %}

@@ -1,24 +1,73 @@
 .main-container {
     display: grid !important;
-    gap: 30px;
-    padding: 40px;
-    max-width: 1200px;
+    gap: 24px;
+    padding: 30px 24px;
+    max-width: 1160px;
     margin: 0 auto;
 }
 
+.home-page {
+    min-height: calc(100vh - 170px);
+}
+
+.home-intro {
+    background: linear-gradient(125deg, #ffffff 0%, #f7fbff 56%, #f3f7ff 100%);
+    border: 1px solid #d7dfeb;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(29, 52, 84, 0.08);
+    padding: 24px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.home-intro h1 {
+    margin: 0;
+    color: #1f2732;
+    font-size: clamp(28px, 3vw, 36px);
+    line-height: 1.1;
+}
+
+.home-intro p {
+    margin: 10px 0 0;
+    color: #607086;
+    font-size: 16px;
+}
+
+.search-result-text {
+    margin-bottom: 14px;
+    font-family: "Segoe UI", sans-serif;
+    color: #17496e;
+}
+
 .list-offer {
-    background-color: #17496E ;
-    color: white;
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #d7dfeb;
+    box-shadow: 0 10px 26px rgba(27, 49, 83, 0.08);
     padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
     font-family: "Segoe UI", sans-serif;
     position: relative;
 }
 
+.list-offer h2,
+.list-offer h3,
+.list-offer h4 {
+    color: #1f2732;
+}
+
+.list-offer h4 {
+    margin-top: 8px;
+}
+
+.list-offer p {
+    color: #334155;
+}
+
 .detail-offer {
-    background-color: #e0e0e0;
-    padding: 40px;
+    background-color: #ffffff;
+    border: 1px solid #d7dfeb;
+    padding: 30px;
     border-radius: 20px;
     height: fit-content;
     font: 16px "Segoe UI", sans-serif;
@@ -32,11 +81,11 @@
 }
 
 .btn-candidate {
-    background-color: #348635;
+    background-color: #2a63a4;
     color: white;
-    padding: 10px 20px;
-    border: 2px solid #348635;
-    border-radius: 5px;
+    padding: 9px 16px;
+    border: 1px solid #2a63a4;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
     position: absolute;
@@ -44,10 +93,16 @@
     bottom: 20px;
     text-decoration: none;
     display: inline-block;
+    margin-top: 14px;
+}
+
+.btn-candidate:hover {
+    background-color: #1f4f86;
+    border-color: #1f4f86;
 }
 
 .home-rating {
-    margin: 8px 0 12px 0;
+    margin: 8px 0 12px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -75,12 +130,13 @@
 .home-rating-meta {
     margin-left: 8px;
     font-size: 14px;
-    color: #d9e9f5;
+    color: #607086;
 }
+
 .btn-action.star {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 16px;
+    right: 16px;
     background: transparent;
     border: none;
     padding: 0;

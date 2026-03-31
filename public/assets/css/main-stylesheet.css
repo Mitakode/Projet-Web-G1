@@ -5,7 +5,7 @@
 }
 
 body {
-    padding-bottom: 20px;
+    padding-bottom: 0;
     font-family: Arial;
 }
 
@@ -122,6 +122,51 @@ main {
     cursor: pointer;
 }
 
+.nav-panel {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #c9d6e6;
+    background: #ffffff;
+    color: #2a63a4;
+    text-decoration: none;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 700;
+}
+
+.nav-cta .icon-company {
+    display: inline-flex;
+    font-size: 18px;
+}
+
+.nav-cta:hover {
+    background: #eef6ff;
+    border-color: #2a63a4;
+}
+
+.company-btn {
+    padding-left: 10px;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+}
+
 .account-arrow {
     width: 12px;
     height: 12px;
@@ -174,11 +219,21 @@ main {
     color: #000;
     font-family: "Segoe UI";
 }
+.account-button {
+    background-color: #2a63a4;
+    border: 1px solid #224f85;
+    border-radius: 18px;
+    padding: 8px 14px;
+    color: #ffffff;
+    font-family: "Segoe UI";
+    font-weight: 700;
+    text-decoration: none;
+}
 
 .account-button:hover,
 .account-button:focus {
-    background-color: #2f7a30;
-    color: #000;
+    background-color: #1f4f86;
+    color: #ffffff;
 }
 
 .nav-panel {
@@ -208,32 +263,56 @@ main {
 }
 
 .site-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: static;
     width: 100%;
-    z-index: 1000;
+    margin-top: 28px;
+    border-top: 1px solid #d9e2ee;
+    background: linear-gradient(180deg, #f8fafd 0%, #f3f7fb 100%);
 }
 
-.site-footer p {
-    font-family: "Segoe UI";
+.footer-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-family: "Segoe UI", sans-serif;
     font-size: 14px;
-    background-color: #000000;
-    color: #ffffff;
+    color: #4a5a70;
+}
+
+.footer-copy {
     margin: 0;
-    margin-top: auto;
-    text-align: center;
-    padding: 12px 16px;
+    font-weight: 600;
+}
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .footer-link {
     text-decoration: none;
-    color: inherit;
+    color: #2a63a4;
+    font-weight: 600;
     cursor: pointer;
 }
 
 .footer-link:hover {
     text-decoration: underline;
+    color: #1f4f86;
+}
+
+/* Defensive reset in case legacy paragraph footer styles are still loaded. */
+.site-footer p {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    text-align: inherit;
 }
 
 @media (max-width: 600px) {
@@ -295,9 +374,15 @@ main {
         margin-top: auto;
     }
 
-    .site-footer p {
+    .footer-inner {
+        padding: 12px 14px;
         font-size: 12px;
-        padding: 10px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-nav {
+        width: 100%;
     }
 }
 

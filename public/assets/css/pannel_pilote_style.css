@@ -155,74 +155,176 @@ label {
 
 
 
+:root {
+  --pilot-bg-top: #f3f7ff;
+  --pilot-bg-mid: #f4f7fc;
+  --pilot-bg-bottom: #f9fbff;
+  --pilot-surface: #ffffff;
+  --pilot-soft-surface: #f5f8ff;
+  --pilot-border: #d7dfeb;
+  --pilot-primary: #2a63a4;
+  --pilot-primary-hover: #1f4f86;
+  --pilot-accent: #e5f1ff;
+  --pilot-title: #1f2732;
+  --pilot-text: #334155;
+  --pilot-muted: #607086;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(76, 132, 202, 0.14), transparent 42%),
+    radial-gradient(circle at 92% 8%, rgba(114, 149, 190, 0.08), transparent 40%),
+    linear-gradient(180deg, var(--pilot-bg-top) 0%, var(--pilot-bg-mid) 52%, var(--pilot-bg-bottom) 100%);
+}
+
+.pilot-page {
+  min-height: calc(100vh - 140px);
+  padding-bottom: 32px;
+}
+
 .container {
-    margin: 30px 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pilot-hero {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.pilot-hero > div {
+  background: linear-gradient(125deg, #ffffff 0%, #f7fbff 56%, #f3f7ff 100%);
+  border: 1px solid var(--pilot-border);
+  border-radius: 22px;
+  box-shadow: 0 14px 42px rgba(29, 52, 84, 0.09);
+  padding: 28px 30px;
+}
+
+.pilot-kicker {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--pilot-accent);
+  color: var(--pilot-primary);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pilot-hero h1 {
+  margin: 0;
+  color: var(--pilot-title);
+  font-family: "Segoe UI", sans-serif;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.1;
+}
+
+.pilot-subtitle {
+  margin: 12px 0 0;
+  max-width: 680px;
+  color: var(--pilot-muted);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
 }
 
 .mes-informations {
-    background-color: #d9d9d9;
-    padding: 30px;
-    border-radius: 20px;
+  background: var(--pilot-surface);
+  border: 1px solid var(--pilot-border);
+  border-radius: 22px;
+  box-shadow: 0 12px 34px rgba(25, 45, 76, 0.08);
+  padding: 26px;
 }
 
 .mes-informations h2 {
-    font-family: "Segoe UI", sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #333;
+  margin: 0 0 18px;
+  color: var(--pilot-title);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .info-item {
-    margin-bottom: 10px;
-    font-family: "Segoe UI", sans-serif;
-    font-size: 15px;
-    color: #333;
+  display: grid;
+  grid-template-columns: minmax(190px, 220px) 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid #e7edf5;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  color: var(--pilot-text);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.info-item label {
+  margin: 0;
+  color: var(--pilot-muted);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .info-item p {
-    margin: 0;
+  margin: 0;
+  color: var(--pilot-text);
+  font-size: 16px;
 }
 
 .admin-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin: 30px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 24px;
 }
 
 .admin-card {
-    background-color: #d9d9d9;
-    border-radius: 20px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    text-align: center;
+  background: linear-gradient(170deg, #ffffff 0%, var(--pilot-soft-surface) 100%);
+  border: 1px solid var(--pilot-border);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  box-shadow: 0 12px 30px rgba(29, 52, 84, 0.08);
+}
+
+.admin-card:hover {
+  box-shadow: 0 12px 30px rgba(29, 52, 84, 0.08);
 }
 
 .admin-card h2 {
-    font-family: "Segoe UI", sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-    letter-spacing: 1px;
+  margin: 0;
+  color: var(--pilot-title);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
 }
 
 .admin-card p {
-    font-family: "Segoe UI", sans-serif;
-    font-size: 15px;
-    color: #333;
-    margin: 0;
+  margin: 0;
+  color: var(--pilot-text);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .admin-card-buttons {
-    display: flex;
-    gap: 15px;
-    width: 100%;
-    margin-top: auto;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: auto;
 }
 
 .admin-btn {

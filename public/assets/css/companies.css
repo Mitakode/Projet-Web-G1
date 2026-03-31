@@ -67,6 +67,20 @@ tr:hover {
     background: #f0f7ff;
 }
 
+.btn-edit {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    background: #357abd;
+}
+
 .btn-fiche {
     background: #17496E;
     color: white;
