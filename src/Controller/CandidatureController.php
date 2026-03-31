@@ -33,6 +33,7 @@ class CandidatureController
         $user = Auth::user();
         $canRate = false;
         $userNote = null;
+        $alreadyApplied = false;
 
         if ($user && (int) ($user['Role'] ?? -1) === 0) {
             $entrepriseModel = new EntrepriseModel();
