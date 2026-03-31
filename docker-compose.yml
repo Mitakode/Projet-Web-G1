@@ -1,0 +1,35 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: projet-web-g1-web
+    ports:
+      - "8000:80"
+    environment:
+      APP_URL: "http://localhost:8000"
+      DB_HOST: db
+      DB_NAME: projet_db
+      DB_USER: projet_user
+      DB_PASS: projet_pass
+      TIMEZONE: Europe/Paris
+    volumes:
+      - ./config/uploads:/var/www/html/public/uploads
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.4
+    container_name: projet-web-g1-db
+    environment:
+      MYSQL_DATABASE: projet_db
+      MYSQL_USER: projet_user
+      MYSQL_PASSWORD: projet_pass
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./config/db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped

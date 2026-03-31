@@ -1,5 +1,7 @@
 .idea
 vendor/
 /uploads
+/config/db_data
+/config/uploads
 .phpunit.result.cache
 phpunit.xml
