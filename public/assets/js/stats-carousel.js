@@ -1,3 +1,11 @@
+// Generic carousel behavior used by the dashboard stats partials.
+//
+// Markup contract:
+// - container: [data-carousel-scope]
+// - viewport:  [data-carousel]
+// - track:     [data-carousel-track] (children are "cards")
+// - buttons:   [data-carousel-prev], [data-carousel-next]
+// - optional dots container: [data-carousel-dots]
 document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     const carousel = scope.querySelector('[data-carousel]');
     const track = scope.querySelector('[data-carousel-track]');
@@ -15,6 +23,7 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     let pageStep = 0;
 
     const getStep = () => {
+        // Distance (in px) between two consecutive cards.
         const card = cards[0];
         if (!card) {
             return 0;
@@ -24,12 +33,14 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     };
 
     const getMaxTranslate = () => {
+        // Total scrollable width minus viewport width.
         const totalWidth = track.scrollWidth;
         const viewport = carousel.getBoundingClientRect().width;
         return Math.max(0, totalWidth - viewport);
     };
 
     const recalcPages = () => {
+        // Determine how many cards fit in the viewport, then derive page count/step.
         const step = getStep();
         const gap = parseFloat(getComputedStyle(track).gap || '0');
         const viewport = carousel.getBoundingClientRect().width;
@@ -40,6 +51,7 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     };
 
     const update = () => {
+        // Apply the translate to the track and update dots state.
         const maxTranslate = getMaxTranslate();
         const translate = Math.min(index * pageStep, maxTranslate);
         track.style.transform = `translateX(-${translate}px)`;
@@ -51,11 +63,13 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     };
 
     const clampIndex = () => {
+        // Keep index within [0, pageCount-1].
         if (index < 0) index = 0;
         if (index > pageCount - 1) index = pageCount - 1;
     };
 
     const move = (delta) => {
+        // Move by a whole page (delta = -1 or +1).
         index += delta;
         clampIndex();
         update();
@@ -65,6 +79,7 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     next.addEventListener('click', () => move(1));
 
     const renderDots = () => {
+        // (Re)build dots according to current pageCount.
         if (!dotsContainer) return;
         dotsContainer.innerHTML = '';
         for (let i = 0; i < pageCount; i += 1) {
@@ -72,6 +87,7 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
             dot.type = 'button';
             dot.className = 'stats-dot' + (i === 0 ? ' is-active' : '');
             dot.addEventListener('click', () => {
+                // Jump to page i.
                 index = i;
                 update();
             });
@@ -84,6 +100,7 @@ document.querySelectorAll('[data-carousel-scope]').forEach((scope) => {
     update();
 
     window.addEventListener('resize', () => {
+        // Recompute when responsive layout changes card sizes.
         recalcPages();
         renderDots();
         clampIndex();

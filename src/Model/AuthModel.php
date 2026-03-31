@@ -6,19 +6,30 @@ use App\Core\InputValidator;
 use InvalidArgumentException;
 use PDO;
 
+/**
+ * Authentication data access.
+ *
+ * Provides user lookup/creation and password update operations.
+ */
 class AuthModel
 {
     private $pdo;
 
     public function __construct()
     {
+        // Create a PDO connection using config constants (see config/config.php).
         $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * Fetch a user record by email.
+     *
+     * Returns false for invalid emails or when no user is found.
+     */
     public function getByEmail(string $email): array|false
     {
-        // Email strict avant requête SQL.
+        // Validate email format before running the query.
         if (!InputValidator::regex($email, '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
             return false;
         }
@@ -29,9 +40,12 @@ class AuthModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Check whether an account with the given email already exists.
+     */
     public function emailExists(string $email): bool
     {
-        // Email strict avant vérification d'existence.
+        // Validate email format before existence check.
         if (!InputValidator::regex($email, '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
             return false;
         }
@@ -42,9 +56,16 @@ class AuthModel
         return (bool) $stmt->fetchColumn();
     }
 
+    /**
+     * Create a new user.
+     *
+     * Expects a pre-hashed password in $data['Password'].
+     *
+     * @throws InvalidArgumentException When the email is missing/invalid.
+     */
     public function createUser(array $data): array|false
     {
-        // Email strict avant création d'utilisateur.
+        // Validate email before inserting.
         if (!isset($data['Email']) || !InputValidator::regex((string) $data['Email'], '/^[^\s@]{1,64}@[A-Za-z0-9.-]{1,190}\.[A-Za-z]{2,63}$/')) {
             throw new InvalidArgumentException('Email invalide.');
         }
@@ -70,9 +91,13 @@ class AuthModel
             return false;
         }
 
+        // Return the full record as stored in DB.
         return $this->getByEmail($data['Email']);
     }
 
+    /**
+     * Update the stored password hash for a user.
+     */
     public function updatePassword(int $id, string $hash): bool
     {
         $stmt = $this->pdo->prepare("UPDATE Utilisateur SET Password = :hash WHERE Id_user = :id");

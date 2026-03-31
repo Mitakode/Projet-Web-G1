@@ -1,3 +1,8 @@
+{#
+    Template: home.html.twig
+    Purpose: Public offer listing with search + pagination.
+    Data: Provided by HomeController::index (and auth vars are typically injected by View).
+#}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,7 +29,7 @@
 
     <aside class="sidebar">
 
-        {# AFFICHAGE DES OFFRES #}
+        {# OFFER LISTING #}
         {% if searchQuery is defined and searchQuery is not empty %}
             <p class="search-result-text">
                 Résultats pour: <strong>{{ searchQuery|e }}</strong>
@@ -71,7 +76,7 @@
         {% if totalPages is defined and totalPages > 1 %}
             <div class="pagination-container">
 
-                {# Bouton Précédent #}
+                {# Previous button #}
                 {% if pageActuelle > 1 %}
                     <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        class="pagination-btn pagination-nav">
@@ -79,7 +84,7 @@
                     </a>
                 {% endif %}
 
-                {# Numéros #}
+                {# Page numbers #}
                 {% for i in 1..totalPages %}
                     <a href="/?page={{ i }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
@@ -87,7 +92,7 @@
                     </a>
                 {% endfor %}
 
-                {# Bouton Suivant #}
+                {# Next button #}
                 {% if pageActuelle < totalPages %}
                     <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        class="pagination-btn pagination-nav">
