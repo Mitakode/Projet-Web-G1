@@ -122,6 +122,51 @@ main {
     cursor: pointer;
 }
 
+.nav-panel {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #c9d6e6;
+    background: #ffffff;
+    color: #2a63a4;
+    text-decoration: none;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 700;
+}
+
+.nav-cta .icon-company {
+    display: inline-flex;
+    font-size: 18px;
+}
+
+.nav-cta:hover {
+    background: #eef6ff;
+    border-color: #2a63a4;
+}
+
+.company-btn {
+    padding-left: 10px;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+}
+
 .account-arrow {
     width: 12px;
     height: 12px;
@@ -174,11 +219,21 @@ main {
     color: #000;
     font-family: "Segoe UI";
 }
+.account-button {
+    background-color: #2a63a4;
+    border: 1px solid #224f85;
+    border-radius: 18px;
+    padding: 8px 14px;
+    color: #ffffff;
+    font-family: "Segoe UI";
+    font-weight: 700;
+    text-decoration: none;
+}
 
 .account-button:hover,
 .account-button:focus {
-    background-color: #2f7a30;
-    color: #000;
+    background-color: #1f4f86;
+    color: #ffffff;
 }
 
 .nav-panel {
