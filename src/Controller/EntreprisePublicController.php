@@ -51,6 +51,11 @@ class EntreprisePublicController
         $model = new EntrepriseModel();
         $id = InputValidator::getInt($_GET, 'id', 0, 1);
 
+        if ($id <= 0) {
+            header('Location: /companies');
+            exit;
+        }
+
         $entreprise = $model->getById($id);
         $offres     = $model->getOffresByEntreprise($id);
         $stats      = $model->getStats($id);

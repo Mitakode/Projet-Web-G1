@@ -94,12 +94,17 @@ class DashboardController
             $editUser = $model->getById($userId);
             $pilotes = $model->getByRole(1); 
 
-            $isPilot = ((int)($user['Role'] ?? 0) === 1);
+            $currentRole = (int)($user['Role'] ?? 0);
+            $isAdmin = ($currentRole === 2);
+            $isPilot = ($currentRole === 1);
             $isOwnedStudent = $editUser
                 && (int)($editUser['Role'] ?? -1) === 0
                 && (int)($editUser['est_gere_par'] ?? 0) === (int)$user['Id_user'];
 
-            if (!$isPilot || !$isOwnedStudent) {
+            // Admin: accès à tous les élèves. Pilote: seulement ses élèves.
+            $canEditStudent = $isAdmin || ($isPilot && $isOwnedStudent);
+
+            if (!$canEditStudent) {
                 header('Location: /forbidden');
                 exit;
             }
@@ -110,7 +115,8 @@ class DashboardController
                 'editUser'     => $editUser,
                 'pilote_id'    => $user['Id_user'],
                 'session_role' => $user['Role'],
-                'stagesEleve'  => $stagesEleve
+                'stagesEleve'  => $stagesEleve,
+                'pilotes'      => $pilotes
             ]);
             return;
         }
