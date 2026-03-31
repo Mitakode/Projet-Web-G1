@@ -6,6 +6,7 @@ use App\Controller\AccountController;
 use App\Controller\DashboardController;
 use App\Controller\CandidatureController;
 use App\Controller\EntreprisePublicController;
+use App\Controller\DocumentController;
 use App\Core\View;
 use App\Core\Auth;
 use App\Core\InputValidator;
@@ -23,6 +24,7 @@ $homeController    = new HomeController();
 $accountController = new AccountController();
 $candidatureController = new CandidatureController();
 $entreprisePublicController = new EntreprisePublicController();
+$documentController = new DocumentController();
 
 switch ($uri) {
     case '/':
@@ -115,6 +117,15 @@ switch ($uri) {
         } else {
             $candidatureController->index();
         }
+        break;
+
+    case '/document':
+        if ($method !== 'GET') {
+            http_response_code(405);
+            break;
+        }
+
+        $documentController->download();
         break;
 
     case '/forbidden':
