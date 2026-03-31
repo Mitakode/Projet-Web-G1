@@ -328,7 +328,7 @@ body {
 }
 
 .admin-btn {
-    flex: 1; 
+    flex: 1;
     background-color: #e0e0e0;
     border: none;
     border-radius: 12px;
@@ -351,4 +351,43 @@ body {
 
 .admin-btn:active {
     transform: scale(0.98);
+}
+
+@media (max-width: 900px) {
+    .auth-containers {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .auth-container {
+        width: 100%;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr 1fr;
+        margin: 20px 16px;
+    }
+
+    .container {
+        margin: 20px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    input[type="recherche"],
+    .search-recherche {
+        width: 100%;
+    }
+
+    .auth-box {
+        padding: 24px;
+    }
+
+    .list-item {
+        font-size: 16px;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
 }

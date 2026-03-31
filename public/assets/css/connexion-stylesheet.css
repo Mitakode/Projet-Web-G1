@@ -106,3 +106,26 @@ input[type="text"].invalid:focus {
     font-family: 'Segoe UI';
     margin: 0 auto;
 }
+
+/* Styles pour les messages d'erreur des champs */
+.field-error-message {
+    display: block !important;
+    color: #c62828 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: -15px 0 15px 0 !important;
+}
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 20px 16px;
+    }
+
+    .auth-box {
+        padding: 24px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 260px;
+    }
+}

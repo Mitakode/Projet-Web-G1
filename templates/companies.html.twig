@@ -47,6 +47,31 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% if totalPages is defined and totalPages > 1 %}
+        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+            {% if pageActuelle > 1 %}
+                <a href="/companies?page={{ pageActuelle - 1 }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Précédent
+                </a>
+            {% endif %}
+
+            {% for i in 1..totalPages %}
+                <a href="/companies?page={{ i }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
+                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                    {{ i }}
+                </a>
+            {% endfor %}
+
+            {% if pageActuelle < totalPages %}
+                <a href="/companies?page={{ pageActuelle + 1 }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Suivant
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 </main>
 {% include 'partials/_footer.html.twig' %}
 </body>

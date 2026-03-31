@@ -6,7 +6,7 @@
     <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
-    <link href="/assets/css/liste_entreprise.css" rel="stylesheet"/>
+    <link href="/assets/css/liste_pilote.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -14,10 +14,8 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" style="margin-left:10px;">
-        <button class="btn-back">Retour</button>
-    </a>
-    <h2>Liste des pilotes ({{ pilotes|length }})</h2>
+    <a href="/account" class="btn-back" style="margin-left:10px;">Retour</a>
+    <h2>Liste des pilotes ({{ totalElements|default(pilotes|length) }})</h2>
     <table>
         <thead>
             <tr>
@@ -49,9 +47,7 @@
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
                 <td>
-                    <a href="/pilote?id={{ u.Id_user }}">
-                        <button class="btn-edit">Modifier</button>
-                    </a>
+                    <a href="/pilote?id={{ u.Id_user }}" class="btn-edit">Modifier</a>
                     <form method="POST" action="/pilote" style="display:inline"
                         onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
@@ -65,6 +61,31 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% if totalPages is defined and totalPages > 1 %}
+        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+            {% if pageActuelle > 1 %}
+                <a href="/pilotes_list?page={{ pageActuelle - 1 }}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Précédent
+                </a>
+            {% endif %}
+
+            {% for i in 1..totalPages %}
+                <a href="/pilotes_list?page={{ i }}"
+                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                    {{ i }}
+                </a>
+            {% endfor %}
+
+            {% if pageActuelle < totalPages %}
+                <a href="/pilotes_list?page={{ pageActuelle + 1 }}"
+                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
+                    Suivant
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 </main>
 
 {% include 'partials/_footer.html.twig' %}
