@@ -19,9 +19,9 @@
 
     <h2>{{ entreprise.Nom }}</h2>
     <p>{{ entreprise.Description }}</p>
-    <p><strong>Email:</strong> {{ entreprise.Email_contact }}</p>
-    <p><strong>Phone:</strong> {{ entreprise.Telephone|default('—') }}</p>
-    <p><strong>Active:</strong> {{ entreprise.Est_actif == 1 ? 'Yes' : 'No' }}</p>
+    <p><strong>E-mail :</strong> {{ entreprise.Email_contact }}</p>
+    <p><strong>Téléphone :</strong> {{ entreprise.Telephone|default('—') }}</p>
+    <p><strong>Active :</strong> {{ entreprise.Est_actif == 1 ? 'Oui' : 'Non' }}</p>
 
     <hr>
     <h3>Statistics</h3>
@@ -31,8 +31,15 @@
             <div class="stat-label">Applications received</div>
         </div>
         <div class="stat-card">
-            <div class="stat-number">{{ stats.moyenne }}</div>
-            <div class="stat-label">Average rating / 5</div>
+            {% set avg = stats.moyenne|default(0) %}
+            {% set avgRounded = avg|round(0, 'common') %}
+            <div class="stat-number">{{ avg }}</div>
+            <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+                {% for i in 1..5 %}
+                    <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
+                {% endfor %}
+            </div>
+            <div class="stat-label">Note moyenne / 5</div>
         </div>
     </div>
 

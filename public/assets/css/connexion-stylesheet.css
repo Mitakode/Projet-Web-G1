@@ -4,8 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     gap: 50px;
+    padding: 40px 16px;
 }
 
 .auth-box {
@@ -26,23 +26,38 @@
     font-size: 24px;
 }
 
+.auth-error {
+    margin: 0 0 16px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #f4b9b9;
+    background: #fdecec;
+    color: #7c2424;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+}
+
 .auth-box span {
     font-family: 'Segoe UI';
 }
 
-form {
+.auth-box form {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
-label {
+.auth-box label {
     margin-bottom: 8px;
     font-size: 14px;
     font-family: 'Segoe UI'
 }
 
-input[type="email"], input[type="password"], input[type="text"] {
+.auth-box input[type="email"],
+.auth-box input[type="password"],
+.auth-box input[type="text"] {
     background-color: #d9d9d9;
     border: 2px solid #555;
     border-radius: 20px;
@@ -52,8 +67,10 @@ input[type="email"], input[type="password"], input[type="text"] {
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
-    border-color: #348635;
+.auth-box input[type="email"]:focus,
+.auth-box input[type="password"]:focus,
+.auth-box input[type="text"]:focus {
+    border-color: #2a63a4;
 }
 
 /* Invalid state for login fields */
@@ -67,12 +84,12 @@ input[type="text"].invalid {
     background-color: #ffebee;
 }
 
-input[type="email"]:invalid:focus,
-input[type="password"]:invalid:focus,
-input[type="text"]:invalid:focus,
-input[type="email"].invalid:focus,
-input[type="password"].invalid:focus,
-input[type="text"].invalid:focus {
+.auth-box input[type="email"]:invalid:focus,
+.auth-box input[type="password"]:invalid:focus,
+.auth-box input[type="text"]:invalid:focus,
+.auth-box input[type="email"].invalid:focus,
+.auth-box input[type="password"].invalid:focus,
+.auth-box input[type="text"].invalid:focus {
     border-color: #c62828;
     box-shadow: 0 0 5px rgba(198, 40, 40, 0.3);
 }
@@ -99,15 +116,28 @@ input[type="text"].invalid:focus {
     background-color: #348635;
     border: 2px solid #444;
     border-radius: 20px;
+/* Bouton principal (cohérent avec le reste du site) */
+.auth-submit {
+    background-color: #2a63a4;
+    border: 1px solid #224f85;
+    border-radius: 18px;
     padding: 10px;
-    color: #000;
+    color: #ffffff;
     cursor: pointer;
     width: 180px;
     font-family: 'Segoe UI';
+    font-weight: 700;
     margin: 0 auto;
 }
 
 /* Styles for field error messages */
+.auth-submit:hover,
+.auth-submit:focus {
+    background-color: #1f4f86;
+    border-color: #1f4f86;
+}
+
+  
 .field-error-message {
     display: block !important;
     color: #c62828 !important;
@@ -124,7 +154,7 @@ input[type="text"].invalid:focus {
         padding: 24px;
     }
 
-    .btn {
+    .auth-submit {
         width: 100%;
         max-width: 260px;
     }

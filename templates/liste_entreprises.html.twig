@@ -26,9 +26,9 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Active</th>
+                <th>E-mail</th>
+                <th>Téléphone</th>
+                <th>Est actif</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -57,25 +57,25 @@
     </table>
 
     {% if totalPages is defined and totalPages > 1 %}
-        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+        <div class="pagination-container">
             {% if pageActuelle > 1 %}
                 <a href="/enterprise_list?page={{ pageActuelle - 1 }}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Previous
+                   class="pagination-btn pagination-nav">
+                    Précédent
                 </a>
             {% endif %}
 
             {% for i in 1..totalPages %}
                 <a href="/enterprise_list?page={{ i }}"
-                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                   class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}
 
             {% if pageActuelle < totalPages %}
                 <a href="/enterprise_list?page={{ pageActuelle + 1 }}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Next
+                   class="pagination-btn pagination-nav">
+                    Suivant
                 </a>
             {% endif %}
         </div>

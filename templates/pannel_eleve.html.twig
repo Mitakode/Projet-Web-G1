@@ -72,18 +72,6 @@
             </section>
 
             <aside class="mon-cv">
-                <div class="cv-section">
-                    <h3>My CV</h3>
-                    <div class="cv-placeholder">
-                        {% if dashboard.cv %}
-                            {% set cvPath = dashboard.cv starts with 'http' ? dashboard.cv : '/uploads/' ~ dashboard.cv %}
-                            <a href="{{ cvPath }}" target="_blank" rel="noopener noreferrer">View my CV</a>
-                        {% else %}
-                            <p>No CV uploaded</p>
-                        {% endif %}
-                    </div>
-                </div>
-
                 <div class="competences-section">
                     <h3>My skills</h3>
                     <div class="competences-numbers">
@@ -114,8 +102,8 @@
                     {% endfor %}
                 {% else %}
                     <div class="annonce-card">
-                        <h3>No favorites</h3>
-                        <p>Add offers to your wishlist to find them here.</p>
+                        <h3>Aucun favori</h3>
+                        <p>Ajoute des offres à tes favoris pour les retrouver ici.</p>
                     </div>
                 {% endif %}
             </section>

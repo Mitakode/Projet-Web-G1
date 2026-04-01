@@ -25,8 +25,8 @@
         - `search` is provided by the controller and echoed back into the input.
     #}
     <form class="search-form" method="GET" action="/companies">
-        <input type="text" name="search" value="{{ search }}" placeholder="Name, description, email...">
-        <button type="submit">Search</button>
+        <input type="text" name="search" value="{{ search }}" placeholder="Nom, description, e-mail...">
+        <button type="submit">Rechercher</button>
     </form>
 
     {#
@@ -39,8 +39,8 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>E-mail</th>
+                <th>Téléphone</th>
                 <th>Active</th>
                 <th>Profile</th>
             </tr>
@@ -79,25 +79,25 @@
         - Preserve the search query across page links.
     #}
     {% if totalPages is defined and totalPages > 1 %}
-        <div class="pagination-container" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+        <div class="pagination-container">
             {% if pageActuelle > 1 %}
                 <a href="/companies?page={{ pageActuelle - 1 }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Previous
+                   class="pagination-btn pagination-nav">
+                    Précédent
                 </a>
             {% endif %}
 
             {% for i in 1..totalPages %}
                 <a href="/companies?page={{ i }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
-                   style="padding:10px; text-decoration:none; border-radius:5px; {{ i == pageActuelle ? 'background:#17496E; color:white;' : 'background:#e0e0e0; color:black;' }}">
+                   class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}
 
             {% if pageActuelle < totalPages %}
                 <a href="/companies?page={{ pageActuelle + 1 }}{% if search is defined and search is not empty %}&search={{ search|url_encode }}{% endif %}"
-                   style="padding:10px; background:#17496E; color:white; text-decoration:none; border-radius:5px;">
-                    Next
+                   class="pagination-btn pagination-nav">
+                    Suivant
                 </a>
             {% endif %}
         </div>

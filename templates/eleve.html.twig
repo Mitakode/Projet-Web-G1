@@ -30,7 +30,7 @@
     <label>First name</label>
     <input type="text" name="prenom" value="{{ editUser.Prenom|default('') }}" required>
 
-    <label>Email</label>
+    <label>Adresse e-mail</label>
     <input type="email" name="email" value="{{ editUser.Email|default('') }}" required>
 
     <label>Birth date</label>
@@ -107,16 +107,14 @@
                         
                         <div class="candidature-actions">
                             {% if stage.Cv is defined and stage.Cv is not empty %}
-                                {% set cvPath = stage.Cv starts with '/uploads/' ? stage.Cv : '/uploads/' ~ stage.Cv %}
-                                <a href="{{ cvPath }}" target="_blank" class="btn-document">
-                                    View CV
+                                <a href="/document?type=cv&id_user={{ stage.Id_user }}&id_offre={{ stage.Id_offre }}" target="_blank" class="btn-document">
+                                    Voir le CV
                                 </a>
                             {% endif %}
                             
                             {% if stage.LM is defined and stage.LM is not empty %}
-                                {% set lmPath = stage.LM starts with '/uploads/' ? stage.LM : '/uploads/' ~ stage.LM %}
-                                <a href="{{ lmPath }}" target="_blank" class="btn-document">
-                                    View cover letter
+                                <a href="/document?type=lm&id_user={{ stage.Id_user }}&id_offre={{ stage.Id_offre }}" target="_blank" class="btn-document">
+                                    Voir la Lettre de Motivation
                                 </a>
                             {% endif %}
                         </div>

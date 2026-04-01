@@ -28,7 +28,8 @@ define('DB_PASS', get_env('DB_PASS', 'projet_pass'));
 define('BASE_PATH', dirname(__DIR__));
 define('PUBLIC_PATH', BASE_PATH . '/public');
 define('APP_PATH', BASE_PATH . '/app');
-define('UPLOADS_PATH', PUBLIC_PATH . '/uploads');
+// Stockage des uploads hors du dossier public pour éviter l'accès direct.
+define('UPLOADS_PATH', BASE_PATH . '/uploads');
 
 // Uploads
 define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);  // 5 MB

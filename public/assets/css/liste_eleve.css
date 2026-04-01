@@ -70,6 +70,26 @@ tr:hover {
     cursor: pointer; 
 }
 
+.btn {
+    background: #17496E;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:visited {
+    text-decoration: none;
+    color: white;
+}
+
 
 .badge { 
     padding: 2px 10px; 
@@ -103,6 +123,13 @@ tr:hover {
     font-size: 14px;
     padding: 8px 16px;
     line-height: 1;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 @media (max-width: 600px) {

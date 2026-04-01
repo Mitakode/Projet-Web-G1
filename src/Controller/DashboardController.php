@@ -113,7 +113,7 @@ class DashboardController
             // Validate edit ID before DB access.
             $userId = InputValidator::getInt($_GET, 'id', 0, 1);
             $editUser = $model->getById($userId);
-            $pilotes = $model->getByRole(1); 
+            $pilotes = $model->getByRole(1);
 
             $currentRole = (int)($user['Role'] ?? 0);
             $isAdmin = ($currentRole === 2);
@@ -143,17 +143,29 @@ class DashboardController
         }
 
         $role = (int)($user['Role'] ?? 0);
-        $users = ($role === 2) 
-            ? $model->getByRole(0) 
+        $users = ($role === 2)
+            ? $model->getByRole(0)
             : $model->getByRoleAndEstGerePar(0, $user['Id_user']);
+
+        // Filtre recherche
+        $search = trim((string)($_GET['search'] ?? ''));
+        if ($search !== '') {
+            $users = array_filter($users, function($u) use ($search) {
+                return stripos($u['Nom'], $search) !== false
+                    || stripos($u['Prenom'], $search) !== false
+                    || stripos($u['Email'], $search) !== false;
+            });
+            $users = array_values($users);
+        }
 
         $pagination = $this->paginateArray($users);
 
         View::render('liste_eleves.html.twig', [
-            'users' => $pagination['items'],
-            'pageActuelle' => $pagination['pageActuelle'],
-            'totalPages' => $pagination['totalPages'],
+            'users'         => $pagination['items'],
+            'pageActuelle'  => $pagination['pageActuelle'],
+            'totalPages'    => $pagination['totalPages'],
             'totalElements' => $pagination['totalElements'],
+            'search'        => $search,
         ]);
     }
 
@@ -311,15 +323,28 @@ class DashboardController
     public function listPilotes()
     {
         $model = new UtilisateurModel();
+        $search = trim((string)($_GET['search'] ?? ''));
+        
         $pilotes = $model->getByRole(1);
+        
+        // Filtre en PHP si recherche
+        if ($search !== '') {
+            $pilotes = array_filter($pilotes, function($p) use ($search) {
+                return stripos($p['Nom'], $search) !== false
+                    || stripos($p['Prenom'], $search) !== false
+                    || stripos($p['Email'], $search) !== false;
+            });
+            $pilotes = array_values($pilotes);
+        }
 
         $pagination = $this->paginateArray($pilotes);
 
         View::render('liste_pilotes.html.twig', [
-            'pilotes' => $pagination['items'],
-            'pageActuelle' => $pagination['pageActuelle'],
-            'totalPages' => $pagination['totalPages'],
+            'pilotes'       => $pagination['items'],
+            'pageActuelle'  => $pagination['pageActuelle'],
+            'totalPages'    => $pagination['totalPages'],
             'totalElements' => $pagination['totalElements'],
+            'search'        => $search,
         ]);
     }
 

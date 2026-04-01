@@ -1,5 +1,5 @@
 // Wishlist toggle interactions on the home page.
-// Each button calls a JSON endpoint and updates its icon/state.
+// Each button calls an endpoint and updates its icon/state locally.
 document.addEventListener("DOMContentLoaded", function() {
     // Buttons are rendered per offer card; they carry `data-id` and `data-action`.
     const wishlistButtons = document.querySelectorAll('.toggle-wishlist');
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Decide which endpoint to call based on current state.
             const url = action === 'add' ? '/addWishlist?Id_offre=' + offerId : '/deleteWishlist?Id_offre=' + offerId;
 
-            // These endpoints are expected to return JSON like: { success: true/false }.
+            // The endpoint is expected to return JSON like: { success: true/false }.
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 })
                 // Network / parsing errors.
-                .catch(error => console.error('Wishlist AJAX error:', error));
+                .catch(error => console.error("Erreur AJAX:", error));
         });
     });
 });

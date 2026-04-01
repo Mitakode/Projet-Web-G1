@@ -8,8 +8,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard — Career Quest</title>
-    <meta name="description" content="Global and offer-level statistics.">
+    <title>Tableau de bord — Career Quest</title>
+    <meta name="description" content="Statistiques globales et par offre.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/dashboard.css" rel="stylesheet"/>
 </head>
@@ -23,7 +23,7 @@
             <img class="back-icon" src="/assets/images/fleche-droite.png" alt="Back"/>
             <span>Back</span>
         </a>
-        <h1>Dashboard</h1>
+        <h1>Tableau de bord</h1>
     </div>
 
     {% if offerStats %}
@@ -34,16 +34,22 @@
             <div class="offer-stats-title">
                 <p class="offer-stats-name">{{ offerStats.Titre }}</p>
                 <p class="offer-stats-meta">
-                    {% if offerStats.Nom_entreprise %}{{ offerStats.Nom_entreprise }}{% endif %}
-                    {% if offerStats.Duree_mois %} • {{ offerStats.Duree_mois }} months{% endif %}
-                    {% if offerStats.Nombre_place %} • {{ offerStats.Nombre_place }} position(s){% endif %}
+                    {% if offerStats.Nom_entreprise %}
+                        {% if offerStats.Id_entreprise is defined and offerStats.Id_entreprise %}
+                            <a class="entreprise-link" href="/company?id={{ offerStats.Id_entreprise }}">{{ offerStats.Nom_entreprise }}</a>
+                        {% else %}
+                            {{ offerStats.Nom_entreprise }}
+                        {% endif %}
+                    {% endif %}
+                    {% if offerStats.Duree_mois %} • {{ offerStats.Duree_mois }} mois{% endif %}
+                    {% if offerStats.Nombre_place %} • {{ offerStats.Nombre_place }} place(s){% endif %}
                 </p>
                 <a class="offer-stats-cta" href="/candidater?id_offre={{ offerStats.Id_offre }}">View listing</a>
             </div>
 
             <div class="offer-stats-grid">
                 <article class="stat-card stat-card--compact">
-                    <h3>Wishlist adds</h3>
+                    <h3>Ajouts en favoris</h3>
                     <p class="stat-value">{{ offerStats.total_wishlist|default(0) }}</p>
                 </article>
                 <article class="stat-card stat-card--compact">

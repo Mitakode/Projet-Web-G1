@@ -38,10 +38,18 @@
 
         {% if offres is not empty %}
             {% for offre in offres %}
-                <div class="list-offer">          
-                    <h2>{{ offre.Titre|default('Untitled')|e }}</h2>
-                    <h4>Company: </h4>
-                    <p><a href="/company?id={{ offre.Id_entreprise }}" class="entreprise-link">{{ offre.Nom_entreprise|default('Unknown company')|e }}</a></p>
+                <div class="list-offer">    
+                    {% if isStudent %}
+                        <button class="btn-action star toggle-wishlist {{ offre.is_in_wishlist ? 'active' : '' }}" 
+                                data-id="{{ offre.Id_offre }}" 
+                                data-action="{{ offre.is_in_wishlist ? 'delete' : 'add' }}"
+                                title="Favoris">
+                            <i class="{{ offre.is_in_wishlist ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
+                        </button>
+                    {% endif %}        
+                    <h2>{{ offre.Titre|default('Titre non défini')|e }}</h2>
+                    <h4>Entreprise : </h4>
+                    <p><a href="/company?id={{ offre.Id_entreprise }}" class="entreprise-link">{{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</a></p>
                     {% set avg = offre.note_moyenne|default(0) %}
                     {% set avgRounded = avg|round(0, 'common') %}
                     <div class="home-rating" aria-label="Average rating {{ avg }}/5">

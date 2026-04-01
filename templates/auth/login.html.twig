@@ -18,7 +18,7 @@
 
 {% include 'partials/_header.html.twig' %}
 
-<section>
+<main class="auth-page">
     <div class="auth-container">
 
         <div class="auth-box">
@@ -27,7 +27,7 @@
                 <p class="auth-error">{{ error }}</p>
             {% endif %}
             <form action="/login" method="POST">
-                <label>Email address</label>
+                <label>Adresse e-mail</label>
                 <input type="email" name="email" required>
 
                 <label>Password</label>
@@ -37,12 +37,12 @@
                     <input type="checkbox"> <span>Stay signed in</span>
                 </div>
 
-                <a href="#" class="forgot-pwd">Forgot your password?</a>
-                <button type="submit" class="btn">Log in</button>
+                <a href="#" class="forgot-pwd">Mot de passe oublié ?</a>
+                <button type="submit" class="auth-submit">Connexion</button>
             </form>
         </div>
     </div>
-</section>
+</main>
 
 {% include 'partials/_footer.html.twig' %}
 
