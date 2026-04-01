@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard — Career Quest</title>
+    <title>Tableau de bord — Career Quest</title>
     <meta name="description" content="Statistiques globales et par offre.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/dashboard.css" rel="stylesheet"/>
@@ -18,7 +18,7 @@
             <img class="back-icon" src="/assets/images/fleche-droite.png" alt="Retour"/>
             <span>Retour</span>
         </a>
-        <h1>Dashboard</h1>
+        <h1>Tableau de bord</h1>
     </div>
 
     {% if offerStats %}
@@ -44,7 +44,7 @@
 
             <div class="offer-stats-grid">
                 <article class="stat-card stat-card--compact">
-                    <h3>Ajouts en wish-list</h3>
+                    <h3>Ajouts en favoris</h3>
                     <p class="stat-value">{{ offerStats.total_wishlist|default(0) }}</p>
                 </article>
                 <article class="stat-card stat-card--compact">
