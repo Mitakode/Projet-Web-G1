@@ -45,14 +45,14 @@ class CandidatureController
         ]);
     }
 
-    public function index()
+        public function index()
     {
-        // Récupérer l'ID de l'offre depuis l'URL
+        // Récupérer l'ID de l'offre depuis l'URL    
         $id = InputValidator::getInt($_GET, 'id_offre', 0, 1);
-        
+
         $offreModel = new OffreModel();
         $offre = $offreModel->getById($id);
-
+        
         // Si l'offre n'existe pas, redirection vers l'accueil
         if (!$offre) {
             header('Location: /');
@@ -68,31 +68,28 @@ class CandidatureController
         $userNote = null;
         $alreadyApplied = false;
 
-        if ($user && (int) ($user['Role'] ?? -1) === 0) {
+        if ($user && (int)($user['Role'] ?? -1) === 0) {
             $entrepriseModel = new EntrepriseModel();
-            $idEntreprise = (int) ($offre['Id_entreprise'] ?? 0);
+            $idEntreprise = (int)($offre['Id_entreprise'] ?? 0);
 
             if ($idEntreprise > 0) {
-                // Vérifie si l'élève a déjà candidaté à une offre de cette entreprise.
-                $canRate = $entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise);
-                $userNote = $entrepriseModel->getUserNoteEntreprise((int) $user['Id_user'], $idEntreprise);
+                $canRate = $entrepriseModel->canUserRateEntreprise((int)$user['Id_user'], $idEntreprise);
+                $userNote = $entrepriseModel->getUserNoteEntreprise((int)$user['Id_user'], $idEntreprise);
             }
+
+            $candidatureModel = new CandidatureModel();
+            $alreadyApplied = $candidatureModel->candidatureExists($id, (int)$user['Id_user']);
         }
 
-        $ratingStatus = InputValidator::getEnum(
-            $_GET,
-            'rating',
-            ['invalid', 'forbidden', 'saved'],
-            ''
-        );
+        $ratingStatus = InputValidator::getEnum($_GET, 'rating', ['invalid', 'forbidden', 'saved'], '');
 
         View::render('candidature.html.twig', [
-            'offre' => $offre,
-            'canRate' => $canRate,
-            'userNote' => $userNote,
-            'ratingStatus' => $ratingStatus,
-            'session_role' => $_SESSION['user']['Role'] ?? null,
-            'isAuth'       => isset($_SESSION['user']),
+            'offre'          => $offre,
+            'canRate'        => $canRate,
+            'userNote'       => $userNote,
+            'ratingStatus'   => $ratingStatus,
+            'session_role'   => $_SESSION['user']['Role'] ?? null,
+            'isAuth'         => isset($_SESSION['user']),
             'alreadyApplied' => $alreadyApplied,
         ]);
     }
