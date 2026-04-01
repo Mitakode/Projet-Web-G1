@@ -1,9 +1,14 @@
+{#
+    Template: liste_pilotes.html.twig
+    Purpose: Back-office pilot list with pagination.
+    Data: Provided by DashboardController::listPilotes.
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Career Quest</title>
-    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <meta name="description" content="Back-office pilot list.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/liste_pilote.css" rel="stylesheet"/>
@@ -48,27 +53,27 @@
                 <td>{{ u.Email }}</td>
                 <td>
                     <span class="badge">
-                        {% if u.Role == 0 %}Élève
-                        {% elseif u.Role == 1 %}Pilote
+                        {% if u.Role == 0 %}Student
+                        {% elseif u.Role == 1 %}Pilot
                         {% elseif u.Role == 2 %}Admin
-                        {% else %}Inconnu{% endif %}
+                        {% else %}Unknown{% endif %}
                     </span>
                 </td>
                 <td>{{ u.Date_naissance|default('') }}</td>
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
                 <td>
-                    <a href="/pilote?id={{ u.Id_user }}" class="btn-edit">Modifier</a>
+                    <a href="/pilote?id={{ u.Id_user }}" class="btn-edit">Edit</a>
                     <form method="POST" action="/pilote" style="display:inline"
                           onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">
-                        <button type="submit" class="btn-delete">Supprimer</button>
+                        <button type="submit" class="btn-delete">Delete</button>
                     </form>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="9">Aucun pilote trouvé.</td></tr>
+                <tr><td colspan="9">No pilots found.</td></tr>
             {% endfor %}
         </tbody>
     </table>

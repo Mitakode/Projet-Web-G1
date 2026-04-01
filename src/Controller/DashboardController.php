@@ -11,10 +11,22 @@ use App\Core\View;
 use InvalidArgumentException;
 use App\Model\StatsModel;
 
+/**
+ * Back-office controller.
+ *
+ * Provides CRUD screens for students/companies/offers/pilots and an admin stats
+ * dashboard. Access is restricted to Pilot (Role=1) and Admin (Role=2).
+ */
 class DashboardController
 {
     private const ITEMS_PER_PAGE = 20;
 
+    /**
+     * In-memory pagination helper.
+     *
+     * This controller often loads items from the DB then paginates the array.
+     * (For very large datasets, prefer SQL LIMIT/OFFSET.)
+     */
     private function paginateArray(array $items, int $itemsPerPage = self::ITEMS_PER_PAGE): array
     {
         $pageActuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -44,17 +56,25 @@ class DashboardController
 
     public function __construct()
     {
+        // Back-office requires authentication.
         Auth::requireAuth();
         
         $user = Auth::user();
         $role = (int)($user['Role'] ?? 0);
         
+        // Only Pilot/Admin can access this controller.
         if ($role < 1) {
             header('Location: /forbidden');
             exit;
         }
     }
 
+    /**
+     * Student list + CRUD actions.
+     *
+     * - Admin sees all students
+     * - Pilot sees only their managed students
+     */
     public function index()
     {
         $model = new UtilisateurModel();
@@ -62,6 +82,7 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                // CRUD action restricted to add/edit/delete.
                 $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'add') {
@@ -70,22 +91,26 @@ class DashboardController
                     exit;
                 }
                 if ($action === 'edit') {
+                    // Sanitize ID: positive integer only.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /student_list');
                     exit;
                 }
                 if ($action === 'delete') {
+                    // Sanitize ID: positive integer only.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /student_list');
                     exit;
                 }
             } catch (InvalidArgumentException $e) {
+                // On validation error, just return to the list.
                 header('Location: /student_list');
                 exit;
             }
         }
 
         if (isset($_GET['id'])) {
+            // Validate edit ID before DB access.
             $userId = InputValidator::getInt($_GET, 'id', 0, 1);
             $editUser = $model->getById($userId);
             $pilotes = $model->getByRole(1);
@@ -97,6 +122,7 @@ class DashboardController
                 && (int)($editUser['Role'] ?? -1) === 0
                 && (int)($editUser['est_gere_par'] ?? 0) === (int)$user['Id_user'];
 
+            // Admin: can edit all students. Pilot: only their own students.
             $canEditStudent = $isAdmin || ($isPilot && $isOwnedStudent);
 
             if (!$canEditStudent) {
@@ -143,6 +169,9 @@ class DashboardController
         ]);
     }
 
+    /**
+     * Show the student creation form.
+     */
     public function addEleve()
     {
         $user = Auth::user();
@@ -165,11 +194,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                // Action CRUD restreinte à add/edit/delete.
+                // CRUD action restricted to add/edit/delete.
                 $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /enterprise_list');
                     exit;
@@ -182,19 +211,20 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /enterprise_list');
                     exit;
                 }
             } catch (InvalidArgumentException $e) {
+                // Show validation errors on the same page.
                 $error = $e->getMessage();
             }
         }
 
         $editEntreprise = null;
         if (isset($_GET['id'])) {
-            // ID d'édition validé avant lecture DB.
+            // Validate edit ID before DB access.
             $editEntreprise = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
@@ -233,11 +263,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                // Action CRUD restreinte à add/edit/delete.
+                // CRUD action restricted to add/edit/delete.
                 $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /offer_list');
                     exit;
@@ -250,12 +280,13 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /offer_list');
                     exit;
                 }
             } catch (InvalidArgumentException $e) {
+                // On validation error, return to list.
                 header('Location: /offer_list');
                 exit;
             }
@@ -263,7 +294,7 @@ class DashboardController
 
         $editOffre = null;
         if (isset($_GET['id'])) {
-            // ID d'édition validé avant lecture DB.
+            // Validate edit ID before DB access.
             $editOffre = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
@@ -323,11 +354,11 @@ class DashboardController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                // Action CRUD restreinte à add/edit/delete.
+                // CRUD action restricted to add/edit/delete.
                 $action = InputValidator::requireEnum($_POST, 'action', ['add', 'edit', 'delete']);
 
                 if ($action === 'edit') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->update(InputValidator::getInt($_POST, 'id', 0, 1), $_POST);
                     header('Location: /pilotes_list');
                     exit;
@@ -340,7 +371,7 @@ class DashboardController
                 }
 
                 if ($action === 'delete') {
-                    // ID nettoyé: entier positif uniquement.
+                    // Sanitize ID: positive integer only.
                     $model->delete(InputValidator::getInt($_POST, 'id', 0, 1));
                     header('Location: /pilotes_list');
                     exit;
@@ -353,7 +384,7 @@ class DashboardController
 
         $editUser = null;
         if (isset($_GET['id'])) {
-            // ID d'édition validé avant lecture DB.
+            // Validate edit ID before DB access.
             $editUser = $model->getById(InputValidator::getInt($_GET, 'id', 0, 1));
         }
 
@@ -379,6 +410,8 @@ class DashboardController
     {
         $statsModel = new StatsModel();
 
+        // Accept multiple query parameter names for the same "offer id" concept.
+        // This improves compatibility with links/forms using different conventions.
         $offerId = InputValidator::getInt($_GET, 'id-offre', 0, 1);
         if ($offerId <= 0) {
             $offerId = InputValidator::getInt($_GET, 'id_offre', 0, 1);
@@ -392,6 +425,7 @@ class DashboardController
 
         $offerStats = null;
         if ($offerId && $offerId > 0) {
+            // Fetch per-offer metrics when an offer id is selected.
             $offerStats = $statsModel->getOfferStats($offerId) ?: null;
         }
 

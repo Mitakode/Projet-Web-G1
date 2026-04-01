@@ -6,26 +6,41 @@ use App\Core\InputValidator;
 use InvalidArgumentException;
 use PDO;
 
+/**
+ * Company data access.
+ *
+ * Provides CRUD and rating-related operations (Evaluer) as well as public
+ * listing/search helpers.
+ */
 class EntrepriseModel
 {
     private $pdo;
 
     public function __construct()
     {
+        // Create a PDO connection using config constants.
         $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * Fetch all companies.
+     */
     public function getAll(): array
     {
         $query = $this->pdo->query("SELECT * FROM Entreprise");
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Check whether a user has applied to at least one offer of a company.
+     *
+     * IMPORTANT: $tableName must be an internal constant string (not user input).
+     */
     private function hasAppliedInTable(string $tableName, int $idUser, int $idEntreprise): bool
     {
-        // Vérifie l'existence d'au moins une candidature de l'utilisateur
-        // vers une offre appartenant à l'entreprise ciblée.
+        // Look for at least one application from the user to an offer belonging
+        // to the target company.
         $sql = "
             SELECT 1
             FROM {$tableName} c
@@ -44,19 +59,27 @@ class EntrepriseModel
         return (bool) $stmt->fetchColumn();
     }
 
+    /**
+     * Whether a user is allowed to rate a company.
+     */
     public function canUserRateEntreprise(int $idUser, int $idEntreprise): bool
     {
-        // Le projet utilise la table Candidater pour les candidatures.
+        // This project stores applications in the Candidater table.
         return $this->hasAppliedInTable('Candidater', $idUser, $idEntreprise);
     }
 
+    /**
+     * Insert/update a company rating for a given user.
+     *
+     * Uses an UPSERT on (Id_User, Id_Entreprise).
+     */
     public function noterEntreprise(int $idUser, int $idEntreprise, int $note): bool
     {
         if ($note < 1 || $note > 5) {
             return false;
         }
 
-        // UPSERT: si la note existe déjà pour (user, entreprise), elle est remplacée.
+        // UPSERT: if a rating already exists for (user, company), it is replaced.
         $sql = "
             INSERT INTO Evaluer (Id_User, Id_Entreprise, Note)
             VALUES (:idUser, :idEntreprise, :note)
@@ -73,9 +96,12 @@ class EntrepriseModel
         ]);
     }
 
+    /**
+     * Get average rating and total vote count for a company.
+     */
     public function getNoteMoyenneEntreprise(int $idEntreprise): array
     {
-        // Renvoie moyenne arrondie + nombre total d'avis pour l'entreprise.
+        // Returns rounded average + total vote count for the company.
         $sql = "
             SELECT ROUND(AVG(Note), 2) AS moyenne, COUNT(*) AS total_votes
             FROM Evaluer
@@ -93,9 +119,14 @@ class EntrepriseModel
         ];
     }
 
+    /**
+     * Get the rating given by a specific user for a specific company.
+     *
+     * Used to pre-fill the UI.
+     */
     public function getUserNoteEntreprise(int $idUser, int $idEntreprise): ?int
     {
-        // Sert à pré-remplir la note dans l'interface si l'utilisateur a déjà voté.
+        // Used to pre-fill the rating in the UI when the user already voted.
         $sql = "
             SELECT Note
             FROM Evaluer
@@ -114,6 +145,9 @@ class EntrepriseModel
     }
 
 
+    /**
+     * Fetch a company by id.
+     */
     public function getById(int $id): array|false
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Entreprise WHERE Id_entreprise = :id");
@@ -122,14 +156,17 @@ class EntrepriseModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Create a company.
+     */
     public function create(array $data): void
     {
-        // Nom d'entreprise: lettres/chiffres et ponctuation métier.
+        // Company name: letters/digits and limited punctuation.
         $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\p{N}\s\-\'".&()]+$/u', 150);
-        // Description libre contrôlée pour éviter des caractères imprévus.
+        // Free description restricted to a safe character set.
         $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
         $emailContact = InputValidator::requireEmail($data, 'email_contact');
-        // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
+        // Phone: common FR/intl patterns (+, spaces, parentheses, dashes).
         $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{10}$/', 20, true);
         $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
 
@@ -146,18 +183,23 @@ class EntrepriseModel
         ]);
     }
 
+    /**
+     * Update a company.
+     *
+     * @throws InvalidArgumentException When id is invalid.
+     */
     public function update(int $id, array $data): void
     {
         if ($id <= 0) {
-            throw new InvalidArgumentException('ID entreprise invalide.');
+            throw new InvalidArgumentException('Invalid company ID.');
         }
 
-        // Nom d'entreprise: lettres/chiffres et ponctuation métier.
+        // Company name: letters/digits and limited punctuation.
         $nom = InputValidator::requireString($data, 'nom', '/^[\p{L}\p{N}\s\-\'".&()]+$/u', 150);
-        // Description libre contrôlée pour éviter des caractères imprévus.
+        // Free description restricted to a safe character set.
         $description = InputValidator::requireString($data, 'description', '/^[\p{L}\p{N}\s\-\'".,()!?@:\/]*$/u', 3000, true);
         $emailContact = InputValidator::requireEmail($data, 'email_contact');
-        // Téléphone: formats classiques FR/intl (+, espace, parenthèses, tirets).
+        // Phone: common FR/intl patterns (+, spaces, parentheses, dashes).
         $telephone = InputValidator::requireString($data, 'telephone', '/^\+?[0-9\s().-]{10}$/', 20, true);
         $estActif = InputValidator::getInt($data, 'est_actif', 1, 0, 1);
 
@@ -180,6 +222,9 @@ class EntrepriseModel
         ]);
     }
 
+    /**
+     * Delete a company by id.
+     */
     public function delete(int $id): void
     {
         $stmt = $this->pdo->prepare("DELETE FROM Entreprise WHERE Id_entreprise = :id");
@@ -187,8 +232,12 @@ class EntrepriseModel
         $stmt->execute();
     }
 
+    /**
+     * Search companies by name/description/contact email.
+     */
     public function search(string $search): array
 {
+    // Search terms are provided by controller; using a prepared statement prevents injection.
     $stmt = $this->pdo->prepare("
         SELECT * FROM Entreprise 
         WHERE Nom LIKE :s 
@@ -199,6 +248,9 @@ class EntrepriseModel
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Fetch offers belonging to a company.
+ */
 public function getOffresByEntreprise(int $id): array
 {
     $stmt = $this->pdo->prepare("
@@ -209,8 +261,12 @@ public function getOffresByEntreprise(int $id): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Compute basic company stats (applications count and rating average).
+ */
 public function getStats(int $id): array
 {
+    // Number of candidatures across all offers of the company.
     $stmt = $this->pdo->prepare("
         SELECT COUNT(*) as nb_candidatures
         FROM Candidater c
@@ -221,6 +277,7 @@ public function getStats(int $id): array
     $stmt->execute();
     $nb = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Rating average from Evaluer.
     $stmt2 = $this->pdo->prepare("
         SELECT AVG(Note) as moyenne
         FROM Evaluer

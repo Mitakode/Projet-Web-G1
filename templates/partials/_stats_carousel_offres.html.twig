@@ -1,40 +1,45 @@
+{#
+    Partial: _stats_carousel_offres.html.twig
+    Purpose: Offer-related statistics carousel.
+    Data: Expects `title` and `stats` (from StatsModel).
+#}
 <section class="stats-section" data-carousel-scope>
     <div class="stats-header">
-        <h2>{{ title|default('Offres') }}</h2>
+        <h2>{{ title|default('Offers') }}</h2>
         <div class="stats-controls">
-            <button class="stats-nav" type="button" data-carousel-prev aria-label="Précédent">‹</button>
-            <button class="stats-nav" type="button" data-carousel-next aria-label="Suivant">›</button>
+            <button class="stats-nav" type="button" data-carousel-prev aria-label="Previous">‹</button>
+            <button class="stats-nav" type="button" data-carousel-next aria-label="Next">›</button>
         </div>
     </div>
 
     <div class="stats-carousel" data-carousel>
         <div class="stats-track" data-carousel-track>
             <article class="stat-card">
-                <h3>Offres disponibles</h3>
+                <h3>Available offers</h3>
                 <p class="stat-value">{{ stats.total_offres|default(0) }}</p>
-                <p class="stat-hint">Nombre total d'offres en base</p>
+                <p class="stat-hint">Total number of offers in the database</p>
             </article>
 
             <article class="stat-card">
-                <h3>Candidatures totales</h3>
+                <h3>Total applications</h3>
                 <p class="stat-value">{{ stats.total_candidatures|default(0) }}</p>
-                <p class="stat-hint">Toutes les candidatures enregistrées</p>
+                <p class="stat-hint">All recorded applications</p>
             </article>
 
             <article class="stat-card">
-                <h3>Moyenne candidatures / offre</h3>
+                <h3>Avg applications / offer</h3>
                 <p class="stat-value">{{ stats.avg_candidatures|default(0)|number_format(2, ',', ' ') }}</p>
-                <p class="stat-hint">Calculée sur l'ensemble des offres</p>
+                <p class="stat-hint">Computed across all offers</p>
             </article>
 
             <article class="stat-card">
-                <h3>Répartition par durée</h3>
+                <h3>Duration breakdown</h3>
                 {% if stats.duree_repartition is empty %}
-                    <p class="stat-empty">Aucune donnée disponible.</p>
+                    <p class="stat-empty">No data available.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for item in stats.duree_repartition %}
-                            <li>{{ item.duree_mois }} mois : {{ item.total }}</li>
+                            <li>{{ item.duree_mois }} months: {{ item.total }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -43,7 +48,7 @@
             <article class="stat-card">
                 <h3>Top favoris</h3>
                 {% if stats.top_wishlist is empty %}
-                    <p class="stat-empty">Aucune offre ajoutée.</p>
+                    <p class="stat-empty">No offer added.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for offer in stats.top_wishlist %}
@@ -59,9 +64,9 @@
             </article>
 
             <article class="stat-card">
-                <h3>Top candidatures</h3>
+                <h3>Top applications</h3>
                 {% if stats.top_candidatures is empty %}
-                    <p class="stat-empty">Aucune candidature enregistrée.</p>
+                    <p class="stat-empty">No application recorded.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for offer in stats.top_candidatures %}
@@ -76,6 +81,6 @@
                 {% endif %}
             </article>
         </div>
-        <div class="stats-dots" data-carousel-dots aria-label="Navigation du carrousel"></div>
+        <div class="stats-dots" data-carousel-dots aria-label="Carousel navigation"></div>
     </div>
 </section>

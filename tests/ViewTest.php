@@ -3,16 +3,23 @@
 use PHPUnit\Framework\TestCase;
 use App\Core\View;
 
+/**
+ * Unit tests for the Twig View renderer.
+ */
 final class ViewTest extends TestCase
 {
     protected function setUp(): void
     {
+        // View injects auth variables from $_SESSION unless explicitly set.
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
         $_SESSION = [];
     }
 
+    /**
+     * When authenticated, View::render should pass isAuth=true by default.
+     */
     public function testRenderUsesSessionAuthByDefault(): void
     {
         $_SESSION['user'] = [
@@ -28,6 +35,9 @@ final class ViewTest extends TestCase
         $this->assertStringNotContainsString('href="/login"', $html);
     }
 
+    /**
+     * When caller explicitly passes isAuth, it must override session-derived state.
+     */
     public function testRenderRespectsExplicitIsAuthValue(): void
     {
         $_SESSION['user'] = [

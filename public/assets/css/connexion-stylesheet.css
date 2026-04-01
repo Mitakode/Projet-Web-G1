@@ -1,4 +1,4 @@
-/* Styles pour la page d'authentification */
+/* Styles for the authentication page */
 
 .auth-container {
     display: flex;
@@ -73,13 +73,13 @@
     border-color: #2a63a4;
 }
 
-/* État invalide pour les champs de connexion */
-.auth-box input[type="email"]:invalid,
-.auth-box input[type="password"]:invalid,
-.auth-box input[type="text"]:invalid,
-.auth-box input[type="email"].invalid,
-.auth-box input[type="password"].invalid,
-.auth-box input[type="text"].invalid {
+/* Invalid state for login fields */
+input[type="email"]:invalid,
+input[type="password"]:invalid,
+input[type="text"]:invalid,
+input[type="email"].invalid,
+input[type="password"].invalid,
+input[type="text"].invalid {
     border-color: #c62828;
     background-color: #ffebee;
 }
@@ -111,6 +111,11 @@
     text-align: center;
 }
 
+/* Green buttons */
+.btn {
+    background-color: #348635;
+    border: 2px solid #444;
+    border-radius: 20px;
 /* Bouton principal (cohérent avec le reste du site) */
 .auth-submit {
     background-color: #2a63a4;
@@ -125,13 +130,14 @@
     margin: 0 auto;
 }
 
+/* Styles for field error messages */
 .auth-submit:hover,
 .auth-submit:focus {
     background-color: #1f4f86;
     border-color: #1f4f86;
 }
 
-/* Styles pour les messages d'erreur des champs */
+  
 .field-error-message {
     display: block !important;
     color: #c62828 !important;

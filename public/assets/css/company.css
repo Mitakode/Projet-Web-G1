@@ -57,6 +57,7 @@ hr {
     margin-top: 5px;
 }
 
+
 .stat-card .stars-display {
     justify-content: center;
     margin-top: 6px;
@@ -66,7 +67,7 @@ hr {
     font-size: 18px;
 }
 
-/* Table offres */
+/* Offers table */
 table {
     width: 100%;
     border-collapse: collapse;
