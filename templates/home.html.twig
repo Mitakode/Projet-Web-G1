@@ -4,12 +4,12 @@
     Data: Provided by HomeController::index (and auth vars are typically injected by View).
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-    <meta name="description" content="Find the perfect match among our internship offers.">
+    <meta name="description" content="Trouvez l'offre de stage idéale parmi nos annonces.">
     <link href="assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="assets/css/accueil_stylesheet.css" rel="stylesheet"/>
 
@@ -23,8 +23,8 @@
 
 <main class="main-container home-page">
     <section class="home-intro">
-        <h1>Internship offers</h1>
-        <p>Find opportunities tailored to your profile and apply quickly.</p>
+        <h1>Offres de stage</h1>
+        <p>Trouvez des opportunités adaptées à votre profil et postulez rapidement.</p>
     </section>
 
     <aside class="sidebar">
@@ -32,7 +32,7 @@
         {# OFFER LISTING #}
         {% if searchQuery is defined and searchQuery is not empty %}
             <p class="search-result-text">
-                Results for: <strong>{{ searchQuery|e }}</strong>
+                Résultats pour : <strong>{{ searchQuery|e }}</strong>
             </p>
         {% endif %}
 
@@ -52,31 +52,31 @@
                     <p><a href="/company?id={{ offre.Id_entreprise }}" class="entreprise-link">{{ offre.Nom_entreprise|default('Entreprise inconnue')|e }}</a></p>
                     {% set avg = offre.note_moyenne|default(0) %}
                     {% set avgRounded = avg|round(0, 'common') %}
-                    <div class="home-rating" aria-label="Average rating {{ avg }}/5">
-                        <span class="home-rating-label">Company rating:</span>
+                    <div class="home-rating" aria-label="Note moyenne {{ avg }}/5">
+                        <span class="home-rating-label">Note de l'entreprise :</span>
                         {% for i in 1..5 %}
                             <span class="home-star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
                         {% endfor %}
-                        <span class="home-rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} reviews)</span>
+                        <span class="home-rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} avis)</span>
                     </div>
-                    <h4>Internship duration: </h4>
-                    <p>{{ offre.Duree_mois|default('TBD')|e }} months</p>
-                    <h4>Compensation: </h4>
-                    <p>{{ offre.Remuneration|default('TBD')|e }} €</p>
-                    <h4>Open positions: </h4>
-                    <p>{{ offre.Nombre_place|default('TBD')|e }}</p><br>
-                    <h3>Position description: </h3>
-                    <p>{{ offre.Description|default('No description')|e }}</p>
+                    <h4>Durée du stage :</h4>
+                    <p>{{ offre.Duree_mois|default('À définir')|e }} mois</p>
+                    <h4>Rémunération :</h4>
+                    <p>{{ offre.Remuneration|default('À définir')|e }} €</p>
+                    <h4>Places disponibles :</h4>
+                    <p>{{ offre.Nombre_place|default('À définir')|e }}</p><br>
+                    <h3>Description du poste :</h3>
+                    <p>{{ offre.Description|default('Aucune description')|e }}</p>
                     {% if isAuth and session_role == 0 %}
-                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Apply</a>
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Postuler</a>
                     {% else %}
-                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Details</a>
+                        <a href="/candidater?id_offre={{ offre.Id_offre }}" class="btn-candidate">Détails</a>
                     {% endif %}
                 </div>
             {% endfor %}
         {% else %}
             <div class="list-offer">
-                <h3>No offers found</h3>
+                <h3>Aucune offre trouvée</h3>
             </div>
         {% endif %}
 
@@ -88,7 +88,7 @@
                 {% if pageActuelle > 1 %}
                     <a href="/?page={{ pageActuelle - 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        class="pagination-btn pagination-nav">
-                        Previous
+                        Précédent
                     </a>
                 {% endif %}
 
@@ -104,7 +104,7 @@
                 {% if pageActuelle < totalPages %}
                     <a href="/?page={{ pageActuelle + 1 }}{% if searchQuery is defined and searchQuery is not empty %}&query={{ searchQuery|url_encode }}{% endif %}"
                        class="pagination-btn pagination-nav">
-                        Next
+                        Suivant
                     </a>
                 {% endif %}
 

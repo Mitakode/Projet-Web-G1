@@ -67,6 +67,21 @@ main {
     font: 16px "Segoe UI";
 }
 
+.list-search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.u-ml-10 {
+    margin-left: 10px;
+}
+
 .account-container {
     text-align: center;
     cursor: pointer;

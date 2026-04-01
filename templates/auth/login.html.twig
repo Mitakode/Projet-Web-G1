@@ -4,12 +4,12 @@
     Data: Provided by AuthController::showLogin (optional error message).
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-    <meta name="description" content="Log in to manage your account and applications.">
+    <meta name="description" content="Connectez-vous pour gérer votre compte et vos candidatures.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet" />
     <link href="/assets/css/connexion-stylesheet.css" rel="stylesheet" />
 </head>
@@ -22,7 +22,7 @@
     <div class="auth-container">
 
         <div class="auth-box">
-            <h1>Log in</h1>
+            <h1>Connexion</h1>
             {% if error %}
                 <p class="auth-error">{{ error }}</p>
             {% endif %}
@@ -30,11 +30,11 @@
                 <label>Adresse e-mail</label>
                 <input type="email" name="email" required>
 
-                <label>Password</label>
+                <label>Mot de passe</label>
                 <input type="password" name="password" required>
 
                 <div class="checkbox-group">
-                    <input type="checkbox"> <span>Stay signed in</span>
+                    <input type="checkbox"> <span>Rester connecté</span>
                 </div>
 
                 <a href="#" class="forgot-pwd">Mot de passe oublié ?</a>

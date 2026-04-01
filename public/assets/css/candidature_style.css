@@ -216,6 +216,37 @@ input[type="file"].invalid {
     font-size: 12px !important;
     font-weight: 600 !important;
     margin: -15px 0 15px 0 !important;
+}
+
+.offer-meta {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #333;
+}
+
+.description-content {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #333;
+}
+
+.description-content h3 {
+    margin: 0 0 10px 0;
+    color: #17496E;
+}
+
+.application-form-title {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #17496E;
+}
+
+.candidature-message {
+    margin-top: 30px;
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
 @media (max-width: 900px) {
     .candidature-container {
         flex-direction: column;

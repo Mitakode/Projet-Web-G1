@@ -4,10 +4,10 @@
     Data: Provided by EntreprisePublicController::index.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Career Quest — Companies</title>
+    <title>Career Quest — Entreprises</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/companies.css" rel="stylesheet"/>
@@ -17,7 +17,7 @@
     {% include 'partials/_header.html.twig' %}
 <main>
     {# Page title for the public company directory. #}
-    <h2>Search for a company</h2>
+    <h2>Rechercher une entreprise</h2>
 
     {#
         Search form
@@ -37,12 +37,12 @@
     <table>
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
                 <th>E-mail</th>
                 <th>Téléphone</th>
-                <th>Active</th>
-                <th>Profile</th>
+                <th>Actif</th>
+                <th>Profil</th>
             </tr>
         </thead>
         <tbody>
@@ -58,17 +58,17 @@
                 <td>{{ e.Telephone|default('—') }}</td>
 
                 {# Human label for an integer/boolean-like column. #}
-                <td>{{ e.Est_actif == 1 ? 'Yes' : 'No' }}</td>
+                <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
                 <td>
                     {# Link to the public company details page. #}
                     <a href="/company?id={{ e.Id_entreprise }}">
-                        <button class="btn-edit">View profile</button>
+                        <button class="btn-edit">Voir le profil</button>
                     </a>
                 </td>
             </tr>
             {% else %}
                 {# Empty state: no company matches the search term. #}
-                <tr><td colspan="6">No company found.</td></tr>
+                <tr><td colspan="6">Aucune entreprise trouvée.</td></tr>
             {% endfor %}
         </tbody>
     </table>
