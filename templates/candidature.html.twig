@@ -39,11 +39,11 @@
             </div>
 
             {% if ratingStatus == 'saved' %}
-                <p class="rating-flash success">Your rating has been saved.</p>
+                <p class="rating-flash success">Votre note a été sauvegardée.</p>
             {% elseif ratingStatus == 'forbidden' %}
-                <p class="rating-flash error">You must have already applied to this company to rate it.</p>
+                <p class="rating-flash error">Vous devez avoir postulé a cette offre pour la noter.</p>
             {% elseif ratingStatus == 'invalid' %}
-                <p class="rating-flash error">The submitted rating is invalid.</p>
+                <p class="rating-flash error">Votre note est invalide.</p>
             {% endif %}
 
             {% if canRate %}
@@ -71,7 +71,7 @@
                 </form>
             {% else %}
                 {# Shown when the student cannot rate yet (no prior candidature for this company) #}
-                <p class="rating-hint">Rating will be available after an application to this company.</p>
+                <p class="rating-hint">La note sera disponible après avoir postulé à cette offre.</p>
             {% endif %}
         </section>
         
@@ -90,11 +90,11 @@
 
     {% if isAuth and session_role == 0 %}
         {% if alreadyApplied %}
-            <p>You have already applied to this offer.</p>
+            <p>Vous avez déjà postulé à cette offre.</p>
         {% else %}
             <div class="application-form">
-                <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Apply now</h2>
-                
+                <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
+
                 <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
                     <br>
@@ -115,11 +115,11 @@
 
     {% elseif isAuth and session_role > 0 %}
         <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
-            You do not have the required permissions to apply to this offer.
+            Vous n'avez pas les permissions requises pour postuler à cette offre.
         </p>
     {% else %}
         <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
-            Log in to apply to this offer.
+            Connectez-vous pour postuler à cette offre.
         </p>
     {% endif %}
 </main>
