@@ -18,14 +18,44 @@ use PDOException;
  */
 class CandidatureController
 {
-    /**
-     * Show the offer page and rating widgets.
-     */
-    public function index()
+    public function success()
     {
-        // Read offer id from the URL query string.
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
+        if ((int) ($_SESSION['user']['Role'] ?? -1) !== 0) {
+            header('Location: /forbidden');
+            exit;
+        }
+
+        $idOffre = InputValidator::getInt($_GET, 'id_offre', 0, 1);
+        if ($idOffre <= 0) {
+            header('Location: /');
+            exit;
+        }
+
+        $offreModel = new OffreModel();
+        $offre = $offreModel->getById($idOffre);
+
+        if (!$offre) {
+            header('Location: /');
+            exit;
+        }
+
+        View::render('candidature_success.html.twig', [
+            'offre' => $offre,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth' => isset($_SESSION['user']),
+        ]);
+    }
+
+        public function index()
+    {
+        // Récupérer l'ID de l'offre depuis l'URL    
         $id = InputValidator::getInt($_GET, 'id_offre', 0, 1);
-        
+
         $offreModel = new OffreModel();
         $offre = $offreModel->getById($id);
 
@@ -44,31 +74,29 @@ class CandidatureController
         $userNote = null;
         $alreadyApplied = false;
 
-        if ($user && (int) ($user['Role'] ?? -1) === 0) {
+        if ($user && (int)($user['Role'] ?? -1) === 0) {
             $entrepriseModel = new EntrepriseModel();
-            $idEntreprise = (int) ($offre['Id_entreprise'] ?? 0);
+            $idEntreprise = (int)($offre['Id_entreprise'] ?? 0);
 
             if ($idEntreprise > 0) {
                 // Student can rate only if they already applied to this company's offers.
                 $canRate = $entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise);
                 $userNote = $entrepriseModel->getUserNoteEntreprise((int) $user['Id_user'], $idEntreprise);
             }
+
+            $candidatureModel = new CandidatureModel();
+            $alreadyApplied = $candidatureModel->candidatureExists($id, (int)$user['Id_user']);
         }
 
-        $ratingStatus = InputValidator::getEnum(
-            $_GET,
-            'rating',
-            ['invalid', 'forbidden', 'saved'],
-            ''
-        );
+        $ratingStatus = InputValidator::getEnum($_GET, 'rating', ['invalid', 'forbidden', 'saved'], '');
 
         View::render('candidature.html.twig', [
-            'offre' => $offre,
-            'canRate' => $canRate,
-            'userNote' => $userNote,
-            'ratingStatus' => $ratingStatus,
-            'session_role' => $_SESSION['user']['Role'] ?? null,
-            'isAuth'       => isset($_SESSION['user']),
+            'offre'          => $offre,
+            'canRate'        => $canRate,
+            'userNote'       => $userNote,
+            'ratingStatus'   => $ratingStatus,
+            'session_role'   => $_SESSION['user']['Role'] ?? null,
+            'isAuth'         => isset($_SESSION['user']),
             'alreadyApplied' => $alreadyApplied,
         ]);
     }
@@ -178,8 +206,8 @@ class CandidatureController
             die("Unable to save the application.");
         }
 
-        // Success: a redirect could be added here (currently just exits).
-        //header("Location: /?uri=/&success=1");
+        // 6. Redirection vers une page de succès
+        header('Location: /?uri=/candidature-succes&id_offre=' . $idOffre);
         exit;
     }
 }

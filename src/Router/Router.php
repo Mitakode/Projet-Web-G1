@@ -131,6 +131,15 @@ switch ($uri) {
         }
         break;
 
+    case '/candidature-succes':
+        if ($method === 'GET') {
+            $candidatureController->success();
+        } else {
+            header('Location: /');
+            exit;
+        }
+        break;
+
     case '/document':
         if ($method !== 'GET') {
             http_response_code(405);
