@@ -40,4 +40,26 @@ class CandidatureModel
 
         return (bool) $stmt->fetchColumn();
     }
+
+    public function getCandidatureDocumentName(int $idOffre, int $idUser, string $type): ?string
+    {
+        if (!isset($this->pdo)) {
+            return null;
+        }
+
+        $column = ($type === 'lm') ? 'LM' : 'Cv';
+        $sql = "SELECT {$column} FROM Candidater WHERE Id_offre = :idOffre AND Id_user = :idUser LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':idOffre' => $idOffre,
+            ':idUser' => $idUser,
+        ]);
+
+        $name = $stmt->fetchColumn();
+        if (!is_string($name) || $name === '') {
+            return null;
+        }
+
+        return $name;
+    }
 }

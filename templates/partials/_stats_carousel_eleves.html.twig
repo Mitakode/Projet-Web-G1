@@ -38,9 +38,9 @@
             </article>
 
             <article class="stat-card">
-                <h3>Top élèves (wish-list)</h3>
+                <h3>Top élèves (favoris)</h3>
                 {% if stats.top_wishlist is empty %}
-                    <p class="stat-empty">Aucune wish-list disponible.</p>
+                    <p class="stat-empty">Aucun favori disponible.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for eleve in stats.top_wishlist %}
