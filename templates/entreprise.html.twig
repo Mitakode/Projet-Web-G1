@@ -4,11 +4,11 @@
     Data: Provided by DashboardController::Entreprise and DashboardController::addEntreprise.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRUD — Company</title>
+    <title>CRUD — Entreprise</title>
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
@@ -16,10 +16,10 @@
 
 {% include 'partials/_header.html.twig' %}
 
-<h1>{{ editEntreprise ? 'Edit company' : 'Add a company' }}</h1>
+<h1>{{ editEntreprise ? 'Modifier une entreprise' : 'Ajouter une entreprise' }}</h1>
 
 {% if error %}
-    <div style="background-color: #ffebee; border: 2px solid #c62828; color: #c62828; padding: 12px; margin-bottom: 20px; border-radius: 8px; font-weight: 600;">
+    <div class="form-error-box">
         {{ error }}
     </div>
 {% endif %}
@@ -30,7 +30,7 @@
         <input type="hidden" name="id" value="{{ editEntreprise.Id_entreprise }}">
     {% endif %}
 
-    <label>Name</label>
+    <label>Nom</label>
     <input type="text" name="nom" value="{{ editEntreprise.Nom|default('') }}" required>
 
     <label>Description</label>
@@ -39,22 +39,22 @@
     <label>Adresse e-mail</label>
     <input type="email" name="email_contact" value="{{ editEntreprise.Email_contact|default('') }}" required>
 
-    <label>Phone</label>
+    <label>Téléphone</label>
     <input type="text" name="telephone" value="{{ editEntreprise.Telephone|default('') }}">
 
-    <label>Active</label>
+    <label>Actif</label>
     <select name="est_actif">
-        <option value="1" {{ editEntreprise.Est_actif == 1 ? 'selected' : '' }}>Yes</option>
-        <option value="0" {{ editEntreprise.Est_actif == 0 ? 'selected' : '' }}>No</option>
+        <option value="1" {{ editEntreprise.Est_actif == 1 ? 'selected' : '' }}>Oui</option>
+        <option value="0" {{ editEntreprise.Est_actif == 0 ? 'selected' : '' }}>Non</option>
     </select>
 
     <button type="submit" class="btn btn-add">
-        {{ editEntreprise ? 'Save' : 'Add' }}
+        {{ editEntreprise ? 'Enregistrer' : 'Ajouter' }}
     </button>
     {% if editEntreprise %}
-        <a href="/enterprise_list" style="margin-left:10px;">Cancel</a>
+        <a href="/enterprise_list">Annuler</a>
     {% else %}
-        <a href="/account" style="margin-left:10px;">Cancel</a>
+        <a href="/account">Annuler</a>
     {% endif %}
 </form>
 

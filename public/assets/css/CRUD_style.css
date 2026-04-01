@@ -117,6 +117,17 @@ h1 code {
 	margin-bottom: 15px !important;
 }
 
+.form-error-box {
+	background-color: #ffebee;
+	border: 2px solid #c62828;
+	color: #c62828;
+	padding: 12px;
+	margin: 0 auto 20px;
+	border-radius: 8px;
+	font-weight: 600;
+	width: min(100% - 32px, 640px);
+}
+
 .candidatures-section {
     margin-top: 40px;
     padding-top: 20px;

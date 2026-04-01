@@ -5,31 +5,31 @@
 #}
 <section class="stats-section" data-carousel-scope>
     <div class="stats-header">
-        <h2>{{ title|default('Companies') }}</h2>
+        <h2>{{ title|default('Entreprises') }}</h2>
         <div class="stats-controls">
-            <button class="stats-nav" type="button" data-carousel-prev aria-label="Previous">‹</button>
-            <button class="stats-nav" type="button" data-carousel-next aria-label="Next">›</button>
+            <button class="stats-nav" type="button" data-carousel-prev aria-label="Précédent">‹</button>
+            <button class="stats-nav" type="button" data-carousel-next aria-label="Suivant">›</button>
         </div>
     </div>
 
     <div class="stats-carousel" data-carousel>
         <div class="stats-track" data-carousel-track>
             <article class="stat-card">
-                <h3>Active companies</h3>
+                <h3>Entreprises actives</h3>
                 <p class="stat-value">{{ stats.total_entreprises|default(0) }}</p>
-                <p class="stat-hint">Total number of companies</p>
+                <p class="stat-hint">Nombre total d'entreprises</p>
             </article>
 
             <article class="stat-card">
-                <h3>Avg offers / company</h3>
+                <h3>Moy. offres / entreprise</h3>
                 <p class="stat-value">{{ stats.avg_offres|default(0)|number_format(2, ',', ' ') }}</p>
-                <p class="stat-hint">Offer distribution across companies</p>
+                <p class="stat-hint">Répartition des offres entre entreprises</p>
             </article>
 
             <article class="stat-card">
-                <h3>Top companies (offers)</h3>
+                <h3>Top entreprises (offres)</h3>
                 {% if stats.top_offres is empty %}
-                    <p class="stat-empty">No companies available.</p>
+                    <p class="stat-empty">Aucune entreprise disponible.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for entreprise in stats.top_offres %}
@@ -43,9 +43,9 @@
             </article>
 
             <article class="stat-card">
-                <h3>Top companies (applications)</h3>
+                <h3>Top entreprises (candidatures)</h3>
                 {% if stats.top_candidatures is empty %}
-                    <p class="stat-empty">No application recorded.</p>
+                    <p class="stat-empty">Aucune candidature enregistrée.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for entreprise in stats.top_candidatures %}
@@ -58,6 +58,6 @@
                 {% endif %}
             </article>
         </div>
-        <div class="stats-dots" data-carousel-dots aria-label="Carousel navigation"></div>
+        <div class="stats-dots" data-carousel-dots aria-label="Navigation du carrousel"></div>
     </div>
 </section>

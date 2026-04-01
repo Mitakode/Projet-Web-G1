@@ -4,11 +4,11 @@
     Data: Provided by DashboardController::index.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Career Quest</title>
-    <meta name="description" content="Back-office student list.">
+    <meta name="description" content="Liste des élèves (back-office).">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/liste_eleve.css" rel="stylesheet"/>
@@ -20,7 +20,7 @@
 
 <main>
     <a href="/account" class="btn-back">Retour</a>
-    <form method="GET" action="/student_list" style="display:flex; gap:10px; align-items:center; margin: 16px 0;">
+    <form method="GET" action="/student_list" class="list-search-form">
         <input type="text" name="search" value="{{ search|default('') }}"
                placeholder="Rechercher un élève..." class="search-bar">
         <button type="submit" class="btn">Rechercher</button>
@@ -53,27 +53,27 @@
                 <td>{{ u.Email }}</td>
                 <td>
                     <span class="badge">
-                        {% if u.Role == 0 %}Student
-                        {% elseif u.Role == 1 %}Pilot
+                        {% if u.Role == 0 %}Étudiant
+                        {% elseif u.Role == 1 %}Pilote
                         {% elseif u.Role == 2 %}Admin
-                        {% else %}Unknown{% endif %}
+                        {% else %}Inconnu{% endif %}
                     </span>
                 </td>
                 <td>{{ u.Date_naissance|default('') }}</td>
                 <td>{{ u.Formation|default('') }}</td>
                 <td>{{ u.Description|default('') }}</td>
                 <td>
-                    <a href="/eleve?id={{ u.Id_user }}" class="btn-edit">Edit</a>
-                    <form method="POST" action="/eleve" style="display:inline"
+                    <a href="/eleve?id={{ u.Id_user }}" class="btn-edit">Modifier</a>
+                    <form method="POST" action="/eleve" class="inline-form"
                           onsubmit="return confirm('Supprimer {{ u.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ u.Id_user }}">
-                        <button type="submit" class="btn-delete">Delete</button>
+                        <button type="submit" class="btn-delete">Supprimer</button>
                     </form>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="9">No users found.</td></tr>
+                <tr><td colspan="9">Aucun utilisateur trouvé.</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -88,8 +88,7 @@
 
             {% for i in 1..totalPages %}
                 <a href="/student_list?page={{ i }}&search={{ search|default('')|url_encode }}"
-                   class="btn" style="{{ i == pageActuelle ? 'background:#17496E;' : '' }}">
-                <a href="/student_list?page={{ i }}" class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
+                   class="pagination-btn {{ i == pageActuelle ? 'is-active' : '' }}">
                     {{ i }}
                 </a>
             {% endfor %}

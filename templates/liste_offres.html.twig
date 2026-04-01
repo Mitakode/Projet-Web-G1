@@ -4,11 +4,11 @@
     Data: Provided by DashboardController::listOffre.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Career Quest</title>
-    <meta name="description" content="Back-office offer list.">
+    <meta name="description" content="Liste des offres (back-office).">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/liste_stages.css" rel="stylesheet"/>
@@ -19,18 +19,18 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" class="btn-back" style="margin-left:10px;">Back</a>
-    <h2>Offer list ({{ totalElements is defined ? totalElements : offres|length }})</h2>
+    <a href="/account" class="btn-back u-ml-10">Retour</a>
+    <h2>Liste des offres ({{ totalElements is defined ? totalElements : offres|length }})</h2>
     <table>
         <thead>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <th>Description</th>
-                <th>Compensation (€/month)</th>
-                <th>Offer date</th>
-                <th>Duration (months)</th>
-                <th>Open positions</th>
-                <th>Company</th>
+                <th>Rémunération (€/mois)</th>
+                <th>Date de l'offre</th>
+                <th>Durée (mois)</th>
+                <th>Places disponibles</th>
+                <th>Entreprise</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -51,18 +51,18 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="/offres_de_stages?id={{ o.Id_offre }}" class="btn-edit">Edit</a>
-                    <a href="/dashboard?id-offre={{ o.Id_offre }}" class="btn-edit">Details</a>
-                    <form method="POST" action="/offres_de_stages" style="display:inline"
-                            onsubmit="return confirm('Delete {{ o.Titre }}?')">
+                    <a href="/offres_de_stages?id={{ o.Id_offre }}" class="btn-edit">Modifier</a>
+                    <a href="/dashboard?id-offre={{ o.Id_offre }}" class="btn-edit">Détails</a>
+                    <form method="POST" action="/offres_de_stages" class="inline-form"
+                            onsubmit="return confirm('Supprimer {{ o.Titre }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ o.Id_offre }}">
-                        <button type="submit" class="btn-delete">Delete</button>
+                        <button type="submit" class="btn-delete">Supprimer</button>
                     </form>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="10">No offers found.</td></tr>
+                <tr><td colspan="10">Aucune offre trouvée.</td></tr>
             {% endfor %}
         </tbody>
     </table>

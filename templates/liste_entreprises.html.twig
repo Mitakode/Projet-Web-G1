@@ -4,11 +4,11 @@
     Data: Provided by DashboardController::listEntreprise.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Career Quest</title>
-    <meta name="description" content="Back-office company list.">
+    <meta name="description" content="Liste des entreprises (back-office).">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/liste_entreprise.css" rel="stylesheet"/>
@@ -19,16 +19,16 @@
 {% include 'partials/_header.html.twig' %}
 
 <main>
-    <a href="/account" class="btn-back" style="margin-left:10px;">Back</a>
-    <h2>Company list ({{ totalElements|default(entreprises|length) }})</h2>
+    <a href="/account" class="btn-back u-ml-10">Retour</a>
+    <h2>Liste des entreprises ({{ totalElements|default(entreprises|length) }})</h2>
     <table>
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
                 <th>E-mail</th>
                 <th>Téléphone</th>
-                <th>Est actif</th>
+                <th>Actif</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -39,19 +39,19 @@
                 <td>{{ e.Description }}</td>
                 <td>{{ e.Email_contact }}</td>
                 <td>{{ e.Telephone|default('') }}</td>
-                <td>{{ e.Est_actif == 1 ? 'Yes' : 'No' }}</td>
+                <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="/entreprise?id={{ e.Id_entreprise }}" class="btn-edit">Edit</a>
-                    <form method="POST" action="/entreprise" style="display:inline"
-                        onsubmit="return confirm('Delete {{ e.Nom }}?')">
+                    <a href="/entreprise?id={{ e.Id_entreprise }}" class="btn-edit">Modifier</a>
+                    <form method="POST" action="/entreprise" class="inline-form"
+                        onsubmit="return confirm('Supprimer {{ e.Nom }} ?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="{{ e.Id_entreprise }}">
-                        <button type="submit" class="btn-delete">Delete</button>
+                        <button type="submit" class="btn-delete">Supprimer</button>
                     </form>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="10">No companies found.</td></tr>
+                <tr><td colspan="10">Aucune entreprise trouvée.</td></tr>
             {% endfor %}
         </tbody>
     </table>

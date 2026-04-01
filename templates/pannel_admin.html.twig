@@ -4,12 +4,12 @@
     Data: Provided by AccountController::index for Role=2.
 #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-    <meta name="description" content="Admin dashboard.">
+    <meta name="description" content="Tableau de bord administrateur.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/pannel_admin_style.css" rel="stylesheet"/>
     <link href="/assets/css/dashboard.css" rel="stylesheet"/>
@@ -22,82 +22,82 @@
 <main class="admin-page">
     <section class="admin-hero container">
         <div>
-            <p class="admin-kicker">Admin area</p>
-            <h1>Admin dashboard</h1>
-            <p class="admin-subtitle">Manage students, companies, internships and pilots from one centralized area.</p>
+            <p class="admin-kicker">Espace administrateur</p>
+            <h1>Tableau de bord administrateur</h1>
+            <p class="admin-subtitle">Gérez les élèves, entreprises, offres de stage et pilotes depuis un espace centralisé.</p>
         </div>
     </section>
 
     <div class="container">
         <section class="mes-informations">
-            <h2>My information</h2>
+            <h2>Mes informations</h2>
 
             <div class="info-item">
-                <label>Full name:</label>
+                <label>Nom complet :</label>
                 <p>{{ user.Nom }} {{ user.Prenom }}</p>
             </div>
 
             <div class="info-item">
-                <label>Birth date:</label>
-                <p>{{ user.Date_naissance|default('Not provided') }}</p>
+                <label>Date de naissance :</label>
+                <p>{{ user.Date_naissance|default('Non renseigné') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Program:</label>
-                <p>{{ user.Formation|default('Not provided') }}</p>
+                <label>Formation :</label>
+                <p>{{ user.Formation|default('Non renseigné') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Education level:</label>
-                <p>{{ user.Formation|default('Not provided') }}</p>
+                <label>Niveau d'études :</label>
+                <p>{{ user.Formation|default('Non renseigné') }}</p>
             </div>
 
             <div class="info-item">
-                <label>Profile description:</label>
-                <p>{{ user.Description|default('No description') }}</p>
+                <label>Description du profil :</label>
+                <p>{{ user.Description|default('Aucune description') }}</p>
             </div>
         </section>
     </div>
 
-    {% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offers', stats: statsOffres } %}
-    {% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Companies', stats: statsEntreprises } %}
-    {% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Students', stats: statsEleves } %}
+    {% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offres', stats: statsOffres } %}
+    {% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Entreprises', stats: statsEntreprises } %}
+    {% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Élèves', stats: statsEleves } %}
 
     <section class="admin-grid container">
 
         <div class="admin-card">
-            <h2>STUDENTS</h2>
-            <p>{{ eleves|length }} student{% if eleves|length != 1 %}s{% endif %} registered</p>
+            <h2>ÉLÈVES</h2>
+            <p>{{ eleves|length }} élève{% if eleves|length != 1 %}s{% endif %} inscrit{% if eleves|length != 1 %}s{% endif %}</p>
             <div class="admin-card-buttons">
-                <a href="/student_list" class="admin-btn">Edit</a>
-                <a href="/student_creation" class="admin-btn">Add</a>
+                <a href="/student_list" class="admin-btn">Modifier</a>
+                <a href="/student_creation" class="admin-btn">Ajouter</a>
             </div>
         </div>
 
         <div class="admin-card">
-            <h2>COMPANIES</h2>
-            <p>{{ entreprises|length }} compan{% if entreprises|length != 1 %}ies{% else %}y{% endif %} registered</p>
+            <h2>ENTREPRISES</h2>
+            <p>{{ entreprises|length }} entreprise{% if entreprises|length != 1 %}s{% endif %} inscrite{% if entreprises|length != 1 %}s{% endif %}</p>
             <div class="admin-card-buttons">
-                <a href="/enterprise_list" class="admin-btn">Edit</a>
-                <a href="/add_entreprise" class="admin-btn">Add</a>
+                <a href="/enterprise_list" class="admin-btn">Modifier</a>
+                <a href="/add_entreprise" class="admin-btn">Ajouter</a>
             </div>
         </div>
 
         <div class="admin-card">
-            <h2>INTERNSHIPS</h2>
-            <p>{{ offres|length }} internship{% if offres|length != 1 %}s{% endif %} registered</p>
+            <h2>OFFRES DE STAGE</h2>
+            <p>{{ offres|length }} offre{% if offres|length != 1 %}s{% endif %} enregistrée{% if offres|length != 1 %}s{% endif %}</p>
             <div class="admin-card-buttons">
-                <a href="/offer_list" class="admin-btn">Edit</a>
-                <a href="/offres_de_stages" class="admin-btn">Add</a>
+                <a href="/offer_list" class="admin-btn">Modifier</a>
+                <a href="/offres_de_stages" class="admin-btn">Ajouter</a>
             </div>
         </div>
 
         <div class="admin-card">
             <h2>PILOTS</h2>
-            <p>{{ pilotes|length }} pilot{% if pilotes|length != 1 %}s{% endif %} registered</p>
+            <p>{{ pilotes|length }} pilote{% if pilotes|length != 1 %}s{% endif %} inscrit{% if pilotes|length != 1 %}s{% endif %}</p>
             <div class="admin-card-buttons">
-                <a href="/pilotes_list" class="admin-btn">Edit</a>
-                <a href="/add_pilote" class="admin-btn">Add</a>
+                <a href="/pilotes_list" class="admin-btn">Modifier</a>
+                <a href="/add_pilote" class="admin-btn">Ajouter</a>
             </div>
         </div>
     </section>
