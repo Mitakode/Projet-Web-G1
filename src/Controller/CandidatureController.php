@@ -12,6 +12,39 @@ use PDOException;
 
 class CandidatureController
 {
+    public function success()
+    {
+        if (!Auth::check()) {
+            header('Location: /login');
+            exit;
+        }
+
+        if ((int) ($_SESSION['user']['Role'] ?? -1) !== 0) {
+            header('Location: /forbidden');
+            exit;
+        }
+
+        $idOffre = InputValidator::getInt($_GET, 'id_offre', 0, 1);
+        if ($idOffre <= 0) {
+            header('Location: /');
+            exit;
+        }
+
+        $offreModel = new OffreModel();
+        $offre = $offreModel->getById($idOffre);
+
+        if (!$offre) {
+            header('Location: /');
+            exit;
+        }
+
+        View::render('candidature_success.html.twig', [
+            'offre' => $offre,
+            'session_role' => $_SESSION['user']['Role'] ?? null,
+            'isAuth' => isset($_SESSION['user']),
+        ]);
+    }
+
     public function index()
     {
         // Récupérer l'ID de l'offre depuis l'URL
@@ -160,8 +193,7 @@ class CandidatureController
         }
 
         // 6. Redirection vers une page de succès
-        // On pourrait rediriger vers l'offre avec un message de succès
-        //header("Location: /?uri=/&success=1");
+        header('Location: /?uri=/candidature-succes&id_offre=' . $idOffre);
         exit;
     }
 }
