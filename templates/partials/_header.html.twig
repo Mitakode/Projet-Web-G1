@@ -1,45 +1,51 @@
+{#
+    Partial: _header.html.twig
+    Purpose: Main navigation header (desktop + mobile).
+    Data: Typically expects `isAuth` and a user object (some pages pass `user`, View injects `authUser`).
+#}
 <header class="navbar">
     <div class="logo">
         <a href="/">
-            <img src="/assets/images/logo.png" alt="Logo de Career Quest"/>
+            <img src="/assets/images/logo.png" alt="Career Quest logo"/>
         </a>
     </div>
 
     <div class="nav-panel">
         <div class="search-container">
             <form action="/" method="GET">
-                <input type="text" name="query" placeholder="Rechercher un stage" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
+                <input type="text" name="query" placeholder="Search for an internship" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
             </form> 
         </div>
         <div class="nav-actions">
-            <a href="/companies" class="nav-cta company-btn" aria-label="Voir les entreprises">
-                <span class="label">Entreprises</span>
+            <a href="/companies" class="nav-cta company-btn" aria-label="View companies">
+                <span class="label">Companies</span>
             </a>
 
             <div class="account">
             {% if isAuth %}
+                    {% set headerUser = user|default(authUser|default({})) %}
                     <input type="checkbox" id="account-menu-toggle" class="account-menu-toggle" aria-label="Ouvrir le menu du compte">
                     <label for="account-menu-toggle" class="account-menu-button" aria-hidden="true">
                         <div class="user-icon">
-                            <img src="/assets/images/user_icon.svg" alt="Icône de compte utilisateur"/>
+                            <img src="/assets/images/user_icon.svg" alt="User account icon"/>
                         </div>
-                        <span class="account-name">{{ user.Prenom|default('Mon compte') }}</span>
+                        <span class="account-name">{{ headerUser.Prenom|default('Mon compte') }}</span>
                         <img class="account-arrow" src="/assets/images/fleche-droite.png" alt="Ouvrir le menu du compte"/>
                     </label>
                 <div class="account-menu">
-                    <a href="/account" class="account-menu-item">Mon compte</a>
-                    <a href="/logout" class="account-menu-item">Déconnexion</a>
+                    <a href="/account" class="account-menu-item">My account</a>
+                    <a href="/logout" class="account-menu-item">Log out</a>
                 </div>
             {% else %}
                     <a href="/login" class="account-button">
-                        <span class="account-text">Connexion</span>
+                        <span class="account-text">Log in</span>
                     </a>
             {% endif %}
             </div>
         </div>
     </div>
 
-    <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Ouvrir le menu mobile">
+    <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open mobile menu">
     <label for="mobile-menu-toggle" class="mobile-fab" aria-hidden="true">
         <span></span>
     </label>
@@ -47,31 +53,31 @@
     <div class="mobile-menu">
         {% if isAuth %}
             <a class="mobile-menu-item" href="/account">
-                <img src="/assets/images/user_icon.svg" alt="Mon compte"/>
-                <span>Mon compte</span>
+                <img src="/assets/images/user_icon.svg" alt="My account"/>
+                <span>My account</span>
             </a>
             <a class="mobile-menu-item" href="/logout">
-                <span>Déconnexion</span>
+                <span>Log out</span>
             </a>
         {% else %}
             <a class="mobile-menu-item mobile-menu-item--cta" href="/login">
-                <img src="/assets/images/user_icon.svg" alt="Connexion"/>
-                <span>Connexion</span>
+                <img src="/assets/images/user_icon.svg" alt="Log in"/>
+                <span>Log in</span>
             </a>
         {% endif %}
         <label class="mobile-menu-item" for="mobile-search-toggle">
-            <img src="/assets/images/loupe.png" alt="Rechercher"/>
-            <span>Rechercher</span>
+            <img src="/assets/images/loupe.png" alt="Search"/>
+            <span>Search</span>
         </label>
     </div>
 
-    <input type="checkbox" id="mobile-search-toggle" class="mobile-search-toggle" aria-label="Ouvrir la recherche">
+    <input type="checkbox" id="mobile-search-toggle" class="mobile-search-toggle" aria-label="Open search">
     <div class="mobile-search">
         <label class="mobile-search-backdrop" for="mobile-search-toggle" aria-hidden="true"></label>
         <div class="mobile-search-box">
-            <label for="mobile-search-input" class="mobile-search-title">Rechercher</label>
+            <label for="mobile-search-input" class="mobile-search-title">Search</label>
             <form action="/" method="GET">
-                <input id="mobile-search-input" type="text" name="query" placeholder="Rechercher" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
+                <input id="mobile-search-input" type="text" name="query" placeholder="Search" class="search-bar" value="{{ searchQuery|default('')|e }}"/>
             </form>
         </div>
     </div>

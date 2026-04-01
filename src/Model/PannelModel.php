@@ -4,18 +4,27 @@ namespace App\Model;
 
 use PDO;
 
+/**
+ * Student panel data access.
+ *
+ * Aggregates user profile + stats + latest candidatures/favorites for the panel.
+ */
 class PannelModel
 {
     private $pdo;
 
-    public function __construct() // à corriger pour la connexion à la base de données
+    public function __construct() // TODO: review DB connection handling
     {
 
+    // Create a PDO connection using config constants.
     $this->pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",DB_USER,DB_PASS);
     $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
 
+    /**
+     * Get user's role.
+     */
     public function getTypeUser($id): int
     {
         $query = $this->pdo->prepare("SELECT Role FROM `Utilisateur` WHERE Id_user = ?");
@@ -24,26 +33,41 @@ class PannelModel
         return (int) $result['Role'];
     }
 
+    /**
+     * Aggregate panel data for a student.
+     *
+     * Returns:
+     * - user profile fields
+     * - basic candidature stats
+     * - last CV filename
+     * - a few skills derived from applied offers
+     * - wishlist offers
+     * - last candidatures (with rating aggregates)
+     */
     public function getUserInfos(int $id): array
     {
+        // Basic user identity/profile.
         $userrequest = $this->pdo->prepare(
             "SELECT Id_user, Nom, Prenom, Email, Date_naissance, Formation, Description FROM Utilisateur WHERE Id_user = :id"
         );
         $userrequest->execute(['id' => $id]);
         $user = $userrequest->fetch(PDO::FETCH_ASSOC) ?: [];
 
+        // Total number of candidatures.
         $statsrequest = $this->pdo->prepare(
             "SELECT COUNT(*) AS total FROM Candidater WHERE Id_user = :id"
         );
         $statsrequest->execute(['id' => $id]);
         $totalCandidatures = (int) $statsrequest->fetch(PDO::FETCH_ASSOC)['total'];
 
+        // Last uploaded CV (by candidature date).
         $cvrequest = $this->pdo->prepare(
             "SELECT Cv FROM Candidater WHERE Id_user = :id AND Cv IS NOT NULL AND Cv <> '' ORDER BY Date_ DESC LIMIT 1"
         );
         $cvrequest->execute(['id' => $id]);
         $cv = $cvrequest->fetchColumn() ?: null;
 
+        // Derive a couple of skills from the offers the student applied to.
         $competencesrequest = $this->pdo->prepare(
             "SELECT DISTINCT c.Nom
              FROM Competence c
@@ -56,6 +80,7 @@ class PannelModel
         $competencesrequest->execute(['id' => $id]);
         $competences = array_column($competencesrequest->fetchAll(PDO::FETCH_ASSOC), 'Nom');
 
+        // Wishlist offers.
         $favorisrequest = $this->pdo->prepare(
             "SELECT o.Id_offre, o.Titre, o.Description, o.Date_offre, e.Nom AS entreprise
              FROM Wishlist w
@@ -67,6 +92,7 @@ class PannelModel
         $favorisrequest->execute(['id' => $id]);
         $favoris = $favorisrequest->fetchAll(PDO::FETCH_ASSOC);
 
+        // Latest candidatures with offer/company display fields and rating aggregates.
         $candidaturesrequest = $this->pdo->prepare(
             "SELECT o.Id_offre,
                     o.Id_entreprise,
@@ -102,7 +128,7 @@ class PannelModel
             'user' => $user,
             'stats' => [
                 'total' => $totalCandidatures,
-                // A implémenter
+                // TODO: implement proper breakdown by status.
                 'en_cours' => $totalCandidatures,
                 'refusees' => 0,
             ],

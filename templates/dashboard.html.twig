@@ -1,9 +1,14 @@
+{#
+    Template: dashboard.html.twig
+    Purpose: Back-office statistics dashboard (global stats + per-offer stats panel).
+    Data: Provided by DashboardController::dashboard.
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard — Career Quest</title>
+    <title>Tableau de bord — Career Quest</title>
     <meta name="description" content="Statistiques globales et par offre.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/dashboard.css" rel="stylesheet"/>
@@ -15,54 +20,59 @@
 <main class="dashboard-page">
     <div class="dashboard-header">
         <a class="back-link" href="/account">
-            <img class="back-icon" src="/assets/images/fleche-droite.png" alt="Retour"/>
-            <span>Retour</span>
+            <img class="back-icon" src="/assets/images/fleche-droite.png" alt="Back"/>
+            <span>Back</span>
         </a>
-        <h1>Dashboard</h1>
+        <h1>Tableau de bord</h1>
     </div>
 
     {% if offerStats %}
         <section class="offer-stats">
             <div class="offer-stats-header">
-                <h2>Détails de l'offre #{{ offerStats.Id_offre }}</h2>
-                <a href="/dashboard" class="offer-stats-link">Voir les stats globales</a>
+                <h2>Offer details #{{ offerStats.Id_offre }}</h2>
             </div>
             <div class="offer-stats-title">
                 <p class="offer-stats-name">{{ offerStats.Titre }}</p>
                 <p class="offer-stats-meta">
-                    {% if offerStats.Nom_entreprise %}{{ offerStats.Nom_entreprise }}{% endif %}
+                    {% if offerStats.Nom_entreprise %}
+                        {% if offerStats.Id_entreprise is defined and offerStats.Id_entreprise %}
+                            <a class="entreprise-link" href="/company?id={{ offerStats.Id_entreprise }}">{{ offerStats.Nom_entreprise }}</a>
+                        {% else %}
+                            {{ offerStats.Nom_entreprise }}
+                        {% endif %}
+                    {% endif %}
                     {% if offerStats.Duree_mois %} • {{ offerStats.Duree_mois }} mois{% endif %}
                     {% if offerStats.Nombre_place %} • {{ offerStats.Nombre_place }} place(s){% endif %}
                 </p>
-                <a class="offer-stats-cta" href="/candidater?id_offre={{ offerStats.Id_offre }}">Voir annonce</a>
+                <a class="offer-stats-cta" href="/candidater?id_offre={{ offerStats.Id_offre }}">View listing</a>
             </div>
 
             <div class="offer-stats-grid">
                 <article class="stat-card stat-card--compact">
-                    <h3>Ajouts en wish-list</h3>
+                    <h3>Ajouts en favoris</h3>
                     <p class="stat-value">{{ offerStats.total_wishlist|default(0) }}</p>
                 </article>
                 <article class="stat-card stat-card--compact">
-                    <h3>Candidatures</h3>
+                    <h3>Applications</h3>
                     <p class="stat-value">{{ offerStats.total_candidatures|default(0) }}</p>
                 </article>
                 <article class="stat-card stat-card--compact">
-                    <h3>Date de l'offre</h3>
-                    <p class="stat-value">{{ offerStats.Date_offre|default('Non renseignée') }}</p>
+                    <h3>Offer date</h3>
+                    <p class="stat-value">{{ offerStats.Date_offre|default('Not provided') }}</p>
                 </article>
             </div>
         </section>
     {% elseif offerId %}
         <section class="offer-stats">
-            <h2>Offre introuvable</h2>
-            <p class="stat-empty">Aucune offre n'a été trouvée pour l'identifiant {{ offerId }}.</p>
-            <a href="/dashboard" class="offer-stats-link">Retour aux stats globales</a>
+            <h2>Offer not found</h2>
+            <p class="stat-empty">No offer was found for id {{ offerId }}.</p>
+            <a href="/dashboard" class="offer-stats-link">Back to global stats</a>
         </section>
     {% endif %}
 
-    {% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offres', stats: statsOffres } %}
-    {% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Entreprises', stats: statsEntreprises } %}
-    {% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Élèves', stats: statsEleves } %}
+    {% include 'partials/_stats_carousel_offres.html.twig' with { title: 'Offers', stats: statsOffres } %}
+    {% include 'partials/_stats_carousel_entreprises.html.twig' with { title: 'Companies', stats: statsEntreprises } %}
+    {% include 'partials/_stats_carousel_eleves.html.twig' with { title: 'Students', stats: statsEleves } %}
 </main>
 
 {% include 'partials/_footer.html.twig' %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Candidature envoyee - {{ offre.Titre }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/main-stylesheet.css">
+    <link rel="stylesheet" href="/assets/css/candidature_success.css">
+</head>
+<body>
+
+{% include 'partials/_header.html.twig' %}
+
+<main class="success-page">
+    <section class="success-card" aria-labelledby="success-title">
+        <p class="success-badge">Candidature envoyee</p>
+        <h1 id="success-title">Votre candidature a bien ete transmise</h1>
+
+        <div class="success-meta">
+            <p><span>Offre :</span> {{ offre.Titre }}</p>
+            <p><span>Entreprise :</span> {{ offre.Nom_entreprise|default('Entreprise inconnue') }}</p>
+        </div>
+
+        <p class="success-text">
+            L'entreprise peut maintenant consulter votre CV et votre lettre de motivation.
+        </p>
+
+        <div class="success-actions">
+            <a class="btn-primary" href="/company?id={{ offre.Id_entreprise }}">Voir l'entreprise</a>
+            <a class="btn-secondary" href="/">Retour a l'accueil</a>
+        </div>
+    </section>
+</main>
+
+{% include 'partials/_footer.html.twig' %}
+
+</body>
+</html>

@@ -57,7 +57,17 @@ hr {
     margin-top: 5px;
 }
 
-/* Table offres */
+
+.stat-card .stars-display {
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.stat-card .star {
+    font-size: 18px;
+}
+
+/* Offers table */
 table {
     width: 100%;
     border-collapse: collapse;

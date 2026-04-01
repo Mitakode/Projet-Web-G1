@@ -260,6 +260,31 @@ body {
     flex-wrap: wrap;
 }
 
+.rating-input {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    font-size: 28px;
+    color: #c2cad2;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+    line-height: 1;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label {
+    color: #f4b400;
+}
+
 .rating-form-label {
     font: 15px "Segoe UI";
     font-weight: 600;
@@ -288,12 +313,30 @@ body {
     background: #113b59;
 }
 
-.btn-voir-annonce {
+.annonce-card a.entreprise-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #17496E;
+    border: 1px solid #17496E;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.annonce-card a.entreprise-link:hover {
+    background: #0f2e45;
+    border-color: #0f2e45;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.annonce-card a.btn-voir-annonce {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 16px;
     background-color: #17496E;
-    color: white;
+    color: #ffffff;
     border-radius: 6px;
     text-decoration: none;
     font-size: 14px;
@@ -301,7 +344,7 @@ body {
     transition: background 0.2s;
 }
 
-.btn-voir-annonce:hover {
+.annonce-card a.btn-voir-annonce:hover {
     background-color: #0f2e45;
 }
 

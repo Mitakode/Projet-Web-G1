@@ -1,10 +1,15 @@
+{#
+    Template: auth/login.html.twig
+    Purpose: Login form.
+    Data: Provided by AuthController::showLogin (optional error message).
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Career Quest</title>
-    <meta name="description" content="Venez rechercher la perle rare parmi nos offres d'emploi.">
+    <meta name="description" content="Log in to manage your account and applications.">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet" />
     <link href="/assets/css/connexion-stylesheet.css" rel="stylesheet" />
 </head>
@@ -13,31 +18,31 @@
 
 {% include 'partials/_header.html.twig' %}
 
-<section>
+<main class="auth-page">
     <div class="auth-container">
 
         <div class="auth-box">
-            <h1>Connexion</h1>
+            <h1>Log in</h1>
             {% if error %}
                 <p class="auth-error">{{ error }}</p>
             {% endif %}
             <form action="/login" method="POST">
-                <label>Adresse email</label>
+                <label>Adresse e-mail</label>
                 <input type="email" name="email" required>
 
-                <label>Mot de passe</label>
+                <label>Password</label>
                 <input type="password" name="password" required>
 
                 <div class="checkbox-group">
-                    <input type="checkbox"> <span>Rester connecté</span>
+                    <input type="checkbox"> <span>Stay signed in</span>
                 </div>
 
                 <a href="#" class="forgot-pwd">Mot de passe oublié ?</a>
-                <button type="submit" class="btn">Connexion</button>
+                <button type="submit" class="auth-submit">Connexion</button>
             </form>
         </div>
     </div>
-</section>
+</main>
 
 {% include 'partials/_footer.html.twig' %}
 

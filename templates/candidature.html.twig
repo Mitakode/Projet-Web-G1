@@ -1,8 +1,13 @@
+{#
+    Template: candidature.html.twig
+    Purpose: Offer detail + candidature submission form + company rating widget.
+    Data: Provided by CandidatureController::index and CandidatureController::submit.
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Postuler - {{ offre.Titre }}</title>
+    <title>Apply - {{ offre.Titre }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="assets/css/candidature_style.css" rel="stylesheet"/>
@@ -17,38 +22,38 @@
         <h1>{{ offre.Titre }}</h1>
 
         <div class="entreprise-meta">
-            <strong>Entreprise :</strong> {{ offre.Nom_entreprise|default('Entreprise inconnue') }}
+            <strong>Company:</strong> {{ offre.Nom_entreprise|default('Unknown company') }}
         </div>
 
-        {# Note moyenne calculée côté backend + version arrondie pour le rendu des étoiles #}
+        {# Backend-provided average rating + rounded version for star rendering #}
         {% set avg = offre.note_moyenne|default(0) %}
         {% set avgRounded = avg|round(0, 'common') %}
         <section class="rating-panel">
-            <h3>Note de l'entreprise</h3>
-            {# Affichage visuel de la moyenne globale #}
-            <div class="stars-display" aria-label="Note moyenne {{ avg }}/5">
+            <h3>Company rating</h3>
+            {# Visual display of the global average #}
+            <div class="stars-display" aria-label="Average rating {{ avg }}/5">
                 {% for i in 1..5 %}
                     <span class="star {{ i <= avgRounded ? 'filled' : 'empty' }}">★</span>
                 {% endfor %}
-                <span class="rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} avis)</span>
+                <span class="rating-meta">{{ avg }}/5 ({{ offre.total_votes|default(0) }} reviews)</span>
             </div>
 
             {% if ratingStatus == 'saved' %}
-                <p class="rating-flash success">Ta note a bien été enregistrée.</p>
+                <p class="rating-flash success">Your rating has been saved.</p>
             {% elseif ratingStatus == 'forbidden' %}
-                <p class="rating-flash error">Tu dois déjà avoir candidaté à cette entreprise pour la noter.</p>
+                <p class="rating-flash error">You must have already applied to this company to rate it.</p>
             {% elseif ratingStatus == 'invalid' %}
-                <p class="rating-flash error">La note envoyée est invalide.</p>
+                <p class="rating-flash error">The submitted rating is invalid.</p>
             {% endif %}
 
             {% if canRate %}
-                {# Formulaire de notation: soumet l'offre + l'entreprise + la note 1..5 #}
+                {# Rating form: submits offer + company + a 1..5 rating #}
                 <form class="rating-form" action="/?uri=/noter-entreprise" method="post">
                     <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
                     <input type="hidden" name="id_entreprise" value="{{ offre.Id_entreprise }}">
 
-                    {# Les étoiles sont construites en radios inversés pour l'effet hover classique #}
-                    <div class="rating-input" role="radiogroup" aria-label="Noter cette entreprise">
+                    {# Stars are built as reversed radios to get the classic hover effect #}
+                    <div class="rating-input" role="radiogroup" aria-label="Rate this company">
                         {% for i in 5..1 %}
                             <input
                                 type="radio"
@@ -58,37 +63,37 @@
                                 {{ userNote is not null and userNote == i ? 'checked' : '' }}
                                 required
                             >
-                            <label for="note-{{ i }}" title="{{ i }} étoile{{ i > 1 ? 's' : '' }}">★</label>
+                            <label for="note-{{ i }}" title="{{ i }} star{{ i > 1 ? 's' : '' }}">★</label>
                         {% endfor %}
                     </div>
 
-                    <button type="submit" class="rate-submit">Enregistrer ma note</button>
+                    <button type="submit" class="rate-submit">Save my rating</button>
                 </form>
             {% else %}
-                {# Message affiché si l'élève n'a pas encore de candidature pour cette entreprise #}
-                <p class="rating-hint">La notation sera disponible après une candidature à cette entreprise.</p>
+                {# Shown when the student cannot rate yet (no prior candidature for this company) #}
+                <p class="rating-hint">Rating will be available after an application to this company.</p>
             {% endif %}
         </section>
         
         <div class="offer-meta" style="margin-top: 30px; font-size: 20px; color: #333;">
-        <strong>Date de l'offre :</strong> {{ offre.Date_offre|date("d/m/Y") }} <br>
-        <strong>Rémunération :</strong> {{ offre.Remuneration }} € <br>
-        <strong>Durée :</strong> {{ offre.Duree_mois }} mois <br>
-        <strong>Nombre de places :</strong> {{ offre.Nombre_place }}
+        <strong>Offer date:</strong> {{ offre.Date_offre|date("d/m/Y") }} <br>
+        <strong>Compensation:</strong> {{ offre.Remuneration }} € <br>
+        <strong>Duration:</strong> {{ offre.Duree_mois }} months <br>
+        <strong>Open positions:</strong> {{ offre.Nombre_place }}
         </div>
 
         <div class="description-content"  style="margin-top: 30px; font-size: 20px; color: #333;">
-        <h3>Description du poste</h3>
+        <h3>Position description</h3>
         <p>{{ offre.Description|nl2br }}</p>
         </div>
     </div>
 
     {% if isAuth and session_role == 0 %}
         {% if alreadyApplied %}
-            <p>Tu as déjà postulé à cette offre.</p>
+            <p>You have already applied to this offer.</p>
         {% else %}
             <div class="application-form">
-                <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Postuler maintenant</h2>
+                <h2 style="margin-bottom: 20px; text-align: center; color: #17496E;">Apply now</h2>
                 
                 <form action="/?uri=/candidater" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id_offre" value="{{ offre.Id_offre }}">
@@ -98,23 +103,23 @@
                         <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
                     </div>
                     <br>
-                    <label class="upload-label" for="lm">Lettre de motivation</label>
+                    <label class="upload-label" for="lm">Cover letter</label>
                     <div class="file-input-wrapper">
                         <input type="file" id="lm" name="lm" accept=".pdf,.doc,.docx" required>
                     </div>
                     <br><br>
-                    <button type="submit" class="submit-btn">Envoyer ma candidature</button>
+                    <button type="submit" class="submit-btn">Submit my application</button>
                 </form>
             </div>
         {% endif %}
 
     {% elseif isAuth and session_role > 0 %}
         <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
-            Vous n'avez pas les permissions nécessaires pour postuler à cette offre.
+            You do not have the required permissions to apply to this offer.
         </p>
     {% else %}
         <p style="margin-top: 30px; font-size: 18px; color: #555; text-align: center;">
-            Connecte-toi pour postuler à cette offre.
+            Log in to apply to this offer.
         </p>
     {% endif %}
 </main>

@@ -1,30 +1,35 @@
+{#
+    Partial: _stats_carousel_eleves.html.twig
+    Purpose: Student-related statistics carousel.
+    Data: Expects `title` and `stats` (from StatsModel).
+#}
 <section class="stats-section" data-carousel-scope>
     <div class="stats-header">
-        <h2>{{ title|default('Élèves') }}</h2>
+        <h2>{{ title|default('Students') }}</h2>
         <div class="stats-controls">
-            <button class="stats-nav" type="button" data-carousel-prev aria-label="Précédent">‹</button>
-            <button class="stats-nav" type="button" data-carousel-next aria-label="Suivant">›</button>
+            <button class="stats-nav" type="button" data-carousel-prev aria-label="Previous">‹</button>
+            <button class="stats-nav" type="button" data-carousel-next aria-label="Next">›</button>
         </div>
     </div>
 
     <div class="stats-carousel" data-carousel>
         <div class="stats-track" data-carousel-track>
             <article class="stat-card">
-                <h3>Élèves inscrits</h3>
+                <h3>Registered students</h3>
                 <p class="stat-value">{{ stats.total_eleves|default(0) }}</p>
-                <p class="stat-hint">Nombre total d'élèves</p>
+                <p class="stat-hint">Total number of students</p>
             </article>
 
             <article class="stat-card">
-                <h3>Moyenne candidatures / élève</h3>
+                <h3>Avg applications / student</h3>
                 <p class="stat-value">{{ stats.avg_candidatures|default(0)|number_format(2, ',', ' ') }}</p>
-                <p class="stat-hint">Candidatures par élève</p>
+                <p class="stat-hint">Applications per student</p>
             </article>
 
             <article class="stat-card">
-                <h3>Top élèves (candidatures)</h3>
+                <h3>Top students (applications)</h3>
                 {% if stats.top_candidatures is empty %}
-                    <p class="stat-empty">Aucune candidature enregistrée.</p>
+                    <p class="stat-empty">No application recorded.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for eleve in stats.top_candidatures %}
@@ -38,9 +43,9 @@
             </article>
 
             <article class="stat-card">
-                <h3>Top élèves (wish-list)</h3>
+                <h3>Top élèves (favoris)</h3>
                 {% if stats.top_wishlist is empty %}
-                    <p class="stat-empty">Aucune wish-list disponible.</p>
+                    <p class="stat-empty">Aucun favori disponible.</p>
                 {% else %}
                     <ul class="stat-list">
                         {% for eleve in stats.top_wishlist %}
@@ -53,6 +58,6 @@
                 {% endif %}
             </article>
         </div>
-        <div class="stats-dots" data-carousel-dots aria-label="Navigation du carrousel"></div>
+        <div class="stats-dots" data-carousel-dots aria-label="Carousel navigation"></div>
     </div>
 </section>

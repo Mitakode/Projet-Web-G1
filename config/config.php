@@ -18,17 +18,18 @@ function get_env($key, $default = null) {
 define('APP_NAME', get_env('APP_NAME', 'CareerQuest'));
 define('APP_URL', get_env('APP_URL', 'http://localhost:8000'));
 
-// Base de données
+// Database
 define('DB_HOST', get_env('DB_HOST', '90.54.20.90'));
 define('DB_NAME', get_env('DB_NAME', 'projet_db'));      
 define('DB_USER', get_env('DB_USER', 'projet_user'));   
 define('DB_PASS', get_env('DB_PASS', 'projet_pass'));   
 
-// Chemins
+// Paths
 define('BASE_PATH', dirname(__DIR__));
 define('PUBLIC_PATH', BASE_PATH . '/public');
 define('APP_PATH', BASE_PATH . '/app');
-define('UPLOADS_PATH', PUBLIC_PATH . '/uploads');
+// Stockage des uploads hors du dossier public pour éviter l'accès direct.
+define('UPLOADS_PATH', BASE_PATH . '/uploads');
 
 // Uploads
 define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);  // 5 MB

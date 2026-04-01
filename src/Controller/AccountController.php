@@ -11,8 +11,17 @@ use App\Model\EntrepriseModel;
 use App\Model\OffreModel;
 use App\Model\StatsModel;
 
+/**
+ * Account controller.
+ *
+ * Routes authenticated users to the right panel based on their role.
+ * Also handles student-only company rating submission.
+ */
 class AccountController
 {
+    /**
+     * Display the appropriate panel for the authenticated user.
+     */
     public function index()
     {
         Auth::requireAuth();
@@ -22,7 +31,7 @@ class AccountController
         $role = $user['Role'];          
  
         switch ($role) {
-            case 0: // Eleve normal
+            case 0: // Student
                 $pannelModel = new PannelModel();
 
                 $infos = $pannelModel->getUserInfos($id);
@@ -31,7 +40,7 @@ class AccountController
                 ]);
                 return;
 
-            case 1: // Pilote
+            case 1: // Pilot
                 $utilisateurModel = new UtilisateurModel();
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
@@ -49,6 +58,8 @@ class AccountController
                 $entrepriseModel  = new EntrepriseModel();
                 $offreModel       = new OffreModel();
                 $statsModel       = new StatsModel();
+
+                // Pre-compute dashboard stats for the admin panel.
                 $statsOffres = [
                     'total_offres'      => $statsModel->getTotalOffres(),
                     'total_candidatures'=> $statsModel->getTotalCandidatures(),
@@ -89,20 +100,20 @@ class AccountController
 
     public function noterEntreprise(): void
     {
-        // Si non connecté, on force la connexion avant toute action de notation.
+                // If not logged in, force authentication before allowing rating.
         if (!Auth::check()) {
             header('Location: /login');
             exit;
         }
 
         $user = Auth::user();
-        // Seuls les élèves (Role = 0) peuvent noter.
+                // Only students (Role = 0) are allowed to rate.
         if ((int) ($user['Role'] ?? -1) !== 0) {
             header('Location: /forbidden');
             exit;
         }
 
-        // La note doit arriver via formulaire POST.
+                // Rating must come from a POST form submission.
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /');
             exit;
@@ -112,10 +123,10 @@ class AccountController
         $idEntreprise = InputValidator::getInt($_POST, 'id_entreprise', 0, 1);
         $note = InputValidator::getInt($_POST, 'note', 0, 1, 5);
 
-        // Retour systématique vers la fiche de l'offre concernée.
+        // Always return to the offer page.
         $redirectUrl = '/candidater?id_offre=' . max(0, $idOffre);
 
-        // Validation des paramètres reçus.
+        // Validate received parameters.
         if ($idOffre <= 0 || $idEntreprise <= 0 || $note < 1 || $note > 5) {
             header('Location: ' . $redirectUrl . '&rating=invalid');
             exit;
@@ -123,13 +134,13 @@ class AccountController
 
         $entrepriseModel = new EntrepriseModel();
 
-        // On ne peut noter qu'une entreprise à laquelle on a déjà candidaté.
+        // Student can only rate a company they have applied to.
         if (!$entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise)) {
             header('Location: ' . $redirectUrl . '&rating=forbidden');
             exit;
         }
 
-        // Enregistrement de la note (insert ou mise à jour selon l'existant).
+        // Save rating (insert or update depending on whether it already exists).
         $entrepriseModel->noterEntreprise((int) $user['Id_user'], $idEntreprise, $note);
 
         header('Location: ' . $redirectUrl . '&rating=saved');

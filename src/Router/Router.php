@@ -6,23 +6,30 @@ use App\Controller\AccountController;
 use App\Controller\DashboardController;
 use App\Controller\CandidatureController;
 use App\Controller\EntreprisePublicController;
+use App\Controller\DocumentController;
 use App\Core\View;
 use App\Core\Auth;
 use App\Core\InputValidator;
 
+// Single entry router.
+// It dispatches requests based on the `uri` query string parameter (front-controller style).
+// NOTE: This is a simple switch-based router; for larger apps, consider a proper routing table.
 $uri    = (string) ($_GET['uri'] ?? '/');
 $uri = trim($uri);
-// URI de route: autorise uniquement /, lettres, chiffres, _ et -.
+// Route URI: only allow /, letters, digits, underscore, dash and nested segments.
+// This prevents unexpected characters from being reflected or used for routing.
 if (!InputValidator::regex($uri, '#^/[A-Za-z0-9_\-/]*$#')) {
     $uri = '/';
 }
 $method = $_SERVER['REQUEST_METHOD'];
 
+// Instantiate controllers once; some routes will reuse the same instance.
 $authController    = new AuthController();
 $homeController    = new HomeController();
 $accountController = new AccountController();
 $candidatureController = new CandidatureController();
 $entreprisePublicController = new EntreprisePublicController();
+$documentController = new DocumentController();
 
 switch ($uri) {
     case '/':
@@ -30,6 +37,7 @@ switch ($uri) {
         break;
 
     case '/login':
+        // If already logged in, avoid showing the login form.
         if (Auth::check()) {
             header('Location: /');
         } elseif ($method == 'GET') {
@@ -44,6 +52,7 @@ switch ($uri) {
         break;
 
     case '/register':
+        // Registration is currently redirected to login (feature not exposed here).
         header('Location: /login');
         break;
 
@@ -52,6 +61,7 @@ switch ($uri) {
         break;
 
     case '/noter-entreprise':
+        // Only accept POST to rate a company; otherwise redirect back.
         if ($method === 'POST') {
             $accountController->noterEntreprise();
         } else {
@@ -65,10 +75,12 @@ switch ($uri) {
         break;
     
     case '/addWishlist':
+        // Adds an offer/company to the wishlist.
         $homeController->addWishlist();
         break;
 
     case '/deleteWishlist':
+        // Removes an item from the wishlist.
         $homeController->deleteWishlist();
         break;
 
@@ -92,6 +104,7 @@ switch ($uri) {
     case '/pilote':
     case '/add_pilote':
     case '/dashboard':
+        // Admin dashboard routes are grouped here and dispatched using match().
         $dashboardController = new DashboardController();
         match ($uri) {
             '/student_list'    => $dashboardController->index(),
@@ -110,6 +123,7 @@ switch ($uri) {
         break;
         
     case '/candidater':
+        // Candidate page: GET shows the page, POST submits a candidature.
         if ($method === 'POST') {
             $candidatureController->submit();
         } else {
@@ -117,7 +131,26 @@ switch ($uri) {
         }
         break;
 
+    case '/candidature-succes':
+        if ($method === 'GET') {
+            $candidatureController->success();
+        } else {
+            header('Location: /');
+            exit;
+        }
+        break;
+
+    case '/document':
+        if ($method !== 'GET') {
+            http_response_code(405);
+            break;
+        }
+
+        $documentController->download();
+        break;
+
     case '/forbidden':
+        // Explicit 403 page.
         http_response_code(403);
         View::render('Forbidden.html.twig');
         break;
