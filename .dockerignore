@@ -1,0 +1,9 @@
+.git
+.github
+vendor
+tests
+config/db_data
+config/uploads
+.idea
+.phpunit.result.cache
+phpunit.xml
