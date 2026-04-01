@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
             // Read data attributes configured in the HTML.
             const offerId = this.getAttribute('data-id');
             const action = this.getAttribute('data-action'); 
+
+            // Defensive check: if markup is missing required attributes, do nothing.
+            if (!offerId || !action) {
+                console.error('Wishlist toggle: missing data-id or data-action.');
+                return;
+            }
             
             // Decide which endpoint to call based on current state.
             const url = action === 'add' ? '/addWishlist?Id_offre=' + offerId : '/deleteWishlist?Id_offre=' + offerId;
@@ -38,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             icon.classList.add('fa-regular');
                         }
                     } else {
-                        console.error("Erreur lors de la modification des favoris.");
+                        // Server rejected the action (unauthorized or invalid id).
+                        console.error('Wishlist update failed (unauthorized or invalid offer id).');
                     }
                 })
                 // Network / parsing errors.

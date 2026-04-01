@@ -1,53 +1,83 @@
+{#
+    Template: companies.html.twig
+    Purpose: Public company directory (search + pagination).
+    Data: Provided by EntreprisePublicController::index.
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Career Quest — Entreprises</title>
+    <title>Career Quest — Companies</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/companies.css" rel="stylesheet"/>
 </head>
 <body>
+    {# Shared site header (navigation/auth links). #}
     {% include 'partials/_header.html.twig' %}
 <main>
-    <h2>Rechercher une entreprise</h2>
+    {# Page title for the public company directory. #}
+    <h2>Search for a company</h2>
 
+    {#
+        Search form
+        - Uses GET so the search term is visible in the URL and can be paginated.
+        - `search` is provided by the controller and echoed back into the input.
+    #}
     <form class="search-form" method="GET" action="/companies">
         <input type="text" name="search" value="{{ search }}" placeholder="Nom, description, e-mail...">
         <button type="submit">Rechercher</button>
     </form>
 
+    {#
+        Results table
+        - `entreprises` is an array of company rows.
+        - Keep display-only formatting here (defaults, labels), not business rules.
+    #}
     <table>
         <thead>
             <tr>
-                <th>Nom</th>
+                <th>Name</th>
                 <th>Description</th>
                 <th>E-mail</th>
                 <th>Téléphone</th>
                 <th>Active</th>
-                <th>Fiche</th>
+                <th>Profile</th>
             </tr>
         </thead>
         <tbody>
+            {# Render each company row; show an empty-state row when none match. #}
             {% for e in entreprises %}
             <tr>
+                {# Basic columns (names match model/controller output). #}
                 <td>{{ e.Nom }}</td>
                 <td>{{ e.Description }}</td>
                 <td>{{ e.Email_contact }}</td>
+
+                {# Phone can be NULL/empty; show an em dash as a neutral placeholder. #}
                 <td>{{ e.Telephone|default('—') }}</td>
-                <td>{{ e.Est_actif == 1 ? 'Oui' : 'Non' }}</td>
+
+                {# Human label for an integer/boolean-like column. #}
+                <td>{{ e.Est_actif == 1 ? 'Yes' : 'No' }}</td>
                 <td>
+                    {# Link to the public company details page. #}
                     <a href="/company?id={{ e.Id_entreprise }}">
-                        <button class="btn-edit">Voir la fiche</button>
+                        <button class="btn-edit">View profile</button>
                     </a>
                 </td>
             </tr>
             {% else %}
-                <tr><td colspan="6">Aucune entreprise trouvée.</td></tr>
+                {# Empty state: no company matches the search term. #}
+                <tr><td colspan="6">No company found.</td></tr>
             {% endfor %}
         </tbody>
     </table>
 
+    {#
+        Pagination
+        - Render only when `totalPages` is provided and > 1.
+        - Preserve the search query across page links.
+    #}
     {% if totalPages is defined and totalPages > 1 %}
         <div class="pagination-container">
             {% if pageActuelle > 1 %}
@@ -73,6 +103,8 @@
         </div>
     {% endif %}
 </main>
+
+{# Shared site footer. #}
 {% include 'partials/_footer.html.twig' %}
 </body>
 </html>

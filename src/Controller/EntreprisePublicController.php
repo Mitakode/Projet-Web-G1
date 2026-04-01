@@ -6,18 +6,27 @@ use App\Core\InputValidator;
 use App\Model\EntrepriseModel;
 use App\Core\View;
 
+/**
+ * Public companies controller.
+ *
+ * Provides a searchable/paginated company list and a company detail page.
+ */
 class EntreprisePublicController
 {
+    /**
+     * List companies with search + pagination.
+     */
     public function index()
     {
         $model = new EntrepriseModel();
         $search = trim((string) ($_GET['search'] ?? ''));
-        // Recherche entreprise: même jeu de caractères autorisés que l'accueil.
+        // Company search: same allowed character set as the home page.
         if (!InputValidator::regex($search, '/^[\p{L}\p{N}\s\-\'".,()@]{0,100}$/u')) {
             $search = '';
         }
         $entreprises = $search ? $model->search($search) : $model->getAll();
 
+        // In-memory pagination for the result list.
         $elementsParPage = 20;
         $pageActuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         if ($pageActuelle < 1) {
@@ -46,12 +55,16 @@ class EntreprisePublicController
         ]);
     }
 
+    /**
+     * Show company profile + its offers and computed stats.
+     */
     public function fiche()
     {
         $model = new EntrepriseModel();
         $id = InputValidator::getInt($_GET, 'id', 0, 1);
 
         if ($id <= 0) {
+            // Invalid company id: return to list.
             header('Location: /companies');
             exit;
         }

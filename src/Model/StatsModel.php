@@ -4,12 +4,16 @@ namespace App\Model;
 
 use PDO;
 
+/**
+ * Statistics queries used in the admin dashboard.
+ */
 class StatsModel
 {
     private PDO $pdo;
 
     public function __construct()
     {
+        // Create a PDO connection using config constants.
         $this->pdo = new PDO(
             "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",
             DB_USER,
@@ -18,24 +22,36 @@ class StatsModel
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * Total number of offers.
+     */
     public function getTotalOffres(): int
     {
         $stmt = $this->pdo->query("SELECT COUNT(*) FROM Offre");
         return (int) $stmt->fetchColumn();
     }
 
+    /**
+     * Total number of candidatures.
+     */
     public function getTotalCandidatures(): int
     {
         $stmt = $this->pdo->query("SELECT COUNT(*) FROM Candidater");
         return (int) $stmt->fetchColumn();
     }
 
+    /**
+     * Total number of companies.
+     */
     public function getTotalEntreprises(): int
     {
         $stmt = $this->pdo->query("SELECT COUNT(*) FROM Entreprise");
         return (int) $stmt->fetchColumn();
     }
 
+    /**
+     * Total number of students.
+     */
     public function getTotalEleves(): int
     {
         $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM Utilisateur WHERE Role = :role");
@@ -78,6 +94,7 @@ class StatsModel
 
     public function getOffreDurationBreakdown(): array
     {
+        // Returns a distribution of offers by duration (in months).
         $stmt = $this->pdo->query("
             SELECT Duree_mois AS duree_mois, COUNT(*) AS total
             FROM Offre
@@ -184,6 +201,7 @@ class StatsModel
 
     public function getOfferStats(int $id): array|false
     {
+        // Per-offer stats used on the dashboard detail widget.
         $stmt = $this->pdo->prepare("
             SELECT 
                 o.Id_offre,

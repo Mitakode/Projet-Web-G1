@@ -10,6 +10,12 @@ use App\Model\CandidatureModel;
 use App\Model\EntrepriseModel;
 use PDOException;
 
+/**
+ * Candidature controller.
+ *
+ * Shows an offer detail page and handles candidature submission with file
+ * uploads (CV + letter).
+ */
 class CandidatureController
 {
     public function success()
@@ -52,17 +58,17 @@ class CandidatureController
 
         $offreModel = new OffreModel();
         $offre = $offreModel->getById($id);
-        
-        // Si l'offre n'existe pas, redirection vers l'accueil
+
+        // If the offer does not exist, redirect to home.
         if (!$offre) {
             header('Location: /');
             exit;
         }
 
-        // Données de notation injectées dans la vue:
-        // - canRate: droit de noter ou non
-        // - userNote: note déjà posée par l'élève (pré-sélection)
-        // - ratingStatus: message de retour après soumission
+        // Rating data injected into the view:
+        // - canRate: whether the student has the right to rate this company
+        // - userNote: existing rating by the student (pre-selected value)
+        // - ratingStatus: feedback status after submission
         $user = Auth::user();
         $canRate = false;
         $userNote = null;
@@ -73,8 +79,9 @@ class CandidatureController
             $idEntreprise = (int)($offre['Id_entreprise'] ?? 0);
 
             if ($idEntreprise > 0) {
-                $canRate = $entrepriseModel->canUserRateEntreprise((int)$user['Id_user'], $idEntreprise);
-                $userNote = $entrepriseModel->getUserNoteEntreprise((int)$user['Id_user'], $idEntreprise);
+                // Student can rate only if they already applied to this company's offers.
+                $canRate = $entrepriseModel->canUserRateEntreprise((int) $user['Id_user'], $idEntreprise);
+                $userNote = $entrepriseModel->getUserNoteEntreprise((int) $user['Id_user'], $idEntreprise);
             }
 
             $candidatureModel = new CandidatureModel();
@@ -94,15 +101,21 @@ class CandidatureController
         ]);
     }
 
+    /**
+     * Handle candidature submission.
+     *
+     * Requires authentication and student role; stores uploaded files into /uploads.
+     */
     public function submit()
     {
 
-        // vérifie si l'utilisateur est bien connecté
+        // Ensure the user is authenticated.
         if (!Auth::check()) {
             header('Location: /login');
             exit;
         }
 
+        // Only students can apply.
         if ((int)$_SESSION['user']['Role'] !== 0) {
             header('Location: /');
             exit;
@@ -111,46 +124,47 @@ class CandidatureController
 
         $idUser = $_SESSION['user']['Id_user'];
 
-        //Vérification de la méthode HTTP
+        // Ensure the request is a POST.
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /');
             exit;
         }
 
-        // 3. Récupération des données du formulaire
+        // Read form data.
         $idOffre = InputValidator::getInt($_POST, 'id_offre', 0, 1);
 
         if ($idOffre <= 0) {
-            die("ID de l'offre invalide.");
+            die("Invalid offer ID.");
         }
 
-        $uploadDir = defined('UPLOADS_PATH') ? (string) UPLOADS_PATH : (dirname(__DIR__, 2) . '/uploads/');
-        $uploadDir = rtrim($uploadDir, '/') . '/';
+        // `__DIR__` is src/Controller; go up to the project root.
+        $uploadDir = dirname(__DIR__, 2) . '/uploads/';
 
+        // Ensure upload directory exists and is writable.
         if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
-            die("Impossible de créer le dossier d'upload.");
+            die("Unable to create the upload directory.");
         }
 
         if (!is_writable($uploadDir)) {
-            die("Le dossier d'upload n'est pas accessible en écriture.");
+            die("The upload directory is not writable.");
         }
 
         $candidatureModel = new CandidatureModel();
         if ($candidatureModel->candidatureExists($idOffre, $idUser)) {
-            die("Vous avez déjà candidaté à cette offre.");
+            die("You have already applied to this offer.");
         }
       
 
-        // Fonction pour générer un nom unique et sécurisé
+        // Helper to generate a unique and safe filename.
         $generateFileName = function($file, $prefix) {
             $extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
             $allowedExtensions = ['pdf', 'doc', 'docx'];
-            // Extension: alphabet/chiffres courts puis whitelist métier.
+            // Extension: small alphanumeric value + business whitelist.
             if (!InputValidator::regex($extension, '/^[a-z0-9]{2,5}$/') || !in_array($extension, $allowedExtensions, true)) {
-                die("Format de fichier non autorisé (PDF, DOC, DOCX acceptés).");
+                die("Unsupported file format (PDF, DOC, DOCX allowed).");
             }
             
-            // Génération UUID v4
+            // Generate a random UUID v4 for collision-resistant names.
             $data = random_bytes(16);
             $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
             $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
@@ -160,33 +174,36 @@ class CandidatureController
         };
 
 
-        // Vérification présence et erreurs, Modif nom + "Upload"
+        // Validate presence and upload status, then move to the upload directory.
         if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
             $cvName = $generateFileName($_FILES['cv'], 'cv');
             if (!move_uploaded_file($_FILES['cv']['tmp_name'], $uploadDir . $cvName)) {
-                die("Erreur lors de l'upload du CV.");
+                die("Error while uploading the CV.");
             }
         } else {
-            die("Erreur sur le fichier CV");
+            die("Error with the CV file.");
         }
 
         if (isset($_FILES['lm']) && $_FILES['lm']['error'] === UPLOAD_ERR_OK) {
             $lmName = $generateFileName($_FILES['lm'], 'lm');
             if (!move_uploaded_file($_FILES['lm']['tmp_name'], $uploadDir . $lmName)) {
+                // Best-effort cleanup when the second upload fails.
                 @unlink($uploadDir . $cvName);
-                die("Erreur lors de l'upload de la lettre de motivation.");
+                die("Error while uploading the cover letter.");
             }
         } else {
             @unlink($uploadDir . $cvName);
-            die("Erreur sur le fichier Lettre de Motivation");
+            die("Error with the cover letter file.");
         }
 
         try {
+            // Persist the candidature record with stored filenames.
             $candidatureModel->createCandidature($idOffre, $idUser, $cvName, $lmName);
         } catch (PDOException $e) {
+            // If DB write fails, remove uploaded files to avoid orphan data.
             @unlink($uploadDir . $cvName);
             @unlink($uploadDir . $lmName);
-            die("Impossible d'enregistrer la candidature.");
+            die("Unable to save the application.");
         }
 
         // 6. Redirection vers une page de succès

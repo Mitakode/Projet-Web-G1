@@ -1,9 +1,14 @@
+{#
+    Template: offre.html.twig
+    Purpose: Back-office offer CRUD form (create/edit).
+    Data: Provided by DashboardController::Offre.
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRUD — Offres de stages</title>
+    <title>CRUD — Internship offers</title>
     <link href="/assets/css/main-stylesheet.css" rel="stylesheet"/>
     <link href="/assets/css/CRUD_style.css" rel="stylesheet"/>
 </head>
@@ -11,7 +16,7 @@
 
 {% include 'partials/_header.html.twig' %}
 
-<h1>{{ editOffre ? 'Modifier l\'offre' : 'Ajouter une offre' }}</h1>
+<h1>{{ editOffre ? 'Edit offer' : 'Add an offer' }}</h1>
 
 <form method="POST" action="/offres_de_stages" class="main-form">
     <input type="hidden" name="action" value="{{ editOffre ? 'edit' : 'add' }}">
@@ -19,27 +24,27 @@
         <input type="hidden" name="id" value="{{ editOffre.Id_offre }}">
     {% endif %}
 
-    <label>Titre</label>
+    <label>Title</label>
     <input type="text" name="titre" value="{{ editOffre.Titre|default('') }}" required>
 
     <label>Description</label>
     <input type="text" name="description" value="{{ editOffre.Description|default('') }}" required>
 
-    <label>Rémunération</label>
+    <label>Compensation</label>
     <input type="number" step="0.01" name="remuneration" value="{{ editOffre.Remuneration|default('') }}" required>
 
-    <label>Date de l'offre</label>
+    <label>Offer date</label>
     <input type="date" name="date_offre" value="{{ editOffre.Date_offre|default('') }}" required>
 
-    <label>Durée (mois)</label>
+    <label>Duration (months)</label>
     <input type="number" name="duree_mois" value="{{ editOffre.Duree_mois|default('') }}" required>
 
-    <label>Nombre de places</label>
+    <label>Open positions</label>
     <input type="number" name="nombre_place" value="{{ editOffre.Nombre_place|default('') }}" required>
 
-    <label>Entreprise</label>
+    <label>Company</label>
     <select name="id_entreprise" required>
-        <option value="">-- Choisir une entreprise --</option>
+        <option value="">-- Select a company --</option>
         {% for e in entreprises %}
             <option value="{{ e.Id_entreprise }}" 
                 {{ editOffre.Id_entreprise == e.Id_entreprise ? 'selected' : '' }}>
@@ -49,12 +54,12 @@
     </select>
 
     <button type="submit" class="btn btn-add">
-        {{ editOffre ? 'Enregistrer' : 'Ajouter' }}
+        {{ editOffre ? 'Save' : 'Add' }}
     </button>
     {% if editOffre %}
-        <a href="/offer_list" style="margin-left:10px;">Annuler</a>
+        <a href="/offer_list" style="margin-left:10px;">Cancel</a>
     {% else %}
-        <a href="/account" style="margin-left:10px;">Annuler</a>
+        <a href="/account" style="margin-left:10px;">Cancel</a>
     {% endif %}
 </form>
 

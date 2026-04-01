@@ -1,5 +1,10 @@
+{#
+    Template: mentions_legales.html.twig
+    Purpose: Legal notice page.
+    Data: Static page (no dynamic variables required).
+#}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,8 +17,8 @@
 {% include 'partials/_header.html.twig' %}
 <main class="legal-page">
     <section class="legal-header">
-        <h1>Mentions légales</h1>
-        <p>Dernière mise à jour : {{ "now"|date("d/m/Y") }}</p>
+        <h1>Legal notices</h1>
+        <p>Last updated: {{ "now"|date("d/m/Y") }}</p>
     </section>
 
     <section class="legal-card">
@@ -24,109 +29,109 @@
     </section>
 
     <section class="legal-card">
-        <h2>2. Directeur de la publication</h2>
-        <p>Le directeur de la publication est le représentant légal de la société Career Quest SAS. Pour toute question relative au contenu éditorial, vous pouvez écrire à : <a href="mailto:communication@careerquest.fr">communication@careerquest.fr</a>.</p>
+        <h2>2. Publication director</h2>
+        <p>The publication director is the legal representative of Career Quest SAS. For any questions related to editorial content, you can write to: <a href="mailto:communication@careerquest.fr">communication@careerquest.fr</a>.</p>
     </section>
 
     <section class="legal-card">
-        <h2>3. Hébergement</h2>
-        <p>Le site est hébergé par <strong>OVHcloud</strong> (OVH SAS), immatriculée en France, dont le siège est 2 rue Kellermann, 59100 Roubaix, France.</p>
-        <p>Coordonnées de l'hébergeur : <a href="https://www.ovhcloud.com">https://www.ovhcloud.com</a> — Téléphone : +33 9 72 10 10 07.</p>
-        <p>Les données techniques (logs, sauvegardes, infrastructures) sont conservées chez l'hébergeur selon les politiques de ce dernier et les dispositions contractuelles en vigueur.</p>
+        <h2>3. Hosting</h2>
+        <p>The website is hosted by <strong>OVHcloud</strong> (OVH SAS), registered in France, with its headquarters at 2 rue Kellermann, 59100 Roubaix, France.</p>
+        <p>Host contact details: <a href="https://www.ovhcloud.com">https://www.ovhcloud.com</a> — Phone: +33 9 72 10 10 07.</p>
+        <p>Technical data (logs, backups, infrastructure) is stored by the host according to its policies and the applicable contractual provisions.</p>
     </section>
 
     <section class="legal-card">
-        <h2>4. Propriété intellectuelle</h2>
-        <p>Les contenus présents sur le site (textes, images, illustrations, logos, vidéos, mises en page, bases de données, code source) sont protégés par le droit de la propriété intellectuelle et sont la propriété exclusive de Career Quest SAS ou de leurs auteurs respectifs.</p>
-        <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sauf autorisation écrite préalable de Career Quest SAS. La reprise d'extraits est toutefois permise dans un cadre strictement citationnel et sous réserve d'une mention claire de la source.</p>
-        <p>Une demande d'autorisation de réutilisation doit être adressée à : <a href="mailto:copyright@careerquest.fr">copyright@careerquest.fr</a>.</p>
+        <h2>4. Intellectual property</h2>
+        <p>Content available on the website (texts, images, illustrations, logos, videos, layout, databases, source code) is protected by intellectual property laws and is the exclusive property of Career Quest SAS or its respective authors.</p>
+        <p>Any reproduction, representation, modification, publication, or adaptation of all or part of the website elements, by any means or process, is prohibited unless prior written authorization is obtained from Career Quest SAS. Reuse of excerpts is permitted only for quotation purposes and provided that the source is clearly indicated.</p>
+        <p>Requests for reuse authorization must be sent to: <a href="mailto:copyright@careerquest.fr">copyright@careerquest.fr</a>.</p>
     </section>
 
     <section class="legal-card">
-        <h2>5. Marques et logos</h2>
-        <p>Les logos, noms commerciaux et marques figurant sur le site sont la propriété de Career Quest SAS ou de tiers ayant autorisé leur exploitation. Leur reproduction totale ou partielle est strictement interdite sans l'accord express des titulaires.</p>
+        <h2>5. Trademarks and logos</h2>
+        <p>Logos, trade names and trademarks displayed on the website are the property of Career Quest SAS or third parties who have authorized their use. Any total or partial reproduction is strictly prohibited without the express consent of the rights holders.</p>
     </section>
 
     <section class="legal-card">
-        <h2>6. Accès au site et disponibilité</h2>
-        <p>Career Quest met en œuvre les moyens raisonnables pour assurer un accès de qualité au site. Toutefois, Career Quest ne saurait garantir une disponibilité continue et ininterrompue. Des interruptions peuvent être nécessaires pour des opérations de maintenance ou pour des raisons techniques hors du contrôle de Career Quest.</p>
-        <p>Career Quest n'est pas responsable des conséquences d'une indisponibilité temporaire du site, ni des pertes de données qui pourraient en résulter. Les utilisateurs sont encouragés à conserver une copie des informations qui leur sont utiles.</p>
+        <h2>6. Website access and availability</h2>
+        <p>Career Quest uses reasonable means to provide quality access to the website. However, Career Quest cannot guarantee continuous and uninterrupted availability. Interruptions may be necessary for maintenance operations or for technical reasons beyond Career Quest's control.</p>
+        <p>Career Quest is not responsible for the consequences of temporary unavailability of the website, nor for any resulting data loss. Users are encouraged to keep a copy of the information that is useful to them.</p>
     </section>
 
     <section class="legal-card">
-        <h2>7. Données personnelles</h2>
-        <p>Le traitement des données personnelles est effectué conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés. Career Quest est responsable des traitements mis en œuvre sur le site.</p>
-        <p>Finalités : gestion des comptes utilisateurs, gestion des candidatures, envoi d'informations commerciales pertinentes (avec consentement), amélioration des services et analyses statistiques.</p>
-        <p>Base légale : exécution d'un contrat, consentement de la personne concernée, respect d'une obligation légale ou intérêt légitime selon la finalité.</p>
-        <p>Durée de conservation : les données sont conservées pendant la durée nécessaire aux finalités indiquées et selon les délais légaux applicables. Les données de candidature sont conservées pendant une durée limitée à 3 ans sauf consentement contraire de la personne concernée.</p>
-        <p>Destinataires : les équipes internes habilitées, les prestataires techniques sous contrat de sous-traitance (hébergeur, outils d'analyse, emailings) et, le cas échéant, les partenaires impliqués dans le processus de recrutement.</p>
-        <p>Vos droits : vous pouvez exercer vos droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité en contactant le Délégué à la Protection des Données : <a href="mailto:dpo@careerquest.fr">dpo@careerquest.fr</a>. Vous pouvez également introduire une réclamation auprès de la CNIL.</p>
-        <p>Transferts hors UE : en cas de transfert international, Career Quest s'engage à mettre en place des garanties appropriées (clauses contractuelles types, etc.) pour assurer un niveau de protection adapté.</p>
+        <h2>7. Personal data</h2>
+        <p>Personal data is processed in accordance with the General Data Protection Regulation (GDPR) and the French Data Protection Act. Career Quest is the data controller for the processing carried out on the website.</p>
+        <p>Purposes: user account management, application management, sending relevant commercial information (with consent), service improvements and statistical analysis.</p>
+        <p>Legal basis: performance of a contract, consent of the data subject, compliance with a legal obligation, or legitimate interest depending on the purpose.</p>
+        <p>Retention period: data is kept for the time necessary to achieve the stated purposes and in accordance with applicable legal periods. Application data is kept for a maximum of 3 years unless the data subject objects.</p>
+        <p>Recipients: authorized internal teams, technical service providers acting as processors (host, analytics tools, email services) and, where applicable, partners involved in the recruitment process.</p>
+        <p>Your rights: you can exercise your rights of access, rectification, erasure, restriction, objection and portability by contacting the Data Protection Officer: <a href="mailto:dpo@careerquest.fr">dpo@careerquest.fr</a>. You may also lodge a complaint with the CNIL.</p>
+        <p>Transfers outside the EU: in the event of an international transfer, Career Quest undertakes to implement appropriate safeguards (standard contractual clauses, etc.) to ensure an adequate level of protection.</p>
     </section>
 
     <section class="legal-card">
-        <h2>8. Cookies et traceurs</h2>
-        <p>Le site utilise des cookies et traceurs à des fins techniques, d'analyse et, avec votre consentement, de ciblage publicitaire. Les cookies nécessaires au fonctionnement du site sont déposés dès votre visite. Les cookies facultatifs font l'objet d'une demande de consentement préalable.</p>
-        <p>Catégories :
+        <h2>8. Cookies and trackers</h2>
+        <p>The website uses cookies and trackers for technical purposes, analytics and, with your consent, advertising targeting. Cookies necessary for the website to function are stored as soon as you visit. Optional cookies require prior consent.</p>
+        <p>Categories:
             <ul>
-                <li>Cookies strictement nécessaires (connexion, sécurité) ;</li>
-                <li>Cookies de performance et d'analyse (statistiques anonymes) ;</li>
-                <li>Cookies de fonctionnalité (préférences) ;</li>
-                <li>Cookies publicitaires et de ciblage.</li>
+                <li>Strictly necessary cookies (login, security);</li>
+                <li>Performance and analytics cookies (anonymous statistics);</li>
+                <li>Functionality cookies (preferences);</li>
+                <li>Advertising and targeting cookies.</li>
             </ul>
         </p>
-        <p>Vous pouvez gérer vos préférences cookies depuis la bannière affichée lors de votre première visite ou via les paramètres de votre navigateur. Pour refuser les cookies tiers (publicité et analytics), vous pouvez suivre les liens de gestion des consentements fournis par les services concernés.</p>
+        <p>You can manage your cookie preferences from the banner displayed on your first visit or via your browser settings. To refuse third-party cookies (advertising and analytics), you can follow the consent management links provided by the relevant services.</p>
     </section>
 
     <section class="legal-card">
-        <h2>9. Sécurité</h2>
-        <p>Career Quest met en œuvre des mesures techniques et organisationnelles adaptées pour protéger les données personnelles contre la destruction, la perte, l'altération, ou l'accès non autorisé. Cela inclut l'utilisation de connexions chiffrées (HTTPS), des sauvegardes régulières et des contrôles d'accès internes.</p>
-        <p>Malgré ces mesures, aucune méthode de transmission ou de stockage n'est totalement sécurisée. En cas d'incident concernent les données personnelles, Career Quest s'engage à notifier les personnes concernées et les autorités compétentes conformément à la réglementation applicable.</p>
+        <h2>9. Security</h2>
+        <p>Career Quest implements appropriate technical and organizational measures to protect personal data against destruction, loss, alteration or unauthorized access. This includes the use of encrypted connections (HTTPS), regular backups and internal access controls.</p>
+        <p>Despite these measures, no method of transmission or storage is completely secure. In the event of an incident involving personal data, Career Quest undertakes to notify the affected individuals and the competent authorities in accordance with applicable regulations.</p>
     </section>
 
     <section class="legal-card">
-        <h2>10. Traitement des candidatures</h2>
-        <p>Les candidatures transmises via le site sont traitées par le service recrutement pour répondre aux offres et constituer un vivier de candidatures. Les informations demandées sont limitées à l'essentiel pour évaluer la candidature (CV, lettre de motivation, coordonnées).</p>
-        <p>Les personnes candidates seront informées du délai de conservation et de leurs droits au moment de la transmission de leur dossier. En l'absence de réponse de notre part, la candidature pourra être conservée, sauf demande de suppression.</p>
+        <h2>10. Application processing</h2>
+        <p>Applications submitted through the website are processed by the recruitment team to respond to job offers and to build an application pool. The information requested is limited to what is necessary to assess the application (CV, cover letter, contact details).</p>
+        <p>Candidates will be informed of the retention period and their rights at the time their file is submitted. If there is no response from us, the application may be kept unless a deletion request is made.</p>
     </section>
 
     <section class="legal-card">
-        <h2>11. Liens vers des sites tiers</h2>
-        <p>Le site peut contenir des liens vers des sites tiers. Career Quest n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leurs pratiques de confidentialité ou leurs conditions d'utilisation. L'ouverture de liens externes se fait aux risques et périls de l'utilisateur.</p>
+        <h2>11. Links to third-party websites</h2>
+        <p>The website may contain links to third-party websites. Career Quest has no control over those websites and disclaims any responsibility for their content, privacy practices or terms of use. Accessing external links is at the user's own risk.</p>
     </section>
 
     <section class="legal-card">
-        <h2>12. Modération et commentaires</h2>
-        <p>Les commentaires et contenus publiés par les utilisateurs sur le site doivent respecter la loi et les bonnes mœurs. Career Quest se réserve le droit de modérer, supprimer ou mettre hors ligne tout contenu contraire à ces règles sans préavis.</p>
+        <h2>12. Moderation and comments</h2>
+        <p>Comments and content published by users on the website must comply with the law and basic standards of conduct. Career Quest reserves the right to moderate, delete or take offline any content that violates these rules without prior notice.</p>
     </section>
 
     <section class="legal-card">
-        <h2>13. Sous-traitance</h2>
-        <p>Career Quest peut faire appel à des sous-traitants pour l'hébergement, la maintenance, l'envoi d'emails ou l'analyse statistique. Dans ce cas, Career Quest demeure responsable des obligations liées à la protection des données et prend soin de contractualiser les engagements de confidentialité et de sécurité avec ses sous-traitants.</p>
+        <h2>13. Subcontracting</h2>
+        <p>Career Quest may use subcontractors for hosting, maintenance, email sending or statistical analysis. In that case, Career Quest remains responsible for data protection obligations and ensures that confidentiality and security commitments are contractually defined with its subcontractors.</p>
     </section>
 
     <section class="legal-card">
-        <h2>14. Responsabilité</h2>
-        <p>Career Quest apporte le plus grand soin à la rédaction des contenus mis en ligne mais n'offre aucune garantie quant à l'exactitude, la complétude ou l'actualité des informations. Career Quest ne saurait être tenu responsable des dommages directs ou indirects résultant de l'accès ou de l'utilisation du site, des interruptions, erreurs ou contenus inappropriés publiés par des tiers.</p>
+        <h2>14. Liability</h2>
+        <p>Career Quest makes every effort to ensure the accuracy of the published content but provides no guarantee as to the accuracy, completeness or timeliness of the information. Career Quest cannot be held liable for any direct or indirect damage resulting from access to or use of the website, interruptions, errors or inappropriate content published by third parties.</p>
     </section>
 
     <section class="legal-card">
-        <h2>15. Évolution des mentions légales</h2>
-        <p>Ces mentions légales peuvent être modifiées à tout moment. Les modifications prennent effet dès leur publication sur le site. Il est recommandé de consulter la date de dernière mise à jour figurant en haut de la page.</p>
+        <h2>15. Changes to these legal notices</h2>
+        <p>These legal notices may be modified at any time. Changes take effect as soon as they are published on the website. We recommend checking the last updated date shown at the top of the page.</p>
     </section>
 
     <section class="legal-card">
         <h2>16. Contact</h2>
-        <p>Pour toute question relative aux présentes mentions légales ou à l'exercice de vos droits, merci de contacter : <a href="mailto:dpo@careerquest.fr">dpo@careerquest.fr</a> ou <a href="mailto:contact@careerquest.fr">contact@careerquest.fr</a>. Vous pouvez également envoyer un courrier au siège social : 10 rue de l'Exemple, 75001 Paris.</p>
+        <p>For any questions regarding these legal notices or the exercise of your rights, please contact: <a href="mailto:dpo@careerquest.fr">dpo@careerquest.fr</a> or <a href="mailto:contact@careerquest.fr">contact@careerquest.fr</a>. You can also write to the registered office: 10 rue de l'Exemple, 75001 Paris.</p>
     </section>
 
     <section class="legal-card">
-        <h2>17. Droit applicable et litiges</h2>
-        <p>Le présent site est soumis au droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable avant toute action judiciaire. À défaut, les tribunaux compétents seront ceux du ressort du siège social de Career Quest.</p>
+        <h2>17. Governing law and disputes</h2>
+        <p>This website is governed by French law. In the event of a dispute, the parties will endeavor to find an amicable solution before any legal action. Failing that, the competent courts will be those having jurisdiction over the registered office of Career Quest.</p>
     </section>
 
     <section class="legal-card small-note">
-        <p>Les informations présentes ici ont pour objet d'informer les utilisateurs. Elles ne constituent pas un avis juridique. Pour toute situation particulière, il est recommandé de consulter un conseil juridique.</p>
+        <p>The information provided here is intended to inform users. It does not constitute legal advice. For any specific situation, it is recommended to consult a legal advisor.</p>
     </section>
 
 </main>

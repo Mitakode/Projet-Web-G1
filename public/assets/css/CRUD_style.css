@@ -1,4 +1,4 @@
-/* Style CRUD aligne sur la page de connexion */
+/* CRUD style aligned with the login page */
 
 body {
 	font-family: "Segoe UI", sans-serif;
@@ -70,7 +70,7 @@ h1 code {
 	border-color: #348635;
 }
 
-/* État invalide pour les champs de formulaire */
+/* Invalid state for form fields */
 .main-form input:invalid,
 .main-form select:invalid,
 .main-form input.invalid,
@@ -107,7 +107,7 @@ h1 code {
 	background-color: #2f7a30;
 }
 
-/* Styles pour les messages d'erreur des champs */
+/* Styles for field error messages */
 .field-error-message {
 	display: block !important;
 	color: #c62828 !important;

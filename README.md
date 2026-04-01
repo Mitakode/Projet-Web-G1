@@ -1,140 +1,140 @@
 # Projet-Web-G1
 
-**Contexte**
-Les etudiants recherchent des stages via leurs reseaux (LinkedIn, promotions, etc.) et les offres. Ce projet vise a
-creer un site web qui regroupe des offres de stage et stocke les donnees des entreprises ayant deja pris un stagiaire ou
-en recherchant un.
+**Context**
+Students search for internships through their networks (LinkedIn, classmates, etc.) and job offers. This project aims to
+create a website that aggregates internship offers and stores information about companies that have already hosted an intern
+or are currently looking for one.
 
-**Objectifs**
+**Goals**
 
-- Centraliser les offres de stage
-- Faciliter l orientation des etudiants par competences
-- Fournir des interfaces adaptees aux profils (administrateur, pilote, etudiant)
-- Respecter les bonnes pratiques de developpement, SEO et securite
+- Centralize internship offers
+- Make it easier to guide students based on skills
+- Provide interfaces adapted to each profile (admin, pilot, student)
+- Follow development, SEO, and security best practices
 
-**Profils utilisateurs**
+**User profiles**
 
-- Administrateur
-- Pilote de promotion
-- Etudiant
+- Administrator
+- Program pilot
+- Student
 
-**Fonctionnalites attendues**
-Gestion d acces
+**Expected features**
+Access management
 
-- SFx1 Authentification et gestion des acces
+- SFx1 Authentication and access management
 
-Gestion des entreprises
+Company management
 
-- SFx2 Rechercher et afficher une entreprise
-- SFx3 Creer une entreprise
-- SFx4 Modifier une entreprise
-- SFx5 Evaluer une entreprise
-- SFx6 Supprimer une entreprise
+- SFx2 Search and view a company
+- SFx3 Create a company
+- SFx4 Edit a company
+- SFx5 Rate a company
+- SFx6 Delete a company
 
-Gestion des offres de stage
+Internship offer management
 
-- SFx7 Rechercher et afficher une offre
-- SFx8 Creer une offre
-- SFx9 Modifier une offre
-- SFx10 Supprimer une offre
-- SFx11 Consulter les statistiques des offres
+- SFx7 Search and view an offer
+- SFx8 Create an offer
+- SFx9 Edit an offer
+- SFx10 Delete an offer
+- SFx11 View offer statistics
 
-Gestion des pilotes de promotions
+Pilot account management
 
-- SFx12 Rechercher et afficher un compte Pilote
-- SFx13 Creer un compte Pilote
-- SFx14 Modifier un compte Pilote
-- SFx15 Supprimer un compte Pilote
+- SFx12 Search and view a pilot account
+- SFx13 Create a pilot account
+- SFx14 Edit a pilot account
+- SFx15 Delete a pilot account
 
-Gestion des etudiants
+Student account management
 
-- SFx16 Rechercher et afficher un compte Etudiant
-- SFx17 Creer un compte Etudiant
-- SFx18 Modifier un compte Etudiant
-- SFx19 Supprimer un compte Etudiant
+- SFx16 Search and view a student account
+- SFx17 Create a student account
+- SFx18 Edit a student account
+- SFx19 Delete a student account
 
-Gestion des candidatures
+Application management
 
-- SFx20 Postuler a une offre (CV + LM)
-- SFx21 Afficher les offres auxquelles l etudiant a postule
-- SFx22 Afficher les offres auxquelles les eleves du pilote ont postule
+- SFx20 Apply to an offer (CV + cover letter)
+- SFx21 View offers the student has applied to
+- SFx22 View offers applied to by the pilot's students
 
-Gestion des wish list
+Wishlist management
 
-- SFx23 Afficher les offres ajoutees a la wish list
-- SFx24 Ajouter une offre a la wish list
-- SFx25 Retirer une offre de la wish list
+- SFx23 View offers added to the wishlist
+- SFx24 Add an offer to the wishlist
+- SFx25 Remove an offer from the wishlist
 
-Fonctionnalites transversales
+Cross-cutting features
 
-- SFx27 Pagination pour les listes
-- SFx28 Mentions legales
+- SFx27 Pagination for lists
+- SFx28 Legal notices
 
 Bonus
 
-- Acces mobile via PWA
+- Mobile access via PWA
 
-**Specifications techniques**
-Architecture et stack
+**Technical specifications**
+Architecture and stack
 
-- Architecture MVC obligatoire
-- Serveur Apache
-- Frontend HTML5 CSS3 JS
-- Backend PHP (POO obligatoire)
-- Base de donnees SQL (MySQL, PostgreSQL, MariaDB, ...)
-- Moteur de template cote backend
+- MVC architecture required
+- Apache server
+- Frontend: HTML5, CSS3, JS
+- Backend: PHP (OOP required)
+- SQL database (MySQL, PostgreSQL, MariaDB, ...)
+- Backend-side template engine
 
-Contraintes de qualite
+Quality constraints
 
-- HTML semantique et valide W3C
-- CSS structure et coherent
-- Conventions PSR-12 appreciees
-- Controle des champs front (HTML JS) et back (PHP)
+- Semantic and W3C-valid HTML
+- Structured and consistent CSS
+- PSR-12 conventions appreciated
+- Field validation on both front-end (HTML/JS) and back-end (PHP)
 
-Interdictions et autorisations
+Restrictions and allowances
 
-- CMS interdits (WordPress, Drupal, Joomla, etc.)
-- Frameworks interdits (React, Angular, Vue, Laravel, Symfony)
-- LESS Sass et jQuery autorises
+- CMS forbidden (WordPress, Drupal, Joomla, etc.)
+- Frameworks forbidden (React, Angular, Vue, Laravel, Symfony)
+- LESS/Sass and jQuery allowed
 
-Securite
+Security
 
-- Cookies securises pour les informations de connexion
-- Aucune donnee sensible en clair
-- Protection contre SQLi, XSS, CSRF
+- Secure cookies for login information
+- No sensitive data stored in plain text
+- Protection against SQLi, XSS, CSRF
 - HTTPS
 
 SEO
 
-- Balises title, meta description, Hn, alt
-- Mots cles dans meta
-- Temps de chargement < 3 s
-- URLs lisibles et coherentes
-- sitemap.xml et robots.txt
+- `title`, `meta description`, headings (Hn), `alt` attributes
+- Keywords in metadata
+- Load time < 3 s
+- Readable and consistent URLs
+- `sitemap.xml` and `robots.txt`
 
-Autres exigences
+Other requirements
 
-- Vhost distinct pour les assets statiques
-- Responsive design avec menu burger sur petits ecrans
-- Routage d URL cote backend
-- Tests unitaires PHPUnit sur au moins un controleur
-- Relations BD avec cles etrangeres
+- Separate vhost for static assets
+- Responsive design with burger menu on small screens
+- Backend URL routing
+- PHPUnit unit tests for at least one controller
+- DB relations with foreign keys
 
-**Phases du projet**
+**Project phases**
 
-- Phase 1 Lancement de projet (Scrum, roles, backlog, sprints, daily)
-- Phase 2 Maquettage puis frontend (wireframe, navigation, mobile first)
-- Phase 3 Developpement backend (debut)
-- Phase 4 Modelisation et mise en place de la base de donnees
-- Phase 5 Developpement backend (auth, DB, tests)
-- Phase 6 Finalisation (ajouts JavaScript)
+- Phase 1 Project kickoff (Scrum, roles, backlog, sprints, daily)
+- Phase 2 Mockups then frontend (wireframe, navigation, mobile first)
+- Phase 3 Backend development (start)
+- Phase 4 Database modeling and setup
+- Phase 5 Backend development (auth, DB, tests)
+- Phase 6 Finalization (JavaScript additions)
 
-**Livrable et soutenance**
+**Deliverable and defense**
 
-- Presentation courte (environ 5 minutes)
-- Demonstration technique
-- Questions reponses individuelles
+- Short presentation (about 5 minutes)
+- Technical demo
+- Individual Q&A
 
-**Taille d equipe**
+**Team size**
 
-- Projet dimensionne pour 4 eleves
+- Project sized for 4 students
