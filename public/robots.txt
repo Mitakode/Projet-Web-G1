@@ -1,0 +1,29 @@
+User-agent: *
+Disallow: /register
+Disallow: /login
+Disallow: /logout
+Disallow: /account
+Disallow: /noter-entreprise
+Disallow: /dashboard
+
+Disallow: /student_list
+Disallow: /eleve
+Disallow: /student_creation
+Disallow: /enterprise_list
+Disallow: /offer_list
+Disallow: /offres_de_stages
+Disallow: /entreprise
+Disallow: /add_entreprise
+Disallow: /pilotes_list
+Disallow: /pilote
+Disallow: /add_pilote
+
+Disallow: /addWishlist
+Disallow: /deleteWishlist
+
+Disallow: /candidater
+Disallow: /candidature-succes
+Disallow: /document
+Disallow: /forbidden
+
+Sitemap: /sitemap.xml

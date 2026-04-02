@@ -116,6 +116,7 @@ input[type="text"].invalid {
     background-color: #348635;
     border: 2px solid #444;
     border-radius: 20px;
+}
 /* Bouton principal (cohérent avec le reste du site) */
 .auth-submit {
     background-color: #2a63a4;
